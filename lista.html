@@ -9,9 +9,12 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         /* Efecto tachado al marcar el checkbox */
-        input:checked + label {
+        input:checked + div label span.nombre-item {
             text-decoration: line-through;
             color: #9ca3af;
+        }
+        input:checked + div {
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -67,7 +70,7 @@
             if (typeof coleccionMenus !== 'undefined') {
                 coleccionMenus.forEach((menu, index) => {
                     const opt = document.createElement('option');
-                    opt.value = index; // Usamos el índice del array
+                    opt.value = index; 
                     opt.text = menu.nombre;
                     selector.appendChild(opt);
                 });
@@ -79,16 +82,15 @@
             const indexSemana = document.getElementById('selector-semana').value;
             const menuSeleccionado = coleccionMenus[indexSemana];
             
-            // Objeto para acumular ingredientes: { "tomates cherry": 6, "cebolla": 1 ... }
+            // ESTRUCTURA NUEVA: 
+            // { "tomates": { cantidad: 6, fuentes: Set("Gazpacho", "Ensalada") } }
             const cestaCompra = {};
-            const itemsSinReceta = new Set(); // Para platos que no están en recetas.js
+            const itemsSinReceta = new Set(); 
 
             // Recorremos los 7 días
             menuSeleccionado.semana.forEach(dia => {
-                // Recorremos las 4 comidas de cada día
                 ['segundoDesayuno', 'almuerzo', 'merienda', 'cena'].forEach(momento => {
                     const platos = dia.comidas[momento];
-                    
                     if (platos && Array.isArray(platos)) {
                         platos.forEach(nombrePlato => {
                             procesarPlato(nombrePlato, cestaCompra, itemsSinReceta);
@@ -101,60 +103,52 @@
         }
 
         function procesarPlato(nombrePlato, cesta, listaExtra) {
-            // 1. Buscar si el plato existe en recetas.js
-            // Usamos búsqueda flexible (ignoramos mayúsculas/minúsculas)
             const receta = listaRecetas.find(r => r.titulo.toLowerCase().trim() === nombrePlato.toLowerCase().trim());
 
             if (receta) {
-                // Si encontramos receta, procesamos sus ingredientes
+                // Pasamos también el título de la receta para guardarlo
                 receta.ingredientes.forEach(lineaIngrediente => {
-                    parsearYSumar(lineaIngrediente, cesta);
+                    parsearYSumar(lineaIngrediente, cesta, receta.titulo);
                 });
             } else {
-                // Si no hay receta, añadimos el nombre del plato como "cosa a comprar"
-                // (Por ejemplo: "Bocadillo de jamón" si no tienes receta de eso)
-                // OJO: Si prefieres ignorar los platos sin receta, comenta la siguiente línea
                 listaExtra.add(`[Plato Completo] ${nombrePlato}`);
             }
         }
 
-        function parsearYSumar(textoIngrediente, cesta) {
-            // Limpieza básica
+        function parsearYSumar(textoIngrediente, cesta, nombreReceta) {
             let texto = textoIngrediente.trim();
-
-            // EXPRESIÓN REGULAR MÁGICA:
-            // Busca un número al principio (puede tener decimales o ser fracción 1/2)
-            // Grupo 1: El número (ej: "1.5", "100", "1/2")
-            // Grupo 2: El resto del texto (ej: "kg de patatas")
             const regex = /^([\d\.,\/]+)\s*(.*)/;
             const match = texto.match(regex);
 
+            let nombreItem = "";
+            let cantidadNum = 0;
+
             if (match) {
                 let cantidad = match[1];
-                let nombreItem = match[2].toLowerCase(); // Normalizamos a minúsculas
-
-                // Convertir fracciones o comas a números reales
-                let cantidadNum = convertirANumero(cantidad);
-
-                // Normalizar nombres comunes para que sumen bien
-                // Ej: "gramos de pollo" -> "gr. de pollo"
-                nombreItem = normalizarNombre(nombreItem);
-
-                if (cesta[nombreItem]) {
-                    cesta[nombreItem] += cantidadNum;
-                } else {
-                    cesta[nombreItem] = cantidadNum;
-                }
+                nombreItem = match[2].toLowerCase(); 
+                cantidadNum = convertirANumero(cantidad);
             } else {
-                // Si no empieza por número (ej: "Sal", "Aceite"), lo guardamos con cantidad 0
-                // para listar pero no sumar.
-                let itemLimpio = texto.toLowerCase();
-                if (!cesta[itemLimpio]) cesta[itemLimpio] = 0; 
+                nombreItem = texto.toLowerCase();
             }
+
+            // Normalizar nombres
+            nombreItem = normalizarNombre(nombreItem);
+
+            // Si el ingrediente no existe, lo creamos
+            if (!cesta[nombreItem]) {
+                cesta[nombreItem] = {
+                    cantidad: 0,
+                    fuentes: new Set() // Usamos un Set para no repetir nombres de recetas
+                };
+            }
+
+            // Sumamos cantidad y añadimos la fuente (receta)
+            cesta[nombreItem].cantidad += cantidadNum;
+            cesta[nombreItem].fuentes.add(nombreReceta);
         }
 
         function convertirANumero(str) {
-            str = str.replace(',', '.'); // Cambiar coma por punto
+            str = str.replace(',', '.'); 
             if (str.includes('/')) {
                 const partes = str.split('/');
                 return parseFloat(partes[0]) / parseFloat(partes[1]);
@@ -163,12 +157,9 @@
         }
 
         function normalizarNombre(nombre) {
-            // Pequeños arreglos para agrupar mejor
             nombre = nombre.replace(/^gramos\s/i, 'gr. ');
             nombre = nombre.replace(/^g\s/i, 'gr. ');
             nombre = nombre.replace(/^ml\s/i, 'ml. ');
-            // Quitar "de " al principio si sobra (ej: "100 gr de arroz" -> "100 gr arroz")
-            // nombre = nombre.replace(/^de\s/i, ''); 
             return nombre;
         }
 
@@ -178,28 +169,38 @@
             contenedor.innerHTML = "";
             document.getElementById('contenedor-lista').classList.remove('hidden');
 
-            // Convertir objeto a array y ordenar alfabéticamente
             const itemsOrdenados = Object.keys(cesta).sort();
 
-            // Primero los ingredientes calculados
             itemsOrdenados.forEach((nombre, i) => {
-                const cantidad = cesta[nombre];
-                // Si la cantidad es 0 (ej: Sal), no ponemos número. Si tiene decimales, redondeamos a 2.
+                const itemData = cesta[nombre];
+                const cantidad = itemData.cantidad;
                 const cantidadTexto = cantidad > 0 ? Number(cantidad.toFixed(2)) : ""; 
                 
+                // Convertir el Set de recetas a un array para pintarlo
+                const etiquetasRecetas = Array.from(itemData.fuentes).map(fuente => 
+                    `<span class="inline-block bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded-full mr-1 mb-1 border border-blue-200">${fuente}</span>`
+                ).join("");
+
                 const html = `
-                <div class="p-4 flex items-center hover:bg-blue-50 transition group">
-                    <input type="checkbox" id="item-${i}" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 cursor-pointer">
-                    <label for="item-${i}" class="ml-3 text-gray-700 cursor-pointer flex-1 select-none">
-                        <span class="font-bold text-blue-600">${cantidadTexto}</span> ${nombre}
-                    </label>
+                <div class="p-4 flex items-start hover:bg-blue-50 transition group">
+                    <input type="checkbox" id="item-${i}" class="w-5 h-5 mt-1 text-blue-600 rounded focus:ring-blue-500 border-gray-300 cursor-pointer flex-shrink-0">
+                    <div class="ml-3 flex-1">
+                        <label for="item-${i}" class="cursor-pointer select-none block">
+                            <span class="font-bold text-blue-600 text-lg">${cantidadTexto}</span> 
+                            <span class="nombre-item text-gray-700 font-medium text-lg capitalize">${nombre}</span>
+                        </label>
+                        <div class="mt-1 flex flex-wrap">
+                            <span class="text-xs text-gray-400 mr-2 py-0.5">Para:</span>
+                            ${etiquetasRecetas}
+                        </div>
+                    </div>
                 </div>`;
                 contenedor.innerHTML += html;
             });
 
-            // Luego los platos sin receta (si los hay)
+            // Platos sin receta
             if (extras.size > 0) {
-                const divSeparador = `<div class="bg-yellow-50 p-3 text-xs font-bold text-yellow-700 uppercase tracking-wide">Platos sin receta detallada (Revisar)</div>`;
+                const divSeparador = `<div class="bg-yellow-50 p-3 text-xs font-bold text-yellow-700 uppercase tracking-wide border-t border-yellow-200">Platos sin receta detallada</div>`;
                 contenedor.innerHTML += divSeparador;
                 
                 let j = 1000;
@@ -207,7 +208,7 @@
                     const html = `
                     <div class="p-4 flex items-center hover:bg-yellow-100 transition">
                         <input type="checkbox" id="item-${j}" class="w-5 h-5 text-yellow-600 rounded focus:ring-yellow-500 border-gray-300 cursor-pointer">
-                        <label for="item-${j}" class="ml-3 text-gray-700 cursor-pointer flex-1 select-none">
+                        <label for="item-${j}" class="ml-3 text-gray-700 cursor-pointer flex-1 select-none font-medium">
                             ${extra}
                         </label>
                     </div>`;
@@ -217,19 +218,29 @@
             }
         }
 
-        // Funciones de utilidad
+        // Utilidades para copiar/compartir
         function obtenerTextoPlano() {
             let texto = "🛒 *LISTA DE LA COMPRA* \n\n";
-            const items = document.querySelectorAll('#lista-items label');
-            items.forEach(item => {
-                texto += "☐ " + item.innerText + "\n";
+            // No podemos usar querySelector simple porque ahora la estructura es compleja.
+            // Reconstruimos desde los datos visuales básicos o mejor, iteraríamos el objeto data, 
+            // pero para hacerlo rápido scrapeamos el DOM generado.
+            
+            const filas = document.querySelectorAll('#lista-items > div.p-4');
+            filas.forEach(fila => {
+                const label = fila.querySelector('label').innerText.replace(/\n/g, ' ');
+                // Intentamos coger las recetas también para el texto plano
+                const recetas = Array.from(fila.querySelectorAll('.bg-blue-100')).map(span => span.innerText).join(', ');
+                
+                texto += `☐ ${label}`;
+                if(recetas) texto += ` (${recetas})`;
+                texto += "\n";
             });
             return texto;
         }
 
         function copiarTexto() {
             const texto = obtenerTextoPlano();
-            navigator.clipboard.writeText(texto).then(() => alert("¡Lista copiada al portapapeles!"));
+            navigator.clipboard.writeText(texto).then(() => alert("¡Lista copiada!"));
         }
 
         function compartirWhatsapp() {
