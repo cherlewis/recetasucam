@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Recetas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-20">
+
+    <div class="bg-slate-900 text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <h1 class="text-xl font-bold flex items-center gap-2">👨‍🍳 Gestor de Recetas</h1>
+            <div class="flex gap-2">
+                <button onclick="modoNuevaReceta()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition shadow">
+                    ➕ Nueva Receta
+                </button>
+                <button onclick="descargarArchivo()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition shadow flex items-center gap-2">
+                    💾 Descargar recetas.js
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+        
+        <div class="w-full md:w-1/3 bg-white rounded-xl shadow-sm border border-slate-200 h-[80vh] flex flex-col">
+            <div class="p-4 border-b bg-slate-50 rounded-t-xl">
+                <input type="text" id="buscador" onkeyup="filtrarLista()" placeholder="🔍 Buscar receta..." class="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+            <div id="lista-recetas" class="overflow-y-auto flex-1 p-2 space-y-1">
+                </div>
+        </div>
+
+        <div class="w-full md:w-2/3 bg-white rounded-xl shadow-lg border border-slate-200 p-6 relative">
+            
+            <div id="aviso-cambios" class="hidden absolute top-4 right-4 bg-yellow-100 text-yellow-800 px-3 py-1 rounded text-xs font-bold">
+                ⚠️ Cambios sin guardar
+            </div>
+
+            <h2 id="titulo-form" class="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b">Editar Receta</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">ID (Nombre de la foto)</label>
+                    <input type="number" id="id-receta" class="w-full p-2 border rounded bg-slate-50 font-mono text-blue-600 font-bold focus:bg-white outline-none focus:ring-2 focus:ring-blue-400">
+                    <p class="text-[10px] text-gray-400 mt-1">La foto debe llamarse: <span id="nombre-foto-preview" class="font-bold">...jpg</span></p>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tiempo</label>
+                    <input type="text" id="tiempo" class="w-full p-2 border rounded bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Título del Plato</label>
+                <input type="text" id="titulo" class="w-full p-2 border rounded bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-400 text-lg font-semibold">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Categorías (Separadas por coma)</label>
+                <input type="text" id="categoria" class="w-full p-2 border rounded bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Ingredientes (Uno por línea)</label>
+                    <textarea id="ingredientes" rows="10" class="w-full p-2 border rounded bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-400 text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Pasos (Uno por línea)</label>
+                    <textarea id="pasos" rows="10" class="w-full p-2 border rounded bg-slate-50 focus:bg-white outline-none focus:ring-2 focus:ring-blue-400 text-sm"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-8 flex gap-4 pt-4 border-t">
+                <button onclick="guardarReceta()" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition shadow transform active:scale-95">
+                    ✅ Guardar Cambios
+                </button>
+                <button onclick="borrarReceta()" id="btn-borrar" class="bg-red-100 hover:bg-red-200 text-red-600 font-bold py-3 px-6 rounded-xl transition">
+                    🗑️ Borrar
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="recetas.js"></script>
+
+    <script>
+        // Variables globales
+        let recetasGlobales = [];
+        let recetaActualId = null; // Para saber cuál estamos editando
+
+        window.onload = function() {
+            if (typeof listaRecetas !== 'undefined') {
+                // Clonamos para no modificar la referencia original hasta descargar
+                recetasGlobales = JSON.parse(JSON.stringify(listaRecetas));
+                renderizarLista();
+                // Cargamos la primera por defecto si existe
+                if (recetasGlobales.length > 0) cargarReceta(recetasGlobales[0].id);
+            } else {
+                alert("Error: No se encuentra recetas.js");
+            }
+
+            // Actualizar preview de nombre de foto
+            document.getElementById('id-receta').addEventListener('input', (e) => {
+                document.getElementById('nombre-foto-preview').innerText = e.target.value + ".jpg";
+            });
+        };
+
+        function renderizarLista(filtro = "") {
+            const lista = document.getElementById('lista-recetas');
+            lista.innerHTML = "";
+            
+            // Ordenamos por ID para que sea más fácil encontrar
+            const recetasOrdenadas = [...recetasGlobales].sort((a, b) => b.id - a.id);
+
+            recetasOrdenadas.forEach(receta => {
+                if (receta.titulo.toLowerCase().includes(filtro.toLowerCase())) {
+                    const div = document.createElement('div');
+                    div.className = `p-3 rounded-lg cursor-pointer hover:bg-blue-50 transition border border-transparent ${recetaActualId === receta.id ? 'bg-blue-100 border-blue-200 font-bold text-blue-800' : 'text-slate-600'}`;
+                    div.innerText = `${receta.id} - ${receta.titulo}`;
+                    div.onclick = () => cargarReceta(receta.id);
+                    lista.appendChild(div);
+                }
+            });
+        }
+
+        function filtrarLista() {
+            const texto = document.getElementById('buscador').value;
+            renderizarLista(texto);
+        }
+
+        function cargarReceta(id) {
+            const receta = recetasGlobales.find(r => r.id === id);
+            if (!receta) return;
+
+            recetaActualId = id;
+            document.getElementById('titulo-form').innerText = "Editar Receta";
+            document.getElementById('btn-borrar').style.display = 'block';
+
+            // Rellenar formulario
+            document.getElementById('id-receta').value = receta.id;
+            document.getElementById('titulo').value = receta.titulo;
+            document.getElementById('tiempo').value = receta.tiempo;
+            document.getElementById('categoria').value = receta.categoria.join(', ');
+            document.getElementById('ingredientes').value = receta.ingredientes.join('\n');
+            document.getElementById('pasos').value = receta.pasos.join('\n');
+            document.getElementById('nombre-foto-preview').innerText = receta.id + ".jpg";
+
+            renderizarLista(document.getElementById('buscador').value);
+        }
+
+        function modoNuevaReceta() {
+            recetaActualId = null; // Modo nuevo
+            document.getElementById('titulo-form').innerText = "✨ Nueva Receta";
+            document.getElementById('btn-borrar').style.display = 'none';
+
+            // Generar ID sugerido (el más alto + 1)
+            const maxId = recetasGlobales.reduce((max, r) => r.id > max ? r.id : max, 0);
+            
+            document.getElementById('id-receta').value = maxId + 1;
+            document.getElementById('nombre-foto-preview').innerText = (maxId + 1) + ".jpg";
+            document.getElementById('titulo').value = "";
+            document.getElementById('tiempo').value = "";
+            document.getElementById('categoria').value = "";
+            document.getElementById('ingredientes').value = "";
+            document.getElementById('pasos').value = "";
+            
+            document.getElementById('titulo').focus();
+            
+            // Quitar selección de la lista
+            renderizarLista(document.getElementById('buscador').value);
+        }
+
+        function guardarReceta() {
+            // Capturar datos
+            const id = parseInt(document.getElementById('id-receta').value);
+            const titulo = document.getElementById('titulo').value;
+            if (!titulo) return alert("¡El título es obligatorio!");
+
+            const nuevaReceta = {
+                id: id,
+                titulo: titulo,
+                tiempo: document.getElementById('tiempo').value,
+                categoria: document.getElementById('categoria').value.split(',').map(c => c.trim()).filter(c => c !== ""),
+                ingredientes: document.getElementById('ingredientes').value.split('\n').filter(l => l.trim() !== ""),
+                pasos: document.getElementById('pasos').value.split('\n').filter(l => l.trim() !== "")
+            };
+
+            // ¿Es nueva o edición?
+            const indiceExistente = recetasGlobales.findIndex(r => r.id === recetaActualId);
+
+            if (indiceExistente >= 0 && recetaActualId !== null) {
+                // Estamos editando: Reemplazamos
+                // OJO: Si el usuario cambió el ID, hay que asegurarse de que no duplique uno existente
+                if (id !== recetaActualId && recetasGlobales.some(r => r.id === id)) {
+                    return alert("Error: Ya existe otra receta con el ID " + id);
+                }
+                recetasGlobales[indiceExistente] = nuevaReceta;
+                alert("✅ Receta actualizada en memoria.");
+            } else {
+                // Es nueva
+                if (recetasGlobales.some(r => r.id === id)) {
+                    return alert("Error: Ya existe una receta con el ID " + id);
+                }
+                recetasGlobales.push(nuevaReceta);
+                alert("✅ Nueva receta creada en memoria.");
+            }
+
+            // Actualizar vista y seleccionar la guardada
+            cargarReceta(id);
+        }
+
+        function borrarReceta() {
+            if (!recetaActualId) return;
+            if (confirm("¿Seguro que quieres borrar esta receta? Esta acción no se puede deshacer.")) {
+                recetasGlobales = recetasGlobales.filter(r => r.id !== recetaActualId);
+                renderizarLista();
+                // Cargar la primera si queda alguna
+                if (recetasGlobales.length > 0) cargarReceta(recetasGlobales[0].id);
+                else modoNuevaReceta();
+            }
+        }
+
+        function descargarArchivo() {
+            // Convertir a texto bonito
+            let jsonString = JSON.stringify(recetasGlobales, null, 4);
+            
+            // Limpiar comillas de las claves para que sea JS puro y bonito
+            jsonString = jsonString.replace(/"(\w+)":/g, '$1:');
+
+            const contenidoJS = "const listaRecetas = " + jsonString + ";";
+            
+            const blob = new Blob([contenidoJS], { type: "text/javascript" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "recetas.js";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            alert("📂 Archivo descargado. Reemplaza tu 'recetas.js' original.");
+        }
+    </script>
+</body>
+</html>

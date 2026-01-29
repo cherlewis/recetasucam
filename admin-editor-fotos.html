@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Fotos Inteligente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-20">
+
+    <div class="bg-slate-900 text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">📸 Organizador de Fotos</h1>
+            <button onclick="descargarPack()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition shadow-lg flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" id="btn-descargar">
+                📦 Descargar Pack (.ZIP)
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        <div id="drop-zone" class="border-4 border-dashed border-slate-300 rounded-2xl p-12 text-center bg-white hover:bg-blue-50 transition cursor-pointer mb-8">
+            <p class="text-4xl mb-2">📂</p>
+            <p class="text-xl font-bold text-slate-700">Arrastra aquí tus fotos</p>
+            <p class="text-sm text-slate-400">O haz clic para seleccionar</p>
+            <input type="file" id="file-input" multiple accept="image/*" class="hidden">
+        </div>
+
+        <div id="grid-fotos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+
+    </div>
+
+    <script src="recetas.js"></script>
+
+    <script>
+        let archivosEnMemoria = []; // Aquí guardamos las fotos y sus asignaciones
+
+        // INICIALIZACIÓN
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-400', 'bg-blue-50');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-blue-400', 'bg-blue-50');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-blue-400', 'bg-blue-50');
+            procesarArchivos(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            procesarArchivos(e.target.files);
+        });
+
+        function procesarArchivos(files) {
+            Array.from(files).forEach(file => {
+                // Solo imágenes
+                if (!file.type.startsWith('image/')) return;
+
+                const idUnico = Date.now() + Math.random(); // ID temporal para el DOM
+                
+                // Guardamos en memoria
+                archivosEnMemoria.push({
+                    idTemp: idUnico,
+                    file: file,
+                    idRecetaAsignada: "" // Al principio no tiene receta
+                });
+
+                pintarTarjetaFoto(file, idUnico);
+            });
+        }
+
+        function pintarTarjetaFoto(file, idTemp) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-4 rounded-xl shadow border border-slate-200 flex flex-col gap-3 relative group";
+                div.id = `card-${idTemp}`;
+
+                // Generar opciones del select (Lista de recetas)
+                let opcionesRecetas = `<option value="">-- Selecciona Receta --</option>`;
+                if (typeof listaRecetas !== 'undefined') {
+                    // Ordenar alfabéticamente
+                    const recetasOrd = [...listaRecetas].sort((a,b) => a.titulo.localeCompare(b.titulo));
+                    recetasOrd.forEach(r => {
+                        opcionesRecetas += `<option value="${r.id}">${r.titulo} (ID: ${r.id})</option>`;
+                    });
+                }
+
+                div.innerHTML = `
+                    <div class="relative h-48 rounded-lg overflow-hidden bg-gray-100">
+                        <img src="${e.target.result}" class="w-full h-full object-cover">
+                        <button onclick="eliminarFoto(${idTemp})" class="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 shadow opacity-0 group-hover:opacity-100 transition">✕</button>
+                    </div>
+                    
+                    <div>
+                        <p class="text-xs text-gray-400 truncate mb-1">${file.name}</p>
+                        <select onchange="asignarReceta(${idTemp}, this.value)" class="w-full p-2 border rounded bg-slate-50 text-sm font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+                            ${opcionesRecetas}
+                        </select>
+                    </div>
+                    <div id="preview-nombre-${idTemp}" class="text-xs font-mono text-center text-blue-600 h-4"></div>
+                `;
+
+                document.getElementById('grid-fotos').appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function asignarReceta(idTemp, idReceta) {
+            const fotoObj = archivosEnMemoria.find(f => f.idTemp === idTemp);
+            if (fotoObj) {
+                fotoObj.idRecetaAsignada = idReceta;
+                actualizarNombresPreview();
+            }
+        }
+
+        function eliminarFoto(idTemp) {
+            archivosEnMemoria = archivosEnMemoria.filter(f => f.idTemp !== idTemp);
+            document.getElementById(`card-${idTemp}`).remove();
+            actualizarNombresPreview();
+        }
+
+        function actualizarNombresPreview() {
+            // Esta función calcula cómo se llamará el archivo final (ej: 602.jpg, 602-1.jpg)
+            
+            // Contador para saber cuántas fotos lleva cada receta
+            const contadorRecetas = {}; 
+
+            archivosEnMemoria.forEach(foto => {
+                const idReceta = foto.idRecetaAsignada;
+                const divPreview = document.getElementById(`preview-nombre-${foto.idTemp}`);
+                
+                if (!idReceta) {
+                    divPreview.innerText = "";
+                    divPreview.classList.remove('bg-green-100', 'px-2', 'rounded');
+                    return;
+                }
+
+                // Iniciamos contador si no existe
+                if (!contadorRecetas[idReceta]) contadorRecetas[idReceta] = 0;
+                contadorRecetas[idReceta]++;
+
+                // Calcular nombre
+                let nombreFinal = "";
+                if (contadorRecetas[idReceta] === 1) {
+                    nombreFinal = `${idReceta}.jpg`; // La primera es la principal
+                } else {
+                    // Las siguientes son secundarias: ID-1.jpg, ID-2.jpg...
+                    // Restamos 1 al contador para que empiece en -1
+                    nombreFinal = `${idReceta}-${contadorRecetas[idReceta] - 1}.jpg`; 
+                }
+
+                divPreview.innerText = "Renombrado a: " + nombreFinal;
+                divPreview.classList.add('bg-green-100', 'px-2', 'rounded');
+            });
+        }
+
+        async function descargarPack() {
+            const zip = new JSZip();
+            let hayArchivos = false;
+
+            // Recorrer las fotos y añadirlas al ZIP con el nombre nuevo
+            const contadorRecetas = {};
+
+            archivosEnMemoria.forEach(foto => {
+                if (!foto.idRecetaAsignada) return; // Ignorar si no tiene receta
+
+                hayArchivos = true;
+                const idReceta = foto.idRecetaAsignada;
+                
+                if (!contadorRecetas[idReceta]) contadorRecetas[idReceta] = 0;
+                contadorRecetas[idReceta]++;
+
+                let nombreFinal = "";
+                if (contadorRecetas[idReceta] === 1) {
+                    nombreFinal = `${idReceta}.jpg`;
+                } else {
+                    nombreFinal = `${idReceta}-${contadorRecetas[idReceta] - 1}.jpg`;
+                }
+
+                // Añadir al ZIP
+                zip.file(nombreFinal, foto.file);
+            });
+
+            if (!hayArchivos) {
+                alert("⚠️ Primero asigna alguna foto a una receta.");
+                return;
+            }
+
+            // Generar y descargar
+            const content = await zip.generateAsync({type:"blob"});
+            saveAs(content, "imagenes_nuevas.zip");
+            alert("✅ Pack descargado.\n\n1. Descomprime el ZIP.\n2. Mueve las fotos a tu carpeta 'imagenes'.\n3. Sube a Netlify.");
+        }
+    </script>
+</body>
+</html>

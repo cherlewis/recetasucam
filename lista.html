@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de la Compra</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 min-h-screen pb-20">
+
+    <div id="mi-menu-reutilizable"></div>
+
+    <div class="max-w-xl mx-auto px-4 mt-20">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Lista de la Compra</h1>
+            <p class="text-slate-500">Añade lo que necesites esta semana</p>
+        </div>
+
+        <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex gap-2 mb-6 sticky top-20 z-40">
+            <input type="text" id="input-item" placeholder="Ej: 1kg de Tomates..." class="flex-1 p-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-blue-100 text-slate-700 placeholder-slate-400" onkeypress="handleEnter(event)">
+            <button onclick="agregarItem()" class="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            </button>
+        </div>
+
+        <ul id="lista-items" class="space-y-3">
+            </ul>
+
+        <div class="fixed bottom-6 right-6 left-6 md:left-auto md:w-auto">
+            <button onclick="copiarAlPortapapeles()" class="w-full md:w-auto flex justify-center items-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-full shadow-2xl hover:bg-slate-800 transition active:scale-95 font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                Copiar para WhatsApp
+            </button>
+        </div>
+
+    </div>
+
+    <script src="navbar.js"></script>
+    <script>
+        const input = document.getElementById('input-item');
+        const lista = document.getElementById('lista-items');
+
+        // 1. AÑADIR UN ITEM A LA LISTA
+        function agregarItem() {
+            const texto = input.value.trim();
+            if (texto === "") return; // Si está vacío no hacemos nada
+
+            const li = document.createElement('li');
+            li.className = "group bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-200 transition select-none";
+            
+            // Al hacer clic, tachamos el texto
+            li.onclick = function() {
+                this.classList.toggle('opacity-50');
+                this.classList.toggle('line-through');
+                this.classList.toggle('bg-slate-50');
+            };
+
+            li.innerHTML = `
+                <span class="flex-1 font-medium text-slate-700">${texto}</span>
+                <div class="w-6 h-6 rounded-full border-2 border-slate-200 flex items-center justify-center group-hover:border-blue-400">
+                    <div class="w-3 h-3 bg-blue-500 rounded-full opacity-0 transition-opacity check-circle"></div>
+                </div>
+            `;
+
+            lista.appendChild(li);
+            
+            // Limpiamos el input y volvemos a poner el foco para seguir escribiendo
+            input.value = "";
+            input.focus();
+        }
+
+        // 2. PERMITIR AÑADIR CON LA TECLA ENTER
+        function handleEnter(e) {
+            if (e.key === 'Enter') agregarItem();
+        }
+
+        // 3. COPIAR SOLO LO QUE NO ESTÁ TACHADO
+        function copiarAlPortapapeles() {
+            let textoParaCopiar = "🛒 *Lista de la Compra:*\n\n";
+            let contador = 0;
+
+            // Recorremos todos los elementos de la lista
+            const items = lista.getElementsByTagName('li');
+            
+            for (let item of items) {
+                // Si NO tiene la clase 'line-through' (no está tachado)
+                if (!item.classList.contains('line-through')) {
+                    textoParaCopiar += "- " + item.innerText + "\n";
+                    contador++;
+                }
+            }
+
+            if (contador === 0) {
+                alert("¡No tienes nada pendiente de comprar!");
+                return;
+            }
+
+            // Truco moderno para copiar al portapapeles
+            navigator.clipboard.writeText(textoParaCopiar).then(() => {
+                alert("¡Copiado! Ahora pégalo en WhatsApp.");
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

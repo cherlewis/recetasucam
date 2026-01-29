@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Semanal</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 min-h-screen pb-10">
+
+    <div id="mi-menu-reutilizable"></div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 mt-20">
+        
+        <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4 border-b border-gray-200 pb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-800">Mi Calendario</h1>
+                <p class="text-slate-500 mt-1">Organización oficial del PDF</p>
+            </div>
+            
+            <div class="w-full md:w-64">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Elige el Menú:</label>
+                <select id="selector-menu" onchange="cambiarMenu()" class="w-full p-2 border border-gray-300 rounded-lg bg-white text-gray-700 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                </select>
+            </div>
+        </div>
+
+        <div id="contenedor-semana" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        </div>
+
+    </div>
+
+    <script src="navbar.js"></script>
+    <script src="recetas.js"></script>
+    <script src="menus.js"></script>
+
+    <script>
+        const selector = document.getElementById('selector-menu');
+        const contenedor = document.getElementById('contenedor-semana');
+
+        // 1. FUNCIÓN BASE: Crea el enlace
+        function crearEnlaceSiExiste(nombrePlato) {
+            if (!nombrePlato) return ""; 
+
+            if (typeof listaRecetas === 'undefined') return nombrePlato;
+
+            const recetaEncontrada = listaRecetas.find(r => 
+                r.titulo.toLowerCase().trim() === nombrePlato.toLowerCase().trim()
+            );
+
+            if (recetaEncontrada) {
+                return `<a href="receta.html?id=${recetaEncontrada.id}" class="text-blue-600 font-bold hover:underline decoration-2 underline-offset-2 hover:text-blue-800 transition-colors" title="Ver receta">${nombrePlato}</a>`;
+            } else {
+                return nombrePlato;
+            }
+        }
+
+        // 2. FUNCIÓN FORMATO: Maneja listas
+        function formatearPlatos(contenido) {
+            if (!contenido) return "<span class='text-gray-400 italic text-xs'>-</span>";
+
+            if (Array.isArray(contenido)) {
+                return contenido.map(plato => `
+                    <span class="block mb-1 border-l-2 border-transparent hover:border-blue-300 pl-1 transition-colors">
+                        ${crearEnlaceSiExiste(plato)}
+                    </span>
+                `).join('');
+            }
+            return crearEnlaceSiExiste(contenido);
+        }
+
+        // INICIALIZACIÓN
+        if (typeof coleccionMenus !== 'undefined') {
+            coleccionMenus.forEach((menu, index) => {
+                const opcion = document.createElement('option');
+                opcion.value = index;
+                opcion.text = menu.nombre;
+                selector.appendChild(opcion);
+            });
+            renderizarSemana(0);
+        } else {
+            contenedor.innerHTML = '<p class="text-red-500">Error: No se encuentra el archivo menus.js</p>';
+        }
+
+        function cambiarMenu() {
+            renderizarSemana(selector.value);
+        }
+
+        // EL PINTOR DE SEMANAS (4 COMIDAS EXACTAS)
+        function renderizarSemana(index) {
+            const menuSeleccionado = coleccionMenus[index];
+            contenedor.innerHTML = ""; 
+
+            menuSeleccionado.semana.forEach(dia => {
+                const diaHTML = `
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition-shadow">
+                        <div class="bg-slate-50 p-4 border-b border-slate-100 flex justify-between items-center">
+                            <h3 class="font-bold text-lg text-slate-800 capitalize">${dia.dia}</h3>
+                        </div>
+                        
+                        <div class="p-5 space-y-4 flex-1">
+                            
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-xs font-bold shrink-0">1</div>
+                                <div class="w-full">
+                                    <p class="text-xs text-gray-400 font-bold uppercase mb-1">Segundo Desayuno</p>
+                                    <div class="text-gray-700 text-sm leading-relaxed">
+                                        ${formatearPlatos(dia.comidas.segundoDesayuno)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3 bg-slate-50 p-3 -mx-2 rounded-lg border border-slate-100">
+                                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs font-bold shrink-0">2</div>
+                                <div class="w-full">
+                                    <p class="text-xs text-gray-400 font-bold uppercase mb-1">Almuerzo</p>
+                                    <div class="text-gray-800 font-medium text-sm">
+                                        ${formatearPlatos(dia.comidas.almuerzo)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-xs font-bold shrink-0">3</div>
+                                <div class="w-full">
+                                    <p class="text-xs text-gray-400 font-bold uppercase mb-1">Merienda</p>
+                                    <div class="text-gray-700 text-sm">
+                                        ${formatearPlatos(dia.comidas.merienda)}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold shrink-0">4</div>
+                                <div class="w-full">
+                                    <p class="text-xs text-gray-400 font-bold uppercase mb-1">Cena</p>
+                                    <div class="text-gray-700 text-sm">
+                                        ${formatearPlatos(dia.comidas.cena)}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+                contenedor.innerHTML += diaHTML;
+            });
+        }
+    </script>
+</body>
+</html>
