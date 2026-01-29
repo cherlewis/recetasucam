@@ -39,7 +39,8 @@ const coleccionMenus = [
                     ],
                     merienda: [
                         "1 Yogur natural",
-                        "50 gr. de cereales avena crunchy hacendado"
+                        "50 gr. de cereales avena crunchy hacendado",
+                        "1 pieza de fruta (genérico)"
                     ],
                     cena: [
                         "Fajitas con pollo",
