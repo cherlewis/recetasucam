@@ -4,110 +4,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de la Compra</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0f172a">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Efecto tachado al marcar el checkbox */
+        input:checked + label {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-20">
+<body class="bg-slate-100 min-h-screen pb-20">
 
     <div id="mi-menu-reutilizable"></div>
 
-    <div class="max-w-xl mx-auto px-4 mt-20">
+    <div class="max-w-4xl mx-auto px-4 py-8 mt-20">
         
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-slate-800">Lista de la Compra</h1>
-            <p class="text-slate-500">Añade lo que necesites esta semana</p>
+        <h1 class="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            🛒 Lista de la Compra Inteligente
+        </h1>
+
+        <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mb-8">
+            <label class="block text-sm font-bold text-gray-700 mb-2">¿Qué semana quieres comprar?</label>
+            <div class="flex flex-col md:flex-row gap-4">
+                <select id="selector-semana" class="flex-1 p-3 border rounded-xl bg-gray-50 text-lg outline-none focus:ring-2 focus:ring-blue-500">
+                    </select>
+                <button onclick="generarLista()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                    ✨ Generar Lista
+                </button>
+            </div>
         </div>
 
-        <div class="bg-white p-2 rounded-2xl shadow-sm border border-slate-200 flex gap-2 mb-6 sticky top-20 z-40">
-            <input type="text" id="input-item" placeholder="Ej: 1kg de Tomates..." class="flex-1 p-3 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-blue-100 text-slate-700 placeholder-slate-400" onkeypress="handleEnter(event)">
-            <button onclick="agregarItem()" class="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-600/20">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            </button>
-        </div>
+        <div id="contenedor-lista" class="hidden">
+            
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-slate-700">Ingredientes necesarios:</h2>
+                <div class="flex gap-2">
+                    <button onclick="copiarTexto()" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded transition">📋 Copiar</button>
+                    <button onclick="compartirWhatsapp()" class="text-sm bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition">💬 WhatsApp</button>
+                </div>
+            </div>
 
-        <ul id="lista-items" class="space-y-3">
-            </ul>
-
-        <div class="fixed bottom-6 right-6 left-6 md:left-auto md:w-auto">
-            <button onclick="copiarAlPortapapeles()" class="w-full md:w-auto flex justify-center items-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-full shadow-2xl hover:bg-slate-800 transition active:scale-95 font-bold">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                Copiar para WhatsApp
-            </button>
+            <div id="lista-items" class="bg-white rounded-2xl shadow-lg border border-slate-200 divide-y divide-gray-100 overflow-hidden">
+                </div>
+            
+            <p class="text-xs text-gray-400 mt-4 text-center">
+                Nota: El sistema suma cantidades si el nombre del ingrediente es idéntico.
+            </p>
         </div>
 
     </div>
 
     <script src="navbar.js"></script>
+    <script src="menus.js"></script>
+    <script src="recetas.js"></script>
+
     <script>
-        const input = document.getElementById('input-item');
-        const lista = document.getElementById('lista-items');
-
-        // 1. AÑADIR UN ITEM A LA LISTA
-        function agregarItem() {
-            const texto = input.value.trim();
-            if (texto === "") return; // Si está vacío no hacemos nada
-
-            const li = document.createElement('li');
-            li.className = "group bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-200 transition select-none";
-            
-            // Al hacer clic, tachamos el texto
-            li.onclick = function() {
-                this.classList.toggle('opacity-50');
-                this.classList.toggle('line-through');
-                this.classList.toggle('bg-slate-50');
-            };
-
-            li.innerHTML = `
-                <span class="flex-1 font-medium text-slate-700">${texto}</span>
-                <div class="w-6 h-6 rounded-full border-2 border-slate-200 flex items-center justify-center group-hover:border-blue-400">
-                    <div class="w-3 h-3 bg-blue-500 rounded-full opacity-0 transition-opacity check-circle"></div>
-                </div>
-            `;
-
-            lista.appendChild(li);
-            
-            // Limpiamos el input y volvemos a poner el foco para seguir escribiendo
-            input.value = "";
-            input.focus();
-        }
-
-        // 2. PERMITIR AÑADIR CON LA TECLA ENTER
-        function handleEnter(e) {
-            if (e.key === 'Enter') agregarItem();
-        }
-
-        // 3. COPIAR SOLO LO QUE NO ESTÁ TACHADO
-        function copiarAlPortapapeles() {
-            let textoParaCopiar = "🛒 *Lista de la Compra:*\n\n";
-            let contador = 0;
-
-            // Recorremos todos los elementos de la lista
-            const items = lista.getElementsByTagName('li');
-            
-            for (let item of items) {
-                // Si NO tiene la clase 'line-through' (no está tachado)
-                if (!item.classList.contains('line-through')) {
-                    textoParaCopiar += "- " + item.innerText + "\n";
-                    contador++;
-                }
+        // 1. Cargar el selector de semanas al iniciar
+        window.onload = function() {
+            const selector = document.getElementById('selector-semana');
+            if (typeof coleccionMenus !== 'undefined') {
+                coleccionMenus.forEach((menu, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = index; // Usamos el índice del array
+                    opt.text = menu.nombre;
+                    selector.appendChild(opt);
+                });
             }
+        };
 
-            if (contador === 0) {
-                alert("¡No tienes nada pendiente de comprar!");
-                return;
-            }
+        // 2. FUNCIÓN PRINCIPAL: GENERAR LISTA
+        function generarLista() {
+            const indexSemana = document.getElementById('selector-semana').value;
+            const menuSeleccionado = coleccionMenus[indexSemana];
+            
+            // Objeto para acumular ingredientes: { "tomates cherry": 6, "cebolla": 1 ... }
+            const cestaCompra = {};
+            const itemsSinReceta = new Set(); // Para platos que no están en recetas.js
 
-            // Truco moderno para copiar al portapapeles
-            navigator.clipboard.writeText(textoParaCopiar).then(() => {
-                alert("¡Copiado! Ahora pégalo en WhatsApp.");
-            }).catch(err => {
-                console.error('Error al copiar: ', err);
+            // Recorremos los 7 días
+            menuSeleccionado.semana.forEach(dia => {
+                // Recorremos las 4 comidas de cada día
+                ['segundoDesayuno', 'almuerzo', 'merienda', 'cena'].forEach(momento => {
+                    const platos = dia.comidas[momento];
+                    
+                    if (platos && Array.isArray(platos)) {
+                        platos.forEach(nombrePlato => {
+                            procesarPlato(nombrePlato, cestaCompra, itemsSinReceta);
+                        });
+                    }
+                });
             });
+
+            renderizarLista(cestaCompra, itemsSinReceta);
         }
+
+        function procesarPlato(nombrePlato, cesta, listaExtra) {
+            // 1. Buscar si el plato existe en recetas.js
+            // Usamos búsqueda flexible (ignoramos mayúsculas/minúsculas)
+            const receta = listaRecetas.find(r => r.titulo.toLowerCase().trim() === nombrePlato.toLowerCase().trim());
+
+            if (receta) {
+                // Si encontramos receta, procesamos sus ingredientes
+                receta.ingredientes.forEach(lineaIngrediente => {
+                    parsearYSumar(lineaIngrediente, cesta);
+                });
+            } else {
+                // Si no hay receta, añadimos el nombre del plato como "cosa a comprar"
+                // (Por ejemplo: "Bocadillo de jamón" si no tienes receta de eso)
+                // OJO: Si prefieres ignorar los platos sin receta, comenta la siguiente línea
+                listaExtra.add(`[Plato Completo] ${nombrePlato}`);
+            }
+        }
+
+        function parsearYSumar(textoIngrediente, cesta) {
+            // Limpieza básica
+            let texto = textoIngrediente.trim();
+
+            // EXPRESIÓN REGULAR MÁGICA:
+            // Busca un número al principio (puede tener decimales o ser fracción 1/2)
+            // Grupo 1: El número (ej: "1.5", "100", "1/2")
+            // Grupo 2: El resto del texto (ej: "kg de patatas")
+            const regex = /^([\d\.,\/]+)\s*(.*)/;
+            const match = texto.match(regex);
+
+            if (match) {
+                let cantidad = match[1];
+                let nombreItem = match[2].toLowerCase(); // Normalizamos a minúsculas
+
+                // Convertir fracciones o comas a números reales
+                let cantidadNum = convertirANumero(cantidad);
+
+                // Normalizar nombres comunes para que sumen bien
+                // Ej: "gramos de pollo" -> "gr. de pollo"
+                nombreItem = normalizarNombre(nombreItem);
+
+                if (cesta[nombreItem]) {
+                    cesta[nombreItem] += cantidadNum;
+                } else {
+                    cesta[nombreItem] = cantidadNum;
+                }
+            } else {
+                // Si no empieza por número (ej: "Sal", "Aceite"), lo guardamos con cantidad 0
+                // para listar pero no sumar.
+                let itemLimpio = texto.toLowerCase();
+                if (!cesta[itemLimpio]) cesta[itemLimpio] = 0; 
+            }
+        }
+
+        function convertirANumero(str) {
+            str = str.replace(',', '.'); // Cambiar coma por punto
+            if (str.includes('/')) {
+                const partes = str.split('/');
+                return parseFloat(partes[0]) / parseFloat(partes[1]);
+            }
+            return parseFloat(str);
+        }
+
+        function normalizarNombre(nombre) {
+            // Pequeños arreglos para agrupar mejor
+            nombre = nombre.replace(/^gramos\s/i, 'gr. ');
+            nombre = nombre.replace(/^g\s/i, 'gr. ');
+            nombre = nombre.replace(/^ml\s/i, 'ml. ');
+            // Quitar "de " al principio si sobra (ej: "100 gr de arroz" -> "100 gr arroz")
+            // nombre = nombre.replace(/^de\s/i, ''); 
+            return nombre;
+        }
+
+        // 3. PINTAR RESULTADOS
+        function renderizarLista(cesta, extras) {
+            const contenedor = document.getElementById('lista-items');
+            contenedor.innerHTML = "";
+            document.getElementById('contenedor-lista').classList.remove('hidden');
+
+            // Convertir objeto a array y ordenar alfabéticamente
+            const itemsOrdenados = Object.keys(cesta).sort();
+
+            // Primero los ingredientes calculados
+            itemsOrdenados.forEach((nombre, i) => {
+                const cantidad = cesta[nombre];
+                // Si la cantidad es 0 (ej: Sal), no ponemos número. Si tiene decimales, redondeamos a 2.
+                const cantidadTexto = cantidad > 0 ? Number(cantidad.toFixed(2)) : ""; 
+                
+                const html = `
+                <div class="p-4 flex items-center hover:bg-blue-50 transition group">
+                    <input type="checkbox" id="item-${i}" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300 cursor-pointer">
+                    <label for="item-${i}" class="ml-3 text-gray-700 cursor-pointer flex-1 select-none">
+                        <span class="font-bold text-blue-600">${cantidadTexto}</span> ${nombre}
+                    </label>
+                </div>`;
+                contenedor.innerHTML += html;
+            });
+
+            // Luego los platos sin receta (si los hay)
+            if (extras.size > 0) {
+                const divSeparador = `<div class="bg-yellow-50 p-3 text-xs font-bold text-yellow-700 uppercase tracking-wide">Platos sin receta detallada (Revisar)</div>`;
+                contenedor.innerHTML += divSeparador;
+                
+                let j = 1000;
+                extras.forEach(extra => {
+                    const html = `
+                    <div class="p-4 flex items-center hover:bg-yellow-100 transition">
+                        <input type="checkbox" id="item-${j}" class="w-5 h-5 text-yellow-600 rounded focus:ring-yellow-500 border-gray-300 cursor-pointer">
+                        <label for="item-${j}" class="ml-3 text-gray-700 cursor-pointer flex-1 select-none">
+                            ${extra}
+                        </label>
+                    </div>`;
+                    contenedor.innerHTML += html;
+                    j++;
+                });
+            }
+        }
+
+        // Funciones de utilidad
+        function obtenerTextoPlano() {
+            let texto = "🛒 *LISTA DE LA COMPRA* \n\n";
+            const items = document.querySelectorAll('#lista-items label');
+            items.forEach(item => {
+                texto += "☐ " + item.innerText + "\n";
+            });
+            return texto;
+        }
+
+        function copiarTexto() {
+            const texto = obtenerTextoPlano();
+            navigator.clipboard.writeText(texto).then(() => alert("¡Lista copiada al portapapeles!"));
+        }
+
+        function compartirWhatsapp() {
+            const texto = obtenerTextoPlano();
+            const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
+
     </script>
 </body>
 </html>
