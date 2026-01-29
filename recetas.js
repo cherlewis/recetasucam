@@ -3,7 +3,9 @@ const listaRecetas = [
         id: 1,
         titulo: "Ensalada estilo césar",
         tiempo: "10",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "100 gramos de lechuga (romana o similar)",
@@ -23,36 +25,48 @@ const listaRecetas = [
             "Aliñar con la salsa César comercial justo antes de servir y mezclar suavemente."
         ]
     },
-
     {
         id: 2,
         titulo: "Pasta Carbonara",
         tiempo: "15 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1612874742237-6526221588e3",
-        ingredientes: ["Pasta", "Huevo", "Guanciale", "Pimienta"],
+        ingredientes: [
+            "Pasta",
+            "Huevo",
+            "Guanciale",
+            "Pimienta"
+        ],
         pasos: [
             "Poner las lentejas en remojo la noche anterior.",
             "Cocer las lentejas con las verduras troceadas.",
             "Añadir el chorizo y dejar cocinar a fuego lento 30 min."
         ]
     },
-    
     {
         id: 3,
         titulo: "Tostada de Aguacate",
         tiempo: "5 min",
-        categoria: ["Desayuno"],
+        categoria: [
+            "Desayuno"
+        ],
         imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
-        ingredientes: ["Pan", "Aguacate", "Aceite", "Sal"]
+        ingredientes: [
+            "Pan",
+            "Aguacate",
+            "Aceite",
+            "Sal"
+        ]
     },
-
-    // Puedes copiar y pegar este bloque {} tantas veces como recetas tengas
     {
         id: 4,
         titulo: "Arroz salteado estilo chino",
         tiempo: "10 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
         ingredientes: [
             "1 Vasito de vasito arroz integral (microondas) (125 gr.)",
@@ -74,29 +88,34 @@ const listaRecetas = [
             "Servir caliente."
         ]
     },
-
     {
         id: 5,
         titulo: "Ensalada variada de verduras",
         tiempo: "10 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
-        ingredientes: ["1 Vasito arroz integral", "1 Huevo", "Aceite", "Sal"],
+        ingredientes: [
+            "1 Vasito arroz integral",
+            "1 Huevo",
+            "Aceite",
+            "Sal"
+        ],
         pasos: [
             "Elabora una ensalada variada a tu gusto.",
             "Base: lechuga, espinaca fresca, rúcula, canónigos o mezcla de brotes tiernos.",
             "Añadir el chorizo y dejar cocinar a fuego lento 30 min."
         ]
-        
     },
-
-
-    // --- DESAYUNOS Y MEDIA MAÑANA ---
     {
         id: 101,
         titulo: "Bocadillo de jamón york",
         tiempo: "10 min",
-        categoria: ["Desayuno", "Media Mañana"],
+        categoria: [
+            "Desayuno",
+            "Media Mañana"
+        ],
         imagen: "https://images.unsplash.com/photo-1559466273-d95e72debaf8?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "2 rebanadas grandes de pan (60 gr.)",
@@ -117,7 +136,10 @@ const listaRecetas = [
         id: 102,
         titulo: "Tortitas de avena y plátano",
         tiempo: "25 min",
-        categoria: ["Desayuno", "Merienda"],
+        categoria: [
+            "Desayuno",
+            "Merienda"
+        ],
         imagen: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "25g harina de avena",
@@ -137,7 +159,9 @@ const listaRecetas = [
         id: 103,
         titulo: "Tostada de hummus con aguacate",
         tiempo: "10 min",
-        categoria: ["Desayuno"],
+        categoria: [
+            "Desayuno"
+        ],
         imagen: "https://images.unsplash.com/photo-1541519527329-df1b2ad88363?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "60g pan integral",
@@ -155,7 +179,10 @@ const listaRecetas = [
         id: 104,
         titulo: "Bocadillo de pechuga de pollo",
         tiempo: "10 min",
-        categoria: ["Media Mañana", "Cena"],
+        categoria: [
+            "Media Mañana",
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "60g pan",
@@ -169,13 +196,13 @@ const listaRecetas = [
             "Añadir el pollo caliente para fundir el queso."
         ]
     },
-
-    // --- ALMUERZOS ---
     {
         id: 201,
         titulo: "Pasta de lenteja roja con atún",
         tiempo: "10 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "60g hélices de lenteja roja",
@@ -194,7 +221,10 @@ const listaRecetas = [
         id: 202,
         titulo: "Gazpacho andaluz",
         tiempo: "15 min",
-        categoria: ["Almuerzo", "Entrante"],
+        categoria: [
+            "Almuerzo",
+            "Entrante"
+        ],
         imagen: "https://images.unsplash.com/photo-1594966635294-8451c8909477?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "2 tomates maduros",
@@ -212,7 +242,10 @@ const listaRecetas = [
         id: 203,
         titulo: "Tortilla de patata",
         tiempo: "30 min",
-        categoria: ["Almuerzo", "Cena"],
+        categoria: [
+            "Almuerzo",
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1662486989736-d8df98056262?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "2 huevos pequeños",
@@ -230,25 +263,37 @@ const listaRecetas = [
         id: 204,
         titulo: "Sopa de pollo con fideos",
         tiempo: "50 min",
-        categoria: ["Almuerzo"],
-        imagen: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80",
+        categoria: [
+            "Almuerzo"
+        ],
         ingredientes: [
-            "1 pechuga de pollo",
-            "Zanahoria y puerro",
-            "Fideos gruesos",
-            "Agua y laurel"
+            "1 porción de pechuga de pollo (98 gr.)",
+            "1 zanahoria (61 gr.)",
+            "0.6 puerro (53.4 gr.)",
+            "1.2 vasos de fideos gruesos (156 gr.)",
+            "1 hoja de laurel (2 gr.)",
+            "14 gramos de aceite de oliva",
+            "1 cucharadita de sal (6 gr.)",
+            "1 litro de agua (1000 gr.)"
         ],
         pasos: [
-            "Dorar pollo y reservar.",
-            "Sofreír verduras. Añadir agua, pollo y cocer 30 min.",
-            "Añadir fideos y cocer 10 min más."
+            "Dorar el pollo en la sartén brevemente y reservar.",
+            "Pelar la patata y la zanahoria y cortarlas a cubos pequeños. Cortar el puerro a rodajas finas.",
+            "Calentar un poco de aceite en una cazuela y dorar el puerro unos minutos. Añadir la zanahoria y mezclar bien. Añadir el agua, la hoja de laurel y sal al gusto.",
+            "Llevar a ebullición, reducir el fuego, añadir el pollo y cocinar a fuego lento durante unos 30 minutos o hasta que las patatas y las zanahorias estén suaves.",
+            "Agregar los fideos y continuar cocinando durante unos 10 minutos más, o hasta que los fideos estén cocidos. Si queremos podemos deshilachar el pollo.",
+            "Retirar las hojas de laurel y servir caliente.",
+            "Ingredientes para 2 personas"
         ]
     },
     {
         id: 205,
         titulo: "Salmón al horno",
         tiempo: "30 min",
-        categoria: ["Almuerzo", "Cena"],
+        categoria: [
+            "Almuerzo",
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "150g salmón fresco",
@@ -264,7 +309,9 @@ const listaRecetas = [
         id: 206,
         titulo: "Paella de marisco",
         tiempo: "1h",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "Arroz grano corto",
@@ -283,7 +330,9 @@ const listaRecetas = [
         id: 207,
         titulo: "Lentejas con verduras y jamón",
         tiempo: "45 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1594967399388-12d83395c026?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "110g lentejas",
@@ -301,7 +350,9 @@ const listaRecetas = [
         id: 208,
         titulo: "Pollo asado con verduras",
         tiempo: "1h 15min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1598103442097-8b74072756b1?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "120g Pollo",
@@ -314,13 +365,13 @@ const listaRecetas = [
             "Hornear a 200ºC durante 45-60 min."
         ]
     },
-
-    // --- CENAS ---
     {
         id: 301,
         titulo: "Ensalada con queso fresco y jamón",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1529312266912-b33cf6227e2f?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "Mezclum de lechuga",
@@ -339,7 +390,10 @@ const listaRecetas = [
         id: 302,
         titulo: "Ensalada de patata con huevo y atún",
         tiempo: "30 min",
-        categoria: ["Cena", "Almuerzo"],
+        categoria: [
+            "Cena",
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "200g patata cocida",
@@ -357,7 +411,9 @@ const listaRecetas = [
         id: 303,
         titulo: "Ensalada con salmón ahumado",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "Mezclum",
@@ -375,7 +431,9 @@ const listaRecetas = [
         id: 304,
         titulo: "Hamburguesa casera",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "1 pan hamburguesa",
@@ -393,7 +451,9 @@ const listaRecetas = [
         id: 305,
         titulo: "Lubina a la plancha",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1615141982880-1313d41bc6e3?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "1 filete lubina (150g)",
@@ -409,7 +469,9 @@ const listaRecetas = [
         id: 306,
         titulo: "Jamón serrano con pan con tomate",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1518596696144-8cb5d5a639b7?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "60g pan",
@@ -427,7 +489,9 @@ const listaRecetas = [
         id: 307,
         titulo: "Merluza a la plancha",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1549488497-62886f34bb4e?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "120g merluza",
@@ -438,84 +502,115 @@ const listaRecetas = [
             "Servir con limón o ajo/perejil."
         ]
     },
-    
-    // --- GUARNICIONES Y OTROS ---
     {
         id: 401,
         titulo: "Ensalada variada de verduras",
         tiempo: "5 min",
-        categoria: ["Guarnición"],
+        categoria: [
+            "Guarnición"
+        ],
         imagen: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
-        ingredientes: ["Lechuga, tomate, pepino, maíz... al gusto"],
-        pasos: ["Mezclar ingredientes y aliñar."]
+        ingredientes: [
+            "Lechuga, tomate, pepino, maíz... al gusto"
+        ],
+        pasos: [
+            "Mezclar ingredientes y aliñar."
+        ]
     },
     {
         id: 402,
         titulo: "Boniatos al horno especiados",
         tiempo: "30 min",
-        categoria: ["Guarnición"],
+        categoria: [
+            "Guarnición"
+        ],
         imagen: "https://images.unsplash.com/photo-1605494236306-037372d82947?auto=format&fit=crop&w=800&q=80",
-        ingredientes: ["1 boniato", "Pimienta, sal, aceite"],
-        pasos: ["Cortar en sticks.", "Hornear 20-25 min a 220ºC."]
+        ingredientes: [
+            "1 boniato",
+            "Pimienta, sal, aceite"
+        ],
+        pasos: [
+            "Cortar en sticks.",
+            "Hornear 20-25 min a 220ºC."
+        ]
     },
     {
         id: 403,
         titulo: "Infusión de jengibre y limón",
         tiempo: "10 min",
-        categoria: ["Bebida"],
+        categoria: [
+            "Bebida"
+        ],
         imagen: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80",
-        ingredientes: ["Jengibre fresco", "Agua", "Limón"],
-        pasos: ["Hervir jengibre 15 min.", "Reposar 10 min y colar.", "Añadir limón."]
+        ingredientes: [
+            "Jengibre fresco",
+            "Agua",
+            "Limón"
+        ],
+        pasos: [
+            "Hervir jengibre 15 min.",
+            "Reposar 10 min y colar.",
+            "Añadir limón."
+        ]
     },
     {
         id: 404,
         titulo: "Brócoli al horno o vapor",
         tiempo: "10 min",
-        categoria: ["Guarnición"],
+        categoria: [
+            "Guarnición"
+        ],
         imagen: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=800&q=80",
-        ingredientes: ["150g brócoli", "Especias"],
-        pasos: ["Vapor: 5-7 min.", "Horno: 15-20 min a 200ºC con especias."]
+        ingredientes: [
+            "150g brócoli",
+            "Especias"
+        ],
+        pasos: [
+            "Vapor: 5-7 min.",
+            "Horno: 15-20 min a 200ºC con especias."
+        ]
     },
-    
     {
-	    "id": 3148,
-    	"titulo": "Galletas de Navidad",
-    	"tiempo": "60 minutos",
-    	"categoria": ["Merienda"],
-    	"imagen": "https://unsplash.com/es/fotos/galletas-marrones-en-plato-de-ceramica-blanca-3DrCZblTGoQ",
-    	"ingredientes": [
-        "* Para la masa:",
-        "120 g de azúcar glas",
-        "400 g de harina de repostería",
-        "240 g de mantequilla a temperatura ambiente, en trozos pequeños",
-        "1 huevo",
-        "* Para la decoración:",
-        "1 clara de huevo",
-        "200 g de azúcar glas",
-        "1 chorrito de zumo de limón",
-        "bolitas de colores, azúcar de colores, …"
-    	],
-    	"pasos": [
-        "Echamos todos los ingredientes de la masa en el vaso de la Thermomix y programamos 20 segundos, a velocidad 6.",
-        "Retiramos la masa del vaso y hacemos una bola, la envolvemos en papel film y reservamos en el frigorífico durante ½ hora.",
-        "Cortamos la masa en 3 porciones y reservamos 2 horas en el frigorífico.",
-        "En la encimera, extendemos un buen trozo de papel film, colocamos encima el trozo de masa y sobre ésta colocamos otros trozo de papel film (de este modo podemos amasarla sin que se pegue a la encimera, ni al rodillo), con el rodillo la extendemos hasta dejarla con un grosor de 0,5 cm.",
-        "Precalentamos el horno a 180º y colocamos papel vegetal sobre una bandeja de horno.",
-        "Hacemos formas con cortapastas y las colocamos en la bandeja, sobre el papel vegetal. Horneamos durante 10-12 minutos, a 180º (el tiempo depende del tamaño de las galletas).",
-        "Hacemos lo mismo con las otros 2 porciones de masa reservadas en el frigorífico.",
-        "* Mientras se enfrían, vamos preparando la glasa:",
-        "En el vaso, ponemos la clara de huevo, el azúcar glas y el chorrito de limón. Programamos 20 segundos, a velocidad 6.",
-        "Vertemos la glasa en un manga pastelera con una boquilla con agujero fino.",
-        "Decoramos las galletas (una vez que estén completamente frías) como más nos gusten y colocamos las bolitas de colores o el azúcar de colores sobre la glasa."
-    	]
-	},
-
-
+        id: 3148,
+        titulo: "Galletas de Navidad",
+        tiempo: "60 minutos",
+        categoria: [
+            "Merienda"
+        ],
+        imagen: "https://unsplash.com/es/fotos/galletas-marrones-en-plato-de-ceramica-blanca-3DrCZblTGoQ",
+        ingredientes: [
+            "* Para la masa:",
+            "120 g de azúcar glas",
+            "400 g de harina de repostería",
+            "240 g de mantequilla a temperatura ambiente, en trozos pequeños",
+            "1 huevo",
+            "* Para la decoración:",
+            "1 clara de huevo",
+            "200 g de azúcar glas",
+            "1 chorrito de zumo de limón",
+            "bolitas de colores, azúcar de colores, …"
+        ],
+        pasos: [
+            "Echamos todos los ingredientes de la masa en el vaso de la Thermomix y programamos 20 segundos, a velocidad 6.",
+            "Retiramos la masa del vaso y hacemos una bola, la envolvemos en papel film y reservamos en el frigorífico durante ½ hora.",
+            "Cortamos la masa en 3 porciones y reservamos 2 horas en el frigorífico.",
+            "En la encimera, extendemos un buen trozo de papel film, colocamos encima el trozo de masa y sobre ésta colocamos otros trozo de papel film (de este modo podemos amasarla sin que se pegue a la encimera, ni al rodillo), con el rodillo la extendemos hasta dejarla con un grosor de 0,5 cm.",
+            "Precalentamos el horno a 180º y colocamos papel vegetal sobre una bandeja de horno.",
+            "Hacemos formas con cortapastas y las colocamos en la bandeja, sobre el papel vegetal. Horneamos durante 10-12 minutos, a 180º (el tiempo depende del tamaño de las galletas).",
+            "Hacemos lo mismo con las otros 2 porciones de masa reservadas en el frigorífico.",
+            "* Mientras se enfrían, vamos preparando la glasa:",
+            "En el vaso, ponemos la clara de huevo, el azúcar glas y el chorrito de limón. Programamos 20 segundos, a velocidad 6.",
+            "Vertemos la glasa en un manga pastelera con una boquilla con agujero fino.",
+            "Decoramos las galletas (una vez que estén completamente frías) como más nos gusten y colocamos las bolitas de colores o el azúcar de colores sobre la glasa."
+        ]
+    },
     {
         id: 602,
         titulo: "Quinoa con gambas",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "1 vaso de quinoa cocida (185 gr.)",
             "10 gambas pequeñas peladas de langostinos cocidos pelados (gambas, camarones) (70 gr.)",
@@ -537,7 +632,9 @@ const listaRecetas = [
         id: 603,
         titulo: "Ensalada de aguacate y huevo",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "120 gramos de ensalada mezclum",
             "40 gramos de aguacate",
@@ -560,7 +657,9 @@ const listaRecetas = [
         id: 604,
         titulo: "Pasta de garbanzos estilo boloñesa",
         tiempo: "10 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         ingredientes: [
             "60 gramos de pasta de garbanzos",
             "110 gramos de carne picada de cerdo",
@@ -583,7 +682,9 @@ const listaRecetas = [
         id: 605,
         titulo: "Puré de verduras al gusto",
         tiempo: "25 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "65 gramos de patatas",
             "15 gramos de cebolla",
@@ -607,7 +708,9 @@ const listaRecetas = [
         id: 606,
         titulo: "Ensalada de atún y queso fresco",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "140 gramos de espinacas frescas",
             "1 lata pequeña de atún al natural",
@@ -630,7 +733,9 @@ const listaRecetas = [
         id: 607,
         titulo: "Pan pizza con jamón",
         tiempo: "15 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "60 gramos de pan (rebanada)",
             "20 gramos de salsa de tomate",
@@ -650,12 +755,13 @@ const listaRecetas = [
             "Servir caliente."
         ]
     },
-
     {
         id: 608,
         titulo: "Berenjena rellena de atún, champiñones y queso",
         tiempo: "20",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "230 gramos de berenjena",
@@ -679,12 +785,13 @@ const listaRecetas = [
             "Servir inmediatamente."
         ]
     },
-
     {
         id: 609,
         titulo: "Ensalada caprese",
         tiempo: "5 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "60 gramos de mozzarella fresca",
             "2 tomates pera",
@@ -703,7 +810,9 @@ const listaRecetas = [
         id: 610,
         titulo: "Dorada al horno con pimientos",
         tiempo: "50 min",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         ingredientes: [
             "160 gramos de dorada",
             "1 pimiento verde",
@@ -723,7 +832,9 @@ const listaRecetas = [
         id: 611,
         titulo: "Ensalada Waldorf",
         tiempo: "10 min",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         ingredientes: [
             "100 gramos de espinacas para ensalada (primeros brotes)",
             "100g manzana",
@@ -742,12 +853,13 @@ const listaRecetas = [
             "Mezclar suavemente y servir."
         ]
     },
-	
     {
         id: 9236,
         titulo: "Tostada de pan integral con jamón cocido",
         tiempo: "10",
-        categoria: ["Cena"],
+        categoria: [
+            "Cena"
+        ],
         imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "70 gramos de pan integral de centeno",
@@ -763,12 +875,13 @@ const listaRecetas = [
             "Utilizar jamón cocido calidad extra (contenido de carne superior al 90%)"
         ]
     },
-	
     {
         id: 1216,
         titulo: "Dorada al horno con pimientos",
         tiempo: "45",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "160 gramos de dorada",
@@ -793,12 +906,13 @@ const listaRecetas = [
             "Deja que se cocine la dorada hasta que se le pongan los ojos blancos unos 20 min 180 grados."
         ]
     },
-
     {
         id: 5846,
         titulo: "Pechuga de pollo o pavo a la plancha",
         tiempo: "10",
-        categoria: ["Almuerzo"],
+        categoria: [
+            "Almuerzo"
+        ],
         imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "120 gramos de pechuga de pollo",
@@ -813,5 +927,4 @@ const listaRecetas = [
             "Toque fresco: unas gotas de salsa de soja baja en sal o mostaza suave."
         ]
     }
-	
 ];
