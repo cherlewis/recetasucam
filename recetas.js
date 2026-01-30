@@ -926,5 +926,42 @@ const listaRecetas = [
             "Ajo: en polvo o fresco laminado.",
             "Toque fresco: unas gotas de salsa de soja baja en sal o mostaza suave."
         ]
-    }
+    },
+    {
+        id: 292,
+        titulo: "Sopa Mama",
+        tiempo: "45",
+        categoria: [
+            "Almuerzo",
+            "Cena"
+        ],
+        ingredientes: [
+            "Pollo. Muslo y contra muslo y que le hagan 2 cortes",
+            "1 Apio",
+            "1 Zanahoria cortada en 2/3 veces",
+            "2 Judías",
+            "1 Puerro",
+            "1 Patata"
+        ],
+        pasos: [
+            "Vamos poniendo todas las verduras y el pollo en la cestilla de la olla grande ",
+            "Cortar las puntas de las judías y lavarlas",
+            "Lavar y pelar la zanahoria",
+            "La carne cortarla en trozos en 3 por completo ",
+            "Lavar el apio y el puerro. El apio hay que lavarlo bien bien",
+            "Lavar y cortar la patata",
+            "Echar sal y azafrán o colorante",
+            "Llenar con agua hasta un dedo menos del 2/3 de la olla",
+            "Poner al fuego maximo y tapar",
+            "Cuando suban los 3 aros, tardan unos 8/9 minutos",
+            "Cuando suban los aros, bajar al 4.5 y dejar unos 20 minutos.",
+            "Hasta aquí tardamos 30 minutos",
+            "En bajar los aros tarda aproximadamente 20 minutos si no tocamos nada o más",
+            "840 gramos por dos veces se separan",
+            "Uno se congela y el otro para los fideos",
+            "Se preparan los fideos",
+            "90 gramos de fideos de sopa para 2 personas, cuatro puñados",
+            "Luego se verá si es mucho o poco"
+        ]
+    },
 ];
