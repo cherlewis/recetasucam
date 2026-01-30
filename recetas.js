@@ -963,5 +963,5 @@ const listaRecetas = [
             "90 gramos de fideos de sopa para 2 personas, cuatro puñados",
             "Luego se verá si es mucho o poco"
         ]
-    },
+    }
 ];
