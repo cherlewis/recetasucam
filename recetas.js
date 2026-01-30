@@ -99,7 +99,7 @@ const listaRecetas = [
         ingredientes: [
             "1 Vasito arroz integral",
             "1 Huevo",
-            "Aceite",
+            "Aceite De Oliva",
             "Sal"
         ],
         pasos: [
@@ -637,7 +637,7 @@ const listaRecetas = [
         ],
         ingredientes: [
             "120 gramos de ensalada mezclum",
-            "40 gramos de aguacate",
+            "40 gramos aguacate",
             "2 huevos duros (100 gr.)",
             "2 tomates pera (124 gr.)",
             "60 gramos de maíz dulce crudo",
@@ -961,5 +961,26 @@ const listaRecetas = [
             "90 gramos de fideos de sopa para 2 personas, cuatro puñados",
             "Luego se verá si es mucho o poco"
         ]
-    }
+    },
+    {
+        id: 293,
+        titulo: "Tomate partido",
+        tiempo: "5",
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "1 tomate (123 gr.)",
+            "20 gramos de cebolla",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Puedes acompañar la ensalada de tomate de:",
+            "Cebolla morada en aros finos",
+            "Pimiento asado en tiras",
+            "Pepino en rodajas",
+            "Zanahoria rallada",
+            "Encurtidos: alcaparras, tápenas, tallos, pepinillos, cebolletas"
+        ]
+    },
 ];
