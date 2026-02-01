@@ -140,7 +140,6 @@ const listaRecetas = [
             "Desayuno",
             "Merienda"
         ],
-        imagen: "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "25g harina de avena",
             "1 huevo",
@@ -149,10 +148,13 @@ const listaRecetas = [
             "Canela y levadura en polvo"
         ],
         pasos: [
-            "Machacar el plátano hasta hacerlo puré. Añadir huevo y yogur.",
-            "Añadir harina, canela y levadura. Mezclar suavemente.",
-            "En sartén con poco aceite, cocinar tortitas pequeñas.",
-            "Dar la vuelta cuando estén doradas."
+            "En un bol grande machacar el plátano hasta que quede como un puré. Añadir el huevo y",
+            "una cucharada de yogur.",
+            "Añadir la harina de avena junto a la canela y mezclar bien. Añadir la levadura y mezclar de",
+            "manera suave para no romper el aire que se va creando en la mezcla.",
+            "En una sartén grande poner un poco de aceite a fuego medio y cuando esté caliente",
+            "añadir dos montoncitos para hacer las tortitas (vigilar que queden separados). Cuando esté",
+            "dorada la parte inferior dar la vuelta. Repetir hasta terminar la mezcla."
         ]
     },
     {
