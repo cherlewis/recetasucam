@@ -982,5 +982,5 @@ const listaRecetas = [
             "Zanahoria rallada",
             "Encurtidos: alcaparras, tápenas, tallos, pepinillos, cebolletas"
         ]
-    },
+    }
 ];
