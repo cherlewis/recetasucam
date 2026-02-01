@@ -75,18 +75,30 @@
             return crearEnlaceSiExiste(contenido);
         }
 
-        // INICIALIZACIÓN
-        if (typeof coleccionMenus !== 'undefined') {
+        // --- INICIALIZACIÓN MODIFICADA PARA CARGAR EL ÚLTIMO ---
+        if (typeof coleccionMenus !== 'undefined' && coleccionMenus.length > 0) {
+            
+            // 1. Rellenar el selector
             coleccionMenus.forEach((menu, index) => {
                 const opcion = document.createElement('option');
                 opcion.value = index;
                 opcion.text = menu.nombre;
                 selector.appendChild(opcion);
             });
-            renderizarSemana(0);
+
+            // 2. CAMBIO CLAVE: Calcular cuál es el último índice
+            const ultimoIndice = coleccionMenus.length - 1;
+
+            // 3. Marcar esa opción en el desplegable
+            selector.value = ultimoIndice;
+
+            // 4. Renderizar ese menú automáticamente
+            renderizarSemana(ultimoIndice);
+
         } else {
-            contenedor.innerHTML = '<p class="text-red-500">Error: No se encuentra el archivo menus.js</p>';
+            contenedor.innerHTML = '<p class="text-red-500">Error: No se encuentra el archivo menus.js o está vacío</p>';
         }
+        // -------------------------------------------------------
 
         function cambiarMenu() {
             renderizarSemana(selector.value);
