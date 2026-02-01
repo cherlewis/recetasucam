@@ -768,7 +768,7 @@ const coleccionMenus = [
                         "Ensalada variada de verduras"
                     ],
                     merienda: [
-                        "Tortitas de acena y plátano"
+                        "Tortitas de avena y plátano"
                     ],
                     cena: [
                         "Ensalada waldorf (con manzana y nueces)",
