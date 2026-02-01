@@ -830,7 +830,7 @@ const listaRecetas = [
     },
     {
         id: 611,
-        titulo: "Ensalada Waldorf",
+        titulo: "Ensalada waldorf (con manzana y nueces)",
         tiempo: "10 min",
         categoria: [
             "Cena"
