@@ -144,17 +144,15 @@ const listaRecetas = [
             "25g harina de avena",
             "1 huevo",
             "20g yogur natural",
-            "1 plátano pequeño",
-            "Canela y levadura en polvo"
+            "1 plátano pequeño (101 gr)",
+            "1 pizca de canela en polvo (0.3 gr.)",
+            "1 gramos de levadura en polvo"
         ],
         pasos: [
-            "En un bol grande machacar el plátano hasta que quede como un puré. Añadir el huevo y",
-            "una cucharada de yogur.",
-            "Añadir la harina de avena junto a la canela y mezclar bien. Añadir la levadura y mezclar de",
-            "manera suave para no romper el aire que se va creando en la mezcla.",
-            "En una sartén grande poner un poco de aceite a fuego medio y cuando esté caliente",
-            "añadir dos montoncitos para hacer las tortitas (vigilar que queden separados). Cuando esté",
-            "dorada la parte inferior dar la vuelta. Repetir hasta terminar la mezcla."
+            "Machacar el plátano hasta hacerlo puré. Añadir huevo y yogur.",
+            "Añadir harina, canela y levadura. Mezclar suavemente.",
+            "En sartén con poco aceite, cocinar tortitas pequeñas.",
+            "Dar la vuelta cuando estén doradas."
         ]
     },
     {
