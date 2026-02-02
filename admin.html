@@ -4,89 +4,152 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Recetas</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f172a">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-slate-100 min-h-screen py-10 px-4">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-20 transition-colors duration-300">
 
-    <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
-        <h1 class="text-2xl font-bold text-slate-800 mb-6 border-b pb-4">👨‍🍳 Añadir Nueva Receta</h1>
+    <div id="mi-menu-reutilizable"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="max-w-4xl mx-auto px-4 py-8 mt-20">
+        
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-colors">
             
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">ID Receta (Número)</label>
-                <input type="number" id="id-receta" class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: 612">
-                <p class="text-xs text-gray-400 mt-1">Pon el nombre que tendrá la foto (ej: 612.jpg)</p>
-            </div>
-
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Título del Plato</label>
-                <input type="text" id="titulo" class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: Paella Valenciana">
-            </div>
+            <h1 class="text-3xl font-bold text-slate-800 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-700 pb-4 flex items-center gap-2">
+                👨‍🍳 Añadir Nueva Receta (Manual)
+            </h1>
             
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Tiempo</label>
-                <input type="text" id="tiempo" class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: 45 min">
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
+                Esta herramienta genera el código JSON para copiar y pegar manualmente en <code>recetas.js</code>. Si prefieres hacerlo visualmente y guardar automático, usa el <a href="admin-editor-recetas.html" class="text-blue-600 hover:underline">Gestor de Recetas</a>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">ID Receta (Número)</label>
+                    <input type="number" id="id-receta" 
+                           class="w-full p-3 border rounded-lg outline-none transition-colors
+                                  bg-slate-50 dark:bg-slate-700 
+                                  text-slate-800 dark:text-white 
+                                  border-slate-200 dark:border-slate-600 
+                                  focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Ej: 612">
+                    <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">Nombre de la foto será: <span id="preview-foto" class="font-mono">...jpg</span></p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Título del Plato</label>
+                    <input type="text" id="titulo" 
+                           class="w-full p-3 border rounded-lg outline-none transition-colors
+                                  bg-slate-50 dark:bg-slate-700 
+                                  text-slate-800 dark:text-white 
+                                  border-slate-200 dark:border-slate-600 
+                                  focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Ej: Paella Valenciana">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Tiempo</label>
+                    <input type="text" id="tiempo" 
+                           class="w-full p-3 border rounded-lg outline-none transition-colors
+                                  bg-slate-50 dark:bg-slate-700 
+                                  text-slate-800 dark:text-white 
+                                  border-slate-200 dark:border-slate-600 
+                                  focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Ej: 45 min">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Categorías (separadas por coma)</label>
+                    <input type="text" id="categoria" 
+                           class="w-full p-3 border rounded-lg outline-none transition-colors
+                                  bg-slate-50 dark:bg-slate-700 
+                                  text-slate-800 dark:text-white 
+                                  border-slate-200 dark:border-slate-600 
+                                  focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-500" 
+                           placeholder="Ej: Almuerzo, Cena, Cuchara">
+                </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Categorías (separadas por coma)</label>
-                <input type="text" id="categoria" class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: Almuerzo, Cena, Cuchara">
+            <div class="mb-6">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Ingredientes (Uno por línea)</label>
+                <textarea id="ingredientes" rows="4" 
+                          class="w-full p-3 border rounded-lg outline-none transition-colors
+                                 bg-slate-50 dark:bg-slate-700 
+                                 text-slate-800 dark:text-white 
+                                 border-slate-200 dark:border-slate-600 
+                                 focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-500" 
+                          placeholder="Arroz&#10;Pollo&#10;Judías verdes..."></textarea>
             </div>
-        </div>
 
-        <div class="mb-6">
-            <label class="block text-sm font-bold text-gray-700 mb-2">Ingredientes (Uno por línea)</label>
-            <textarea id="ingredientes" rows="4" class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Arroz&#10;Pollo&#10;Judías verdes..."></textarea>
-        </div>
-
-        <div class="mb-6">
-            <label class="block text-sm font-bold text-gray-700 mb-2">Pasos de preparación (Uno por línea)</label>
-            <textarea id="pasos" rows="4" class="w-full p-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Sofreír la carne...&#10;Añadir el agua..."></textarea>
-        </div>
-
-        <button onclick="generarCodigo()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition shadow-lg transform active:scale-95">
-            ✨ Generar Código
-        </button>
-
-        <div id="resultado-container" class="mt-8 hidden">
-            <label class="block text-sm font-bold text-gray-700 mb-2">Copia esto y pégalo en recetas.js:</label>
-            <div class="relative">
-                <textarea id="codigo-resultado" readonly class="w-full h-64 p-4 bg-slate-800 text-green-400 font-mono text-sm rounded-xl"></textarea>
-                <button onclick="copiarAlPortapapeles()" class="absolute top-2 right-2 bg-white text-slate-900 text-xs font-bold px-3 py-1 rounded hover:bg-gray-200">Copiar</button>
+            <div class="mb-6">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Pasos de preparación (Uno por línea)</label>
+                <textarea id="pasos" rows="4" 
+                          class="w-full p-3 border rounded-lg outline-none transition-colors
+                                 bg-slate-50 dark:bg-slate-700 
+                                 text-slate-800 dark:text-white 
+                                 border-slate-200 dark:border-slate-600 
+                                 focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-500" 
+                          placeholder="Sofreír la carne...&#10;Añadir el agua..."></textarea>
             </div>
-            <p class="text-xs text-gray-500 mt-2">Nota: Pégalo antes del cierre del array <strong class="font-mono">];</strong> y asegúrate de poner una coma antes si no es el primero.</p>
+
+            <button onclick="generarCodigo()" class="w-full bg-slate-900 dark:bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-slate-800 dark:hover:bg-blue-700 transition shadow-lg transform active:scale-95">
+                ✨ Generar Código
+            </button>
+
+            <div id="resultado-container" class="mt-8 hidden">
+                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Copia esto y pégalo en recetas.js:</label>
+                <div class="relative group">
+                    <textarea id="codigo-resultado" readonly class="w-full h-64 p-4 bg-slate-800 text-green-400 font-mono text-sm rounded-xl outline-none border border-slate-700"></textarea>
+                    <button onclick="copiarAlPortapapeles()" class="absolute top-3 right-3 bg-white/10 hover:bg-white/20 text-white backdrop-blur text-xs font-bold px-3 py-1.5 rounded transition border border-white/20">📋 Copiar</button>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Nota: Pégalo antes del cierre del array <strong class="font-mono">];</strong> en tu archivo.</p>
+            </div>
+
         </div>
 
     </div>
 
+    <script src="navbar.js"></script>
+
     <script>
+        // Pequeña mejora: Preview del nombre de foto en tiempo real
+        document.getElementById('id-receta').addEventListener('input', function(e) {
+            const val = e.target.value;
+            document.getElementById('preview-foto').textContent = val ? val + ".jpg" : "...jpg";
+        });
+
         function generarCodigo() {
             // 1. Capturar valores
-            // Si no pones ID, genera uno aleatorio, pero mejor ponerlo manual
             let idVal = document.getElementById('id-receta').value;
             if(!idVal) idVal = Math.floor(Math.random() * 10000); 
 
             const titulo = document.getElementById('titulo').value;
             const tiempo = document.getElementById('tiempo').value;
             
-            // Convertir categorías de texto a Array
             const catTexto = document.getElementById('categoria').value;
             const categorias = catTexto.split(',').map(c => c.trim()).filter(c => c !== "");
 
-            // Convertir areas de texto a Arrays
             const ingredientes = document.getElementById('ingredientes').value.split('\n').filter(line => line.trim() !== "");
             const pasos = document.getElementById('pasos').value.split('\n').filter(line => line.trim() !== "");
 
             // 2. Crear el objeto
             const objetoReceta = {
-                id: parseInt(idVal), // Nos aseguramos que sea número sin comillas
+                id: parseInt(idVal),
                 titulo: titulo,
                 tiempo: tiempo,
                 categoria: categorias.length > 0 ? categorias : ["General"],
-                // Ya no necesitamos poner imagen: "url", porque va por ID
                 ingredientes: ingredientes,
                 pasos: pasos
             };
@@ -94,13 +157,13 @@
             // 3. Formatear y LIMPIAR COMILLAS DE LAS CLAVES
             let codigoJSON = JSON.stringify(objetoReceta, null, 4);
             
-            // Esta es la línea mágica: Busca "clave": y lo cambia por clave:
-            // Solo quita las comillas de las claves, no de los valores.
             codigoJSON = codigoJSON.replace(/"(\w+)":/g, '$1:');
 
-            // Añadir la coma final
             document.getElementById('codigo-resultado').value = "    " + codigoJSON + ",";
             document.getElementById('resultado-container').classList.remove('hidden');
+            
+            // Auto scroll hacia el resultado
+            document.getElementById('resultado-container').scrollIntoView({behavior: "smooth"});
         }
 
         function copiarAlPortapapeles() {
