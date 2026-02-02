@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Receta</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
@@ -25,21 +29,22 @@
         const receta = typeof listaRecetas !== 'undefined' ? listaRecetas.find(r => r.id == idReceta) : null;
         
         const contenedor = document.getElementById('detalle-receta');
-        let racionesActuales = 1; // Por defecto siempre es 1 ración (según tus PDFs)
+        let racionesActuales = 1; // Por defecto siempre es 1 ración
 
         // 2. FUNCIÓN PRINCIPAL DE RENDERIZADO
         if (receta) {
-            // Lógica inteligente para la imagen:
-            // Si tiene URL externa la usa, si no, busca en la carpeta imagenes por ID
+            // Lógica inteligente para la imagen
             let rutaImagen = receta.imagen && receta.imagen.startsWith('http') 
                              ? receta.imagen 
                              : `imagenes/${receta.id}.jpg`;
+            
+            // Imagen de respaldo
+            const fallbackImagen = 'https://images.unsplash.com/photo-1495521841625-277d8d09b381?q=80&w=1000&auto=format&fit=crop';
 
-            // PREPARAR HTML ESTRUCTURAL (Lo que no cambia al multiplicar)
             contenedor.innerHTML = `
                 <div class="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-10 group">
                     <img src="${rutaImagen}" 
-                         onerror="this.src='https://images.unsplash.com/photo-1495521841625-277d8d09b381?q=80&w=1000&auto=format&fit=crop'" 
+                         onerror="this.onerror=null; this.src='${fallbackImagen}';"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end">
@@ -62,35 +67,35 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     
                     <div class="md:col-span-1">
-                        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 sticky top-24">
+                        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 sticky top-24 transition-colors">
                             
-                            <div class="bg-blue-50 rounded-xl p-4 mb-6 border border-blue-100">
-                                <p class="text-xs text-blue-600 font-bold uppercase text-center mb-2">Raciones / Personas</p>
-                                <div class="flex items-center justify-between bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-blue-200 p-1">
-                                    <button onclick="cambiarRaciones(-1)" class="w-10 h-10 flex items-center justify-center text-blue-600 hover:bg-blue-100 rounded-md font-bold text-xl transition select-none">-</button>
-                                    <span id="num-raciones" class="text-xl font-bold text-slate-800 w-12 text-center">${racionesActuales}</span>
-                                    <button onclick="cambiarRaciones(1)" class="w-10 h-10 flex items-center justify-center text-blue-600 hover:bg-blue-100 rounded-md font-bold text-xl transition select-none">+</button>
+                            <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 mb-6 border border-blue-100 dark:border-blue-800">
+                                <p class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase text-center mb-2">Raciones / Personas</p>
+                                <div class="flex items-center justify-between bg-white dark:bg-slate-700 rounded-lg shadow-sm border border-blue-200 dark:border-blue-800 p-1">
+                                    <button onclick="cambiarRaciones(-1)" class="w-10 h-10 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-slate-600 rounded-md font-bold text-xl transition select-none">-</button>
+                                    <span id="num-raciones" class="text-xl font-bold text-slate-800 dark:text-white w-12 text-center">${racionesActuales}</span>
+                                    <button onclick="cambiarRaciones(1)" class="w-10 h-10 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-slate-600 rounded-md font-bold text-xl transition select-none">+</button>
                                 </div>
                             </div>
 
-                            <h3 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b">Ingredientes</h3>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4 pb-2 border-b border-slate-100 dark:border-slate-700">Ingredientes</h3>
                             <ul id="lista-ingredientes" class="space-y-3">
                                 </ul>
                         </div>
                     </div>
 
                     <div class="md:col-span-2">
-                        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-200">
-                            <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors">
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
                                 👨‍🍳 Modo de Preparación
                             </h3>
                             <div class="space-y-8">
                                 ${receta.pasos && receta.pasos.length > 0 ? receta.pasos.map((paso, index) => `
                                     <div class="flex gap-4 group">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-slate-800 text-white rounded-xl flex items-center justify-center font-bold shadow-lg shadow-slate-200 group-hover:bg-blue-600 transition-colors">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-slate-800 dark:bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold shadow-lg shadow-slate-200 dark:shadow-none group-hover:bg-blue-600 transition-colors">
                                             ${index + 1}
                                         </div>
-                                        <p class="text-slate-600 leading-relaxed mt-1 text-lg">${paso}</p>
+                                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 text-lg">${paso}</p>
                                     </div>
                                 `).join('') : '<p class="text-gray-500 italic">No hay instrucciones definidas.</p>'}
                             </div>
@@ -101,7 +106,6 @@
                 </div>
             `;
 
-            // 3. INICIALIZAR INGREDIENTES Y GALERÍA
             renderizarIngredientes();
             cargarGaleria(receta.id);
 
@@ -109,7 +113,7 @@
             contenedor.innerHTML = `
                 <div class="flex flex-col items-center justify-center text-center py-20">
                     <div class="text-6xl mb-4">🍳</div>
-                    <h2 class="text-2xl font-bold text-slate-800">Receta no encontrada</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-white">Receta no encontrada</h2>
                     <p class="text-gray-500 mt-2">Parece que esta receta no existe o ha sido borrada.</p>
                     <a href="index.html" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Volver al inicio</a>
                 </div>
@@ -117,14 +121,12 @@
         }
 
         // --- LÓGICA DE LA CALCULADORA ---
-
         function cambiarRaciones(delta) {
             const nuevaCantidad = racionesActuales + delta;
             if (nuevaCantidad >= 1 && nuevaCantidad <= 20) {
                 racionesActuales = nuevaCantidad;
                 document.getElementById('num-raciones').innerText = racionesActuales;
                 
-                // Efecto visual de actualización
                 const lista = document.getElementById('lista-ingredientes');
                 lista.style.opacity = '0.5';
                 setTimeout(() => {
@@ -139,35 +141,25 @@
             listaUL.innerHTML = "";
 
             receta.ingredientes.forEach(linea => {
-                // EXPRESIÓN REGULAR: Busca un número al principio (ej: "100", "1/2", "1.5")
-                // Grupo 1: El número
-                // Grupo 2: El resto del texto
                 const regex = /^([\d\.,\/]+)\s*(.*)/;
                 const match = linea.trim().match(regex);
-
                 let textoFinal = "";
 
                 if (match) {
                     let cantidadBase = convertirANumero(match[1]);
                     let restoTexto = match[2];
-                    
-                    // Multiplicamos
                     let cantidadCalculada = cantidadBase * racionesActuales;
-                    
-                    // Redondeamos para que no salga "300.0000001"
-                    // Si es entero, sin decimales. Si no, máximo 2 decimales.
-                    let cantidadBonita = Number.isInteger(cantidadCalculada) ? 
-                                         cantidadCalculada : 
-                                         parseFloat(cantidadCalculada.toFixed(2));
+                    let cantidadBonita = Number.isInteger(cantidadCalculada) ? cantidadCalculada : parseFloat(cantidadCalculada.toFixed(2));
 
-                    textoFinal = `<span class="font-bold text-blue-600">${cantidadBonita}</span> ${restoTexto}`;
+                    // Números en azul (dark mode: azul claro)
+                    textoFinal = `<span class="font-bold text-blue-600 dark:text-blue-400">${cantidadBonita}</span> ${restoTexto}`;
                 } else {
-                    // Si no tiene número (ej: "Sal al gusto"), se deja igual
                     textoFinal = linea;
                 }
 
+                // Elementos de lista adaptados al modo oscuro
                 listaUL.innerHTML += `
-                    <li class="flex items-start text-slate-600 py-1 border-b border-slate-50 last:border-0">
+                    <li class="flex items-start text-slate-600 dark:text-slate-300 py-1 border-b border-slate-50 dark:border-slate-700 last:border-0">
                         <svg class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         <span class="text-sm md:text-base">${textoFinal}</span>
                     </li>
@@ -176,7 +168,7 @@
         }
 
         function convertirANumero(str) {
-            str = str.replace(',', '.'); // Cambiar coma europea por punto
+            str = str.replace(',', '.'); 
             if (str.includes('/')) {
                 const partes = str.split('/');
                 return parseFloat(partes[0]) / parseFloat(partes[1]);
@@ -184,14 +176,13 @@
             return parseFloat(str);
         }
 
-        // --- LÓGICA DE GALERÍA (La que hicimos antes) ---
         function cargarGaleria(idReceta) {
             const contenedorGaleria = document.getElementById('galeria-fotos');
             for (let i = 1; i <= 5; i++) {
                 const img = document.createElement('img');
                 img.src = `imagenes/${idReceta}-${i}.jpg`;
                 img.className = "w-full h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300 cursor-pointer";
-                img.onclick = function() { window.open(this.src, '_blank'); }; // Click para ampliar
+                img.onclick = function() { window.open(this.src, '_blank'); }; 
                 
                 img.onerror = function() { 
                     this.remove(); 
@@ -203,7 +194,6 @@
                 };
             }
         }
-
     </script>
 </body>
 </html>
