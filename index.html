@@ -10,6 +10,12 @@
     <meta name="theme-color" content="#0f172a">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -98,7 +104,6 @@
                                  ? receta.imagen 
                                  : `imagenes/${receta.id}.jpg`;
 
-                // URL DE RESPALDO (Por si falla todo)
                 const fallbackImagen = 'https://images.unsplash.com/photo-1495521841625-277d8d09b381?q=80&w=1000&auto=format&fit=crop';
 
                 const tarjetaHTML = `
@@ -186,7 +191,6 @@
             }
             filtroActual = categoriaSeleccionada;
 
-            // Gestión visual de botones
             const todosLosBotones = document.querySelectorAll('.btn-filtro');
             const clasesInactivo = ['bg-white', 'text-slate-600', 'border-slate-200', 'hover:border-slate-400', 
                                     'dark:bg-slate-700', 'dark:text-slate-300', 'dark:border-slate-600', 'dark:hover:border-slate-500'];
@@ -202,7 +206,6 @@
                 botonPulsado.classList.add(...clasesActivo);
             }
 
-            // Filtrado de datos
             const catBuscada = categoriaSeleccionada.toLowerCase();
             if (catBuscada === 'todas') {
                 mostrarRecetas(listaRecetas);
@@ -228,7 +231,6 @@
 
         // --- INICIO: Carga y Orden Automático ---
         if (typeof listaRecetas !== 'undefined') {
-            // ORDENAR AUTOMÁTICAMENTE A-Z AL INICIAR
             listaRecetas.sort((a, b) => a.titulo.localeCompare(b.titulo));
             mostrarRecetas(listaRecetas);
         } else {
