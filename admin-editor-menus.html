@@ -4,27 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor de Menús</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f172a">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-slate-100 min-h-screen pb-20">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-20 transition-colors duration-300">
 
-    <div class="bg-slate-900 text-white p-4 sticky top-0 z-50 shadow-lg">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">📝 Editor Maestro de Menús</h1>
-            <button onclick="descargarArchivo()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg transition shadow-lg flex items-center gap-2">
-                💾 Descargar nuevo menus.js
+    <div id="mi-menu-reutilizable"></div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 mt-20">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-800 dark:text-white">📝 Editor de Menús</h1>
+                <p class="text-slate-500 dark:text-slate-400">Modifica los platos de la semana y guarda los cambios.</p>
+            </div>
+            <button onclick="descargarArchivo()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg flex items-center gap-2 w-full md:w-auto justify-center">
+                💾 Guardar cambios (Descargar)
             </button>
         </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 py-8">
         
-        <div class="mb-8 bg-white p-6 rounded-xl shadow-sm">
-            <label class="block text-sm font-bold text-gray-700 mb-2">Selecciona la Semana a Editar:</label>
-            <select id="selector-semana" onchange="cargarSemana()" class="w-full p-3 border rounded-lg bg-gray-50 text-lg font-semibold outline-none focus:ring-2 focus:ring-blue-500">
-                </select>
+        <div class="mb-8 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors">
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Selecciona la Semana a Editar:</label>
+            <select id="selector-semana" onchange="cargarSemana()" class="w-full p-3 border rounded-lg bg-gray-50 dark:bg-slate-700 text-slate-800 dark:text-white border-gray-200 dark:border-slate-600 outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+            </select>
         </div>
 
         <div id="contenedor-dias" class="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -32,6 +38,7 @@
 
     </div>
 
+    <script src="navbar.js"></script>
     <script src="menus.js"></script>
 
     <script>
@@ -41,12 +48,12 @@
         // Al iniciar
         window.onload = function() {
             if (typeof coleccionMenus !== 'undefined') {
-                // Hacemos una copia profunda para no romper nada hasta guardar
+                // Copia profunda para editar sin miedo
                 datosGlobales = JSON.parse(JSON.stringify(coleccionMenus));
                 inicializarSelector();
                 cargarSemana();
             } else {
-                alert("Error: No se encuentra menus.js");
+                document.getElementById('contenedor-dias').innerHTML = '<p class="text-red-500">Error: No se encuentra menus.js</p>';
             }
         };
 
@@ -59,6 +66,8 @@
                 opt.text = menu.nombre;
                 selector.appendChild(opt);
             });
+            // Seleccionar el último por defecto (más cómodo)
+            if(datosGlobales.length > 0) selector.value = datosGlobales.length - 1;
         }
 
         function cargarSemana() {
@@ -68,9 +77,10 @@
             contenedor.innerHTML = "";
 
             menuActual.semana.forEach((diaObj, diaIndex) => {
+                // AQUI ESTÁ LA CLAVE: Clases dark:bg-slate-800, dark:border-slate-700, etc.
                 const htmlDia = `
-                <div class="bg-white p-6 rounded-2xl shadow border border-slate-200">
-                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">${diaObj.dia}</h3>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-200 dark:border-slate-700 transition-colors">
+                    <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-700 pb-2 capitalize">${diaObj.dia}</h3>
                     
                     <div class="space-y-4">
                         ${crearInput(index, diaIndex, 'segundoDesayuno', 'Segundo Desayuno', diaObj.comidas.segundoDesayuno)}
@@ -85,47 +95,38 @@
         }
 
         function crearInput(menuIdx, diaIdx, tipoComida, label, valores) {
-            // Convertimos el array ["Plato 1", "Plato 2"] a texto con saltos de línea para el textarea
             const textoValor = Array.isArray(valores) ? valores.join('\n') : valores;
 
+            // TEXTAREAS ADAPTADOS AL MODO OSCURO
             return `
                 <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">${label}</label>
+                    <label class="block text-xs font-bold text-gray-400 dark:text-gray-500 uppercase mb-1">${label}</label>
                     <textarea 
                         oninput="actualizarDato(${menuIdx}, ${diaIdx}, '${tipoComida}', this.value)"
-                        class="w-full p-2 border rounded bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-400 outline-none text-sm min-h-[80px]"
+                        class="w-full p-2 border rounded text-sm min-h-[80px] outline-none transition-colors
+                               bg-slate-50 dark:bg-slate-700 
+                               text-slate-800 dark:text-white
+                               border-gray-200 dark:border-slate-600
+                               focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-400"
                         placeholder="Escribe cada plato en una línea nueva..."
                     >${textoValor}</textarea>
                 </div>
             `;
         }
 
-        // FUNCIÓN QUE GUARDA EN MEMORIA MIENTRAS ESCRIBES
         function actualizarDato(menuIdx, diaIdx, tipoComida, nuevoValor) {
-            // Convertimos el texto del textarea (separado por enter) a Array
             const arrayPlatos = nuevoValor.split('\n').filter(linea => linea.trim() !== "");
-            
-            // Guardamos en la variable global
             datosGlobales[menuIdx].semana[diaIdx].comidas[tipoComida] = arrayPlatos;
         }
 
-        // FUNCIÓN DE DESCARGA
         function descargarArchivo() {
-            // 1. Convertimos el objeto a texto con formato bonito
             const jsonString = JSON.stringify(datosGlobales, null, 4);
-            
-            // 2. Le añadimos el "const coleccionMenus =" del principio para que sea JS válido
-            // Y limpiamos las comillas de las claves para que quede profesional
             let contenidoJS = "const coleccionMenus = " + jsonString + ";";
-            
-            // Truco para quitar comillas de las claves (opcional, pero queda mejor)
             contenidoJS = contenidoJS.replace(/"(\w+)":/g, '$1:');
 
-            // 3. Crear un "blob" (archivo virtual)
             const blob = new Blob([contenidoJS], { type: "text/javascript" });
             const url = URL.createObjectURL(blob);
             
-            // 4. Forzar descarga
             const a = document.createElement('a');
             a.href = url;
             a.download = "menus.js";
@@ -133,7 +134,7 @@
             a.click();
             document.body.removeChild(a);
 
-            alert("✅ Archivo descargado. Ahora reemplaza tu antiguo 'menus.js' con este nuevo.");
+            alert("✅ Archivo descargado.\nSustituye el antiguo 'menus.js' con este nuevo.");
         }
     </script>
 </body>
