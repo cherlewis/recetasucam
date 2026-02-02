@@ -16,80 +16,192 @@
         </div>
 
     <script src="navbar.js"></script>
-    <script src="recetas.js"></script> <script>
-        // 1. LEER LA URL: Buscamos qué ID nos han pasado (ej: ?id=1)
+    <script src="recetas.js"></script>
+
+    <script>
+        // 1. LEER URL Y BUSCAR RECETA
         const parametros = new URLSearchParams(window.location.search);
         const idReceta = parametros.get('id');
-
-        // 2. BUSCAR LA RECETA
-        // El '==' es para comparar aunque uno sea texto ("1") y otro número (1)
-        const receta = listaRecetas.find(r => r.id == idReceta);
-
+        const receta = typeof listaRecetas !== 'undefined' ? listaRecetas.find(r => r.id == idReceta) : null;
+        
         const contenedor = document.getElementById('detalle-receta');
+        let racionesActuales = 1; // Por defecto siempre es 1 ración (según tus PDFs)
 
+        // 2. FUNCIÓN PRINCIPAL DE RENDERIZADO
         if (receta) {
-            // 3. SI EXISTE, LA PINTAMOS
+            // Lógica inteligente para la imagen:
+            // Si tiene URL externa la usa, si no, busca en la carpeta imagenes por ID
+            let rutaImagen = receta.imagen && receta.imagen.startsWith('http') 
+                             ? receta.imagen 
+                             : `imagenes/${receta.id}.jpg`;
+
+            // PREPARAR HTML ESTRUCTURAL (Lo que no cambia al multiplicar)
             contenedor.innerHTML = `
-                <div class="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-10">
-                    <img src="${receta.imagen}" class="w-full h-full object-cover">
+                <div class="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-10 group">
+                    <img src="${rutaImagen}" 
+                         onerror="this.src='https://images.unsplash.com/photo-1495521841625-277d8d09b381?q=80&w=1000&auto=format&fit=crop'" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex items-end">
                         <div class="p-8 text-white w-full">
-                            
                             <div class="flex flex-wrap gap-2 mb-4">
-                                ${ 
-                                   // Comprobamos si es lista o texto y pintamos las etiquetas azules
-                                   (Array.isArray(receta.categoria) ? receta.categoria : [receta.categoria])
-                                   .map(cat => `
-                                        <span class="bg-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg border border-white/20">
-                                            ${cat}
-                                        </span>
-                                   `).join('') 
-                                }
+                                ${ (Array.isArray(receta.categoria) ? receta.categoria : [receta.categoria]).map(cat => `
+                                    <span class="bg-blue-600/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow border border-white/20">
+                                        ${cat}
+                                    </span>
+                                `).join('') }
                             </div>
-
-                            <h1 class="text-4xl md:text-5xl font-bold mb-2">${receta.titulo}</h1>
+                            <h1 class="text-3xl md:text-5xl font-bold mb-2 text-shadow">${receta.titulo}</h1>
                             <p class="text-gray-300 flex items-center gap-2 font-medium">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                Tiempo de preparación: ${receta.tiempo}
+                                ⏱️ Tiempo: ${receta.tiempo}
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
                     <div class="md:col-span-1">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 sticky top-24">
-                            <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Ingredientes</h3>
-                            <ul class="space-y-3">
-                                ${receta.ingredientes.map(ing => `
-                                    <li class="flex items-start text-slate-600">
-                                        <svg class="w-5 h-5 text-green-500 mr-2 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                        <span>${ing}</span>
-                                    </li>
-                                `).join('')}
-                            </ul>
+                            
+                            <div class="bg-blue-50 rounded-xl p-4 mb-6 border border-blue-100">
+                                <p class="text-xs text-blue-600 font-bold uppercase text-center mb-2">Raciones / Personas</p>
+                                <div class="flex items-center justify-between bg-white rounded-lg shadow-sm border border-blue-200 p-1">
+                                    <button onclick="cambiarRaciones(-1)" class="w-10 h-10 flex items-center justify-center text-blue-600 hover:bg-blue-100 rounded-md font-bold text-xl transition select-none">-</button>
+                                    <span id="num-raciones" class="text-xl font-bold text-slate-800 w-12 text-center">${racionesActuales}</span>
+                                    <button onclick="cambiarRaciones(1)" class="w-10 h-10 flex items-center justify-center text-blue-600 hover:bg-blue-100 rounded-md font-bold text-xl transition select-none">+</button>
+                                </div>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b">Ingredientes</h3>
+                            <ul id="lista-ingredientes" class="space-y-3">
+                                </ul>
                         </div>
                     </div>
 
                     <div class="md:col-span-2">
                         <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                            <h3 class="text-xl font-bold text-slate-800 mb-6">Modo de Preparación</h3>
-                            <div class="space-y-6">
-                                ${receta.pasos ? receta.pasos.map((paso, index) => `
-                                    <div class="flex gap-4">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold shadow-md">
+                            <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                👨‍🍳 Modo de Preparación
+                            </h3>
+                            <div class="space-y-8">
+                                ${receta.pasos && receta.pasos.length > 0 ? receta.pasos.map((paso, index) => `
+                                    <div class="flex gap-4 group">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-slate-800 text-white rounded-xl flex items-center justify-center font-bold shadow-lg shadow-slate-200 group-hover:bg-blue-600 transition-colors">
                                             ${index + 1}
                                         </div>
-                                        <p class="text-slate-600 leading-relaxed mt-1">${paso}</p>
+                                        <p class="text-slate-600 leading-relaxed mt-1 text-lg">${paso}</p>
                                     </div>
-                                `).join('') : '<p class="text-gray-500 italic">No hay instrucciones definidas para esta receta.</p>'}
+                                `).join('') : '<p class="text-gray-500 italic">No hay instrucciones definidas.</p>'}
                             </div>
+                            
+                            <div id="galeria-fotos" class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 hidden"></div>
                         </div>
                     </div>
                 </div>
             `;
+
+            // 3. INICIALIZAR INGREDIENTES Y GALERÍA
+            renderizarIngredientes();
+            cargarGaleria(receta.id);
+
         } else {
-            contenedor.innerHTML = `<div class="text-center text-red-500 mt-10 font-bold text-xl">Receta no encontrada</div>`;
+            contenedor.innerHTML = `
+                <div class="flex flex-col items-center justify-center text-center py-20">
+                    <div class="text-6xl mb-4">🍳</div>
+                    <h2 class="text-2xl font-bold text-slate-800">Receta no encontrada</h2>
+                    <p class="text-gray-500 mt-2">Parece que esta receta no existe o ha sido borrada.</p>
+                    <a href="index.html" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Volver al inicio</a>
+                </div>
+            `;
+        }
+
+        // --- LÓGICA DE LA CALCULADORA ---
+
+        function cambiarRaciones(delta) {
+            const nuevaCantidad = racionesActuales + delta;
+            if (nuevaCantidad >= 1 && nuevaCantidad <= 20) {
+                racionesActuales = nuevaCantidad;
+                document.getElementById('num-raciones').innerText = racionesActuales;
+                
+                // Efecto visual de actualización
+                const lista = document.getElementById('lista-ingredientes');
+                lista.style.opacity = '0.5';
+                setTimeout(() => {
+                    renderizarIngredientes();
+                    lista.style.opacity = '1';
+                }, 150);
+            }
+        }
+
+        function renderizarIngredientes() {
+            const listaUL = document.getElementById('lista-ingredientes');
+            listaUL.innerHTML = "";
+
+            receta.ingredientes.forEach(linea => {
+                // EXPRESIÓN REGULAR: Busca un número al principio (ej: "100", "1/2", "1.5")
+                // Grupo 1: El número
+                // Grupo 2: El resto del texto
+                const regex = /^([\d\.,\/]+)\s*(.*)/;
+                const match = linea.trim().match(regex);
+
+                let textoFinal = "";
+
+                if (match) {
+                    let cantidadBase = convertirANumero(match[1]);
+                    let restoTexto = match[2];
+                    
+                    // Multiplicamos
+                    let cantidadCalculada = cantidadBase * racionesActuales;
+                    
+                    // Redondeamos para que no salga "300.0000001"
+                    // Si es entero, sin decimales. Si no, máximo 2 decimales.
+                    let cantidadBonita = Number.isInteger(cantidadCalculada) ? 
+                                         cantidadCalculada : 
+                                         parseFloat(cantidadCalculada.toFixed(2));
+
+                    textoFinal = `<span class="font-bold text-blue-600">${cantidadBonita}</span> ${restoTexto}`;
+                } else {
+                    // Si no tiene número (ej: "Sal al gusto"), se deja igual
+                    textoFinal = linea;
+                }
+
+                listaUL.innerHTML += `
+                    <li class="flex items-start text-slate-600 py-1 border-b border-slate-50 last:border-0">
+                        <svg class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-sm md:text-base">${textoFinal}</span>
+                    </li>
+                `;
+            });
+        }
+
+        function convertirANumero(str) {
+            str = str.replace(',', '.'); // Cambiar coma europea por punto
+            if (str.includes('/')) {
+                const partes = str.split('/');
+                return parseFloat(partes[0]) / parseFloat(partes[1]);
+            }
+            return parseFloat(str);
+        }
+
+        // --- LÓGICA DE GALERÍA (La que hicimos antes) ---
+        function cargarGaleria(idReceta) {
+            const contenedorGaleria = document.getElementById('galeria-fotos');
+            for (let i = 1; i <= 5; i++) {
+                const img = document.createElement('img');
+                img.src = `imagenes/${idReceta}-${i}.jpg`;
+                img.className = "w-full h-48 object-cover rounded-xl shadow-md hover:scale-105 transition-transform duration-300 cursor-pointer";
+                img.onclick = function() { window.open(this.src, '_blank'); }; // Click para ampliar
+                
+                img.onerror = function() { 
+                    this.remove(); 
+                    if (contenedorGaleria.children.length === 0) contenedorGaleria.classList.add('hidden');
+                };
+                img.onload = function() {
+                    contenedorGaleria.classList.remove('hidden');
+                    contenedorGaleria.appendChild(this);
+                };
+            }
         }
 
     </script>
