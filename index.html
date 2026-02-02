@@ -31,7 +31,7 @@
             <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Colección personal alojada en casa.</p>
         </div>
 
-        <div class="flex flex-col xl:flex-row gap-4 justify-between items-center mb-8 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+        <div class="flex flex-col xl:flex-row gap-4 justify-between items-center mb-8 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 transition-colors">
     
             <div class="relative w-full xl:w-96 shrink-0">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -230,7 +230,6 @@
         if (typeof listaRecetas !== 'undefined') {
             // ORDENAR AUTOMÁTICAMENTE A-Z AL INICIAR
             listaRecetas.sort((a, b) => a.titulo.localeCompare(b.titulo));
-            
             mostrarRecetas(listaRecetas);
         } else {
             contenedor.innerHTML = '<p class="text-center text-red-500 py-10">Error: No se encuentra recetas.js</p>';
