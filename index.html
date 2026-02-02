@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Recetas en Synology</title>
+    <title>Mis Recetas</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,31 +11,41 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Transición suave al cambiar de color */
+        .transicion-tema { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-10">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-10 transicion-tema">
 
     <div id="mi-menu-reutilizable"></div>
 
     <div class="max-w-7xl mx-auto px-4 py-8 mt-20">
         
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-slate-800 mb-4">Mis Recetas</h1>
-            <p class="text-slate-500 max-w-2xl mx-auto">Colección personal alojada en casa.</p>
+            <h1 class="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-400">
+                Mis Recetas
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Colección personal alojada en casa.</p>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-8 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-8 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
     
             <div class="relative w-full md:w-96">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="text" id="buscador" onkeyup="filtrarRecetas()" class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Buscar receta, ingrediente...">
+                <input type="text" id="buscador" onkeyup="filtrarRecetas()" 
+                       class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 outline-none transition
+                              dark:bg-slate-700 dark:border-slate-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                       placeholder="Buscar receta, ingrediente...">
             </div>
 
-            <button onclick="ordenarAlfabetico()" class="flex items-center gap-2 text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 px-4 py-2 rounded-lg transition text-sm font-medium w-full md:w-auto justify-center">
+            <button onclick="ordenarAlfabetico()" class="flex items-center gap-2 text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 px-4 py-2 rounded-lg transition text-sm font-medium w-full md:w-auto justify-center
+                   dark:bg-slate-700 dark:text-gray-300 dark:border-slate-600 dark:hover:bg-slate-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
                 </svg>
@@ -44,19 +54,30 @@
         </div>
 
         <div class="flex flex-wrap gap-2 mb-8 justify-center">
-            <button id="btn-todas" onclick="filtrarCategoria('Todas', this)" class="btn-filtro px-4 py-2 rounded-full bg-slate-800 text-white text-sm font-semibold shadow-md transition transform active:scale-95 border border-transparent">
+            <button id="btn-todas" onclick="filtrarCategoria('Todas', this)" 
+                    class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-md transition transform active:scale-95 border border-transparent
+                           bg-slate-800 text-white dark:bg-blue-600">
                 Todas
             </button>
-            <button onclick="filtrarCategoria('Desayuno', this)" class="btn-filtro px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-sm font-semibold shadow-sm hover:border-slate-400 transition transform active:scale-95">
+            
+            <button onclick="filtrarCategoria('Desayuno', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
                 Segundo Desayuno
             </button>
-            <button onclick="filtrarCategoria('Almuerzo', this)" class="btn-filtro px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-sm font-semibold shadow-sm hover:border-slate-400 transition transform active:scale-95">
+            <button onclick="filtrarCategoria('Almuerzo', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
                 Almuerzo
             </button>
-            <button onclick="filtrarCategoria('Merienda', this)" class="btn-filtro px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-sm font-semibold shadow-sm hover:border-slate-400 transition transform active:scale-95">
+            <button onclick="filtrarCategoria('Merienda', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
                 Merienda
             </button>
-            <button onclick="filtrarCategoria('Cena', this)" class="btn-filtro px-4 py-2 rounded-full bg-white text-slate-600 border border-slate-200 text-sm font-semibold shadow-sm hover:border-slate-400 transition transform active:scale-95">
+            <button onclick="filtrarCategoria('Cena', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
                 Cena
             </button>
         </div>
@@ -72,22 +93,30 @@
     <script>
         const contenedor = document.getElementById('contenedor-recetas');
 
-        // --- FUNCIÓN 1: PINTAR LAS TARJETAS ---
+        // --- FUNCIÓN 1: PINTAR LAS TARJETAS (Con soporte Dark Mode e Imágenes Locales) ---
         function mostrarRecetas(listaParaPintar) {
-            contenedor.innerHTML = ""; // Limpiar antes de pintar
+            contenedor.innerHTML = ""; 
 
             listaParaPintar.forEach(receta => {
+                
+                // MEJORA: Lógica para usar imagen local si existe, o URL si es http
+                let rutaImagen = receta.imagen && receta.imagen.startsWith('http') 
+                                 ? receta.imagen 
+                                 : `imagenes/${receta.id}.jpg`;
+
                 const tarjetaHTML = `
-                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 overflow-hidden group flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 overflow-hidden group flex flex-col h-full">
                         
                         <div class="h-56 overflow-hidden relative shrink-0">
-                            <img src="${receta.imagen}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="${rutaImagen}" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1495521841625-277d8d09b381?q=80&w=1000&auto=format&fit=crop'"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
     
                             <div class="absolute top-3 right-3 flex flex-col gap-1 items-end">
                                 ${ 
                                     (Array.isArray(receta.categoria) ? receta.categoria : [receta.categoria])
                                     .map(cat => `
-                                        <span class="bg-white/90 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-700 shadow-sm border border-white/50 uppercase tracking-wide">
+                                        <span class="bg-white/90 dark:bg-slate-900/90 backdrop-blur px-2 py-1 rounded-md text-[10px] font-bold text-slate-700 dark:text-slate-300 shadow-sm border border-white/50 dark:border-slate-600 uppercase tracking-wide">
                                             ${cat}
                                         </span>
                                    `).join('') 
@@ -101,19 +130,19 @@
                                 <span>${receta.tiempo}</span>
                             </div>
                             
-                            <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                 ${receta.titulo}
                             </h3>
                             
                             <div class="flex flex-wrap gap-2 mb-6">
                                 ${receta.ingredientes.slice(0, 3).map(ing => 
-                                    `<span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-md border border-slate-200">${ing}</span>`
+                                    `<span class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2 py-1 rounded-md border border-slate-200 dark:border-slate-600">${ing}</span>`
                                 ).join('')}
                                 ${receta.ingredientes.length > 3 ? `<span class="text-xs text-gray-400 self-center">+${receta.ingredientes.length - 3}</span>` : ''}
                             </div>
 
                             <div class="mt-auto">
-                                <a href="receta.html?id=${receta.id}" class="block text-center w-full bg-slate-900 text-white py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors shadow-lg shadow-slate-900/20 hover:shadow-blue-600/30">
+                                <a href="receta.html?id=${receta.id}" class="block text-center w-full bg-slate-900 dark:bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors shadow-lg shadow-slate-900/20 hover:shadow-blue-600/30">
                                     Ver Receta Completa
                                 </a>
                             </div>
@@ -142,11 +171,10 @@
                 return coincideTitulo || coincideIngrediente;
             });
 
-            // Si no hay resultados, mostramos aviso
             if (listaFiltrada.length === 0) {
                  contenedor.innerHTML = `
                     <div class="col-span-full text-center py-12">
-                        <div class="inline-flex bg-slate-100 p-4 rounded-full mb-4">
+                        <div class="inline-flex bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4">
                             <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <p class="text-slate-500 text-lg">No he encontrado nada con "${textoBusqueda}"</p>
@@ -158,37 +186,40 @@
             }
         }
 
-        // --- FUNCIÓN 4: FILTRADO POR BOTONES (INSENSIBLE A MAYÚSCULAS) ---
-        // Variable para recordar qué filtro está puesto (Memoria)
+        // --- FUNCIÓN 4: FILTRADO POR BOTONES (CON SOPORTE DARK MODE) ---
         let filtroActual = 'Todas';
 
         function filtrarCategoria(categoriaSeleccionada, botonPulsado) {
         
-            // 1. LÓGICA DE INTERRUPTOR (Si pulsas el mismo, vuelves a 'Todas')
             if (filtroActual === categoriaSeleccionada && categoriaSeleccionada !== 'Todas') {
                 categoriaSeleccionada = 'Todas';
                 botonPulsado = document.getElementById('btn-todas');
             }
             filtroActual = categoriaSeleccionada;
 
-            // 2. GESTIÓN DE COLORES (Aquí está la clave)
             const todosLosBotones = document.querySelectorAll('.btn-filtro');
 
+            // ESTILOS INACTIVOS (Versión Clara y Oscura)
+            const clasesInactivo = ['bg-white', 'text-slate-600', 'border-slate-200', 'hover:border-slate-400', 
+                                    'dark:bg-slate-800', 'dark:text-slate-300', 'dark:border-slate-700', 'dark:hover:border-slate-500'];
+            
+            // ESTILOS ACTIVOS (Versión Clara y Oscura)
+            const clasesActivo = ['bg-slate-800', 'text-white', 'border-transparent', 'dark:bg-blue-600', 'dark:text-white'];
+
             todosLosBotones.forEach(btn => {
-                // A TODOS: Les quitamos el negro y les ponemos blanco
-                btn.classList.remove('bg-slate-800', 'text-white', 'border-transparent');
-                btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+                // Reset a todos (ponerlos inactivos)
+                btn.classList.remove(...clasesActivo);
+                btn.classList.add(...clasesInactivo);
             });
 
-            // SOLO AL ACTIVO: Le quitamos el blanco y le ponemos negro
+            // Activar solo el pulsado
             if (botonPulsado) {
-                botonPulsado.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-                botonPulsado.classList.add('bg-slate-800', 'text-white', 'border-transparent');
+                botonPulsado.classList.remove(...clasesInactivo);
+                botonPulsado.classList.add(...clasesActivo);
             }
 
-            // 3. FILTRADO DE RECETAS
+            // Filtrar datos
             const catBuscada = categoriaSeleccionada.toLowerCase();
-
             if (catBuscada === 'todas') {
                 mostrarRecetas(listaRecetas);
                 return;
@@ -205,16 +236,12 @@
                 mostrarRecetas(listaFiltrada);
             }
         }
-
-
         
-        // --- UTILIDAD: LIMPIAR BÚSQUEDA ---
         function limpiarBusqueda() {
             document.getElementById('buscador').value = "";
             mostrarRecetas(listaRecetas);
         }
 
-        // --- ARRANQUE: Cargar las recetas al abrir ---
         if (typeof listaRecetas !== 'undefined') {
             mostrarRecetas(listaRecetas);
         } else {
