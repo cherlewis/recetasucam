@@ -8,6 +8,13 @@
     <meta name="theme-color" content="#0f172a">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
@@ -77,7 +84,6 @@
             contenedor.innerHTML = "";
 
             menuActual.semana.forEach((diaObj, diaIndex) => {
-                // AQUI ESTÁ LA CLAVE: Clases dark:bg-slate-800, dark:border-slate-700, etc.
                 const htmlDia = `
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-200 dark:border-slate-700 transition-colors">
                     <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-700 pb-2 capitalize">${diaObj.dia}</h3>
