@@ -523,7 +523,6 @@ const listaRecetas = [
         categoria: [
             "Guarnición"
         ],
-        imagen: "https://images.unsplash.com/photo-1605494236306-037372d82947?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "1 boniato",
             "Pimienta, sal, aceite"
