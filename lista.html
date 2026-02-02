@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de la Compra</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -11,27 +15,27 @@
         /* Efecto tachado al marcar el checkbox */
         input:checked + div label span.nombre-item {
             text-decoration: line-through;
-            color: #9ca3af;
+            color: #9ca3af; /* gray-400 se ve bien en ambos modos */
         }
         input:checked + div {
-            opacity: 0.6;
+            opacity: 0.5;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-10 transition-colors duration-300">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-20 transition-colors duration-300">
     
     <div id="mi-menu-reutilizable"></div>
 
     <div class="max-w-4xl mx-auto px-4 py-8 mt-20">
         
-        <h1 class="text-3xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+        <h1 class="text-3xl font-bold text-slate-800 dark:text-white mb-6 flex items-center gap-3">
             🛒 Lista de la Compra Inteligente
         </h1>
 
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 mb-8">
-            <label class="block text-sm font-bold text-gray-700 mb-2">¿Qué semana quieres comprar?</label>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 mb-8 transition-colors">
+            <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">¿Qué semana quieres comprar?</label>
             <div class="flex flex-col md:flex-row gap-4">
-                <select id="selector-semana" class="flex-1 p-3 border rounded-xl bg-gray-50 text-lg outline-none focus:ring-2 focus:ring-blue-500">
+                <select id="selector-semana" class="flex-1 p-3 border rounded-xl bg-gray-50 dark:bg-slate-700 text-slate-800 dark:text-white border-gray-200 dark:border-slate-600 outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
                     </select>
                 <button onclick="generarLista()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
                     ✨ Generar Lista
@@ -42,17 +46,17 @@
         <div id="contenedor-lista" class="hidden">
             
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-slate-700">Ingredientes necesarios:</h2>
+                <h2 class="text-xl font-bold text-slate-700 dark:text-slate-200">Ingredientes necesarios:</h2>
                 <div class="flex gap-2">
-                    <button onclick="copiarTexto()" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded transition">📋 Copiar</button>
-                    <button onclick="compartirWhatsapp()" class="text-sm bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition">💬 WhatsApp</button>
+                    <button onclick="copiarTexto()" class="text-sm bg-gray-200 hover:bg-gray-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 px-3 py-1 rounded transition border border-transparent dark:border-slate-600">📋 Copiar</button>
+                    <button onclick="compartirWhatsapp()" class="text-sm bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded transition shadow">💬 WhatsApp</button>
                 </div>
             </div>
 
-            <div id="lista-items" class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 divide-y divide-gray-100 overflow-hidden">
+            <div id="lista-items" class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 divide-y divide-gray-100 dark:divide-slate-700 overflow-hidden transition-colors">
                 </div>
             
-            <p class="text-xs text-gray-400 mt-4 text-center">
+            <p class="text-xs text-gray-400 dark:text-slate-500 mt-4 text-center">
                 Nota: El sistema suma cantidades si el nombre del ingrediente es idéntico.
             </p>
         </div>
@@ -74,6 +78,8 @@
                     opt.text = menu.nombre;
                     selector.appendChild(opt);
                 });
+                // Truco: seleccionar la última semana por defecto
+                if(coleccionMenus.length > 0) selector.value = coleccionMenus.length - 1;
             }
         };
 
@@ -82,8 +88,6 @@
             const indexSemana = document.getElementById('selector-semana').value;
             const menuSeleccionado = coleccionMenus[indexSemana];
             
-            // ESTRUCTURA NUEVA: 
-            // { "tomates": { cantidad: 6, fuentes: Set("Gazpacho", "Ensalada") } }
             const cestaCompra = {};
             const itemsSinReceta = new Set(); 
 
@@ -106,7 +110,6 @@
             const receta = listaRecetas.find(r => r.titulo.toLowerCase().trim() === nombrePlato.toLowerCase().trim());
 
             if (receta) {
-                // Pasamos también el título de la receta para guardarlo
                 receta.ingredientes.forEach(lineaIngrediente => {
                     parsearYSumar(lineaIngrediente, cesta, receta.titulo);
                 });
@@ -131,18 +134,15 @@
                 nombreItem = texto.toLowerCase();
             }
 
-            // Normalizar nombres
             nombreItem = normalizarNombre(nombreItem);
 
-            // Si el ingrediente no existe, lo creamos
             if (!cesta[nombreItem]) {
                 cesta[nombreItem] = {
                     cantidad: 0,
-                    fuentes: new Set() // Usamos un Set para no repetir nombres de recetas
+                    fuentes: new Set()
                 };
             }
 
-            // Sumamos cantidad y añadimos la fuente (receta)
             cesta[nombreItem].cantidad += cantidadNum;
             cesta[nombreItem].fuentes.add(nombreReceta);
         }
@@ -163,7 +163,7 @@
             return nombre;
         }
 
-        // 3. PINTAR RESULTADOS
+        // 3. PINTAR RESULTADOS (ADAPTADO A DARK MODE)
         function renderizarLista(cesta, extras) {
             const contenedor = document.getElementById('lista-items');
             contenedor.innerHTML = "";
@@ -176,21 +176,22 @@
                 const cantidad = itemData.cantidad;
                 const cantidadTexto = cantidad > 0 ? Number(cantidad.toFixed(2)) : ""; 
                 
-                // Convertir el Set de recetas a un array para pintarlo
+                // Etiquetas de recetas (Adaptadas)
+                // Usamos bg-blue-900/40 para que sea transparente y oscuro en dark mode
                 const etiquetasRecetas = Array.from(itemData.fuentes).map(fuente => 
-                    `<span class="inline-block bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded-full mr-1 mb-1 border border-blue-200">${fuente}</span>`
+                    `<span class="inline-block bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200 text-[10px] px-2 py-0.5 rounded-full mr-1 mb-1 border border-blue-200 dark:border-blue-800">${fuente}</span>`
                 ).join("");
 
                 const html = `
-                <div class="p-4 flex items-start hover:bg-blue-50 transition group">
-                    <input type="checkbox" id="item-${i}" class="w-5 h-5 mt-1 text-blue-600 rounded focus:ring-blue-500 border-gray-300 cursor-pointer flex-shrink-0">
+                <div class="p-4 flex items-start hover:bg-blue-50 dark:hover:bg-slate-700/50 transition group">
+                    <input type="checkbox" id="item-${i}" class="w-5 h-5 mt-1 text-blue-600 rounded focus:ring-blue-500 border-gray-300 dark:border-gray-500 dark:bg-slate-700 cursor-pointer flex-shrink-0">
                     <div class="ml-3 flex-1">
                         <label for="item-${i}" class="cursor-pointer select-none block">
-                            <span class="font-bold text-blue-600 text-lg">${cantidadTexto}</span> 
-                            <span class="nombre-item text-gray-700 font-medium text-lg capitalize">${nombre}</span>
+                            <span class="font-bold text-blue-600 dark:text-blue-400 text-lg">${cantidadTexto}</span> 
+                            <span class="nombre-item text-gray-700 dark:text-gray-200 font-medium text-lg capitalize">${nombre}</span>
                         </label>
                         <div class="mt-1 flex flex-wrap">
-                            <span class="text-xs text-gray-400 mr-2 py-0.5">Para:</span>
+                            <span class="text-xs text-gray-400 dark:text-gray-500 mr-2 py-0.5">Para:</span>
                             ${etiquetasRecetas}
                         </div>
                     </div>
@@ -198,17 +199,17 @@
                 contenedor.innerHTML += html;
             });
 
-            // Platos sin receta
+            // Platos sin receta (Adaptado)
             if (extras.size > 0) {
-                const divSeparador = `<div class="bg-yellow-50 p-3 text-xs font-bold text-yellow-700 uppercase tracking-wide border-t border-yellow-200">Platos sin receta detallada</div>`;
+                const divSeparador = `<div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 text-xs font-bold text-yellow-700 dark:text-yellow-400 uppercase tracking-wide border-t border-yellow-200 dark:border-yellow-800">Platos sin receta detallada</div>`;
                 contenedor.innerHTML += divSeparador;
                 
                 let j = 1000;
                 extras.forEach(extra => {
                     const html = `
-                    <div class="p-4 flex items-center hover:bg-yellow-100 transition">
-                        <input type="checkbox" id="item-${j}" class="w-5 h-5 text-yellow-600 rounded focus:ring-yellow-500 border-gray-300 cursor-pointer">
-                        <label for="item-${j}" class="ml-3 text-gray-700 cursor-pointer flex-1 select-none font-medium">
+                    <div class="p-4 flex items-center hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition">
+                        <input type="checkbox" id="item-${j}" class="w-5 h-5 text-yellow-600 rounded focus:ring-yellow-500 border-gray-300 dark:border-gray-500 dark:bg-slate-700 cursor-pointer">
+                        <label for="item-${j}" class="ml-3 text-gray-700 dark:text-gray-200 cursor-pointer flex-1 select-none font-medium">
                             ${extra}
                         </label>
                     </div>`;
@@ -218,18 +219,13 @@
             }
         }
 
-        // Utilidades para copiar/compartir
+        // Utilidades
         function obtenerTextoPlano() {
             let texto = "🛒 *LISTA DE LA COMPRA* \n\n";
-            // No podemos usar querySelector simple porque ahora la estructura es compleja.
-            // Reconstruimos desde los datos visuales básicos o mejor, iteraríamos el objeto data, 
-            // pero para hacerlo rápido scrapeamos el DOM generado.
-            
             const filas = document.querySelectorAll('#lista-items > div.p-4');
             filas.forEach(fila => {
                 const label = fila.querySelector('label').innerText.replace(/\n/g, ' ');
-                // Intentamos coger las recetas también para el texto plano
-                const recetas = Array.from(fila.querySelectorAll('.bg-blue-100')).map(span => span.innerText).join(', ');
+                const recetas = Array.from(fila.querySelectorAll('span.inline-block')).map(span => span.innerText).join(', ');
                 
                 texto += `☐ ${label}`;
                 if(recetas) texto += ` (${recetas})`;
