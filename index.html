@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Recetas</title>
+    <title>Mis Recetas en Synology</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,8 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Transición suave al cambiar de color */
         .transicion-tema { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+        /* Ocultar barra de scroll en los filtros si es necesario en móvil */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-10 transicion-tema">
@@ -23,16 +25,16 @@
 
     <div class="max-w-7xl mx-auto px-4 py-8 mt-20">
         
-        <div class="text-center mb-10">
+        <div class="text-center mb-8">
             <h1 class="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-400">
                 Mis Recetas
             </h1>
             <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Colección personal alojada en casa.</p>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-8 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+        <div class="flex flex-col xl:flex-row gap-4 justify-between items-center mb-8 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
     
-            <div class="relative w-full md:w-96">
+            <div class="relative w-full xl:w-96 shrink-0">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -44,42 +46,37 @@
                        placeholder="Buscar receta, ingrediente...">
             </div>
 
-            <button onclick="ordenarAlfabetico()" class="flex items-center gap-2 text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 px-4 py-2 rounded-lg transition text-sm font-medium w-full md:w-auto justify-center
-                   dark:bg-slate-700 dark:text-gray-300 dark:border-slate-600 dark:hover:bg-slate-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                </svg>
-                Ordenar A-Z
-            </button>
-        </div>
-
-        <div class="flex flex-wrap gap-2 mb-8 justify-center">
-            <button id="btn-todas" onclick="filtrarCategoria('Todas', this)" 
-                    class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-md transition transform active:scale-95 border border-transparent
-                           bg-slate-800 text-white dark:bg-blue-600">
-                Todas
-            </button>
-            
-            <button onclick="filtrarCategoria('Desayuno', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
-                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
-                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
-                Segundo Desayuno
-            </button>
-            <button onclick="filtrarCategoria('Almuerzo', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
-                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
-                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
-                Almuerzo
-            </button>
-            <button onclick="filtrarCategoria('Merienda', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
-                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
-                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
-                Merienda
-            </button>
-            <button onclick="filtrarCategoria('Cena', this)" class="btn-filtro px-4 py-2 rounded-full text-sm font-semibold shadow-sm transition transform active:scale-95 border
-                   bg-white text-slate-600 border-slate-200 hover:border-slate-400
-                   dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700 dark:hover:border-slate-500">
-                Cena
-            </button>
+            <div class="flex flex-wrap gap-2 justify-center xl:justify-end w-full">
+                <button id="btn-todas" onclick="filtrarCategoria('Todas', this)" 
+                        class="btn-filtro px-4 py-2 rounded-full text-xs md:text-sm font-semibold shadow-md transition transform active:scale-95 border border-transparent
+                               bg-slate-800 text-white dark:bg-blue-600">
+                    Todas
+                </button>
+                
+                <button onclick="filtrarCategoria('Desayuno', this)" class="btn-filtro px-4 py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                       bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                       dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600 dark:hover:border-slate-500">
+                    Desayuno
+                </button>
+                
+                <button onclick="filtrarCategoria('Almuerzo', this)" class="btn-filtro px-4 py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                       bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                       dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600 dark:hover:border-slate-500">
+                    Almuerzo
+                </button>
+                
+                <button onclick="filtrarCategoria('Merienda', this)" class="btn-filtro px-4 py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                       bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                       dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600 dark:hover:border-slate-500">
+                    Merienda
+                </button>
+                
+                <button onclick="filtrarCategoria('Cena', this)" class="btn-filtro px-4 py-2 rounded-full text-xs md:text-sm font-semibold shadow-sm transition transform active:scale-95 border
+                       bg-white text-slate-600 border-slate-200 hover:border-slate-400
+                       dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600 dark:hover:border-slate-500">
+                    Cena
+                </button>
+            </div>
         </div>
 
         <div id="contenedor-recetas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -93,13 +90,11 @@
     <script>
         const contenedor = document.getElementById('contenedor-recetas');
 
-        // --- FUNCIÓN 1: PINTAR LAS TARJETAS (Con soporte Dark Mode e Imágenes Locales) ---
+        // --- FUNCIÓN PINTAR ---
         function mostrarRecetas(listaParaPintar) {
             contenedor.innerHTML = ""; 
 
             listaParaPintar.forEach(receta => {
-                
-                // MEJORA: Lógica para usar imagen local si existe, o URL si es http
                 let rutaImagen = receta.imagen && receta.imagen.startsWith('http') 
                                  ? receta.imagen 
                                  : `imagenes/${receta.id}.jpg`;
@@ -153,16 +148,9 @@
             });
         }
 
-        // --- FUNCIÓN 2: ORDENAR ---
-        function ordenarAlfabetico() {
-            listaRecetas.sort((a, b) => a.titulo.localeCompare(b.titulo));
-            mostrarRecetas(listaRecetas);
-        }
-
-        // --- FUNCIÓN 3: EL BUSCADOR INTELIGENTE ---
+        // --- FILTRADO INTELIGENTE ---
         function filtrarRecetas() {
             const textoBusqueda = document.getElementById('buscador').value.toLowerCase();
-
             const listaFiltrada = listaRecetas.filter(receta => {
                 const coincideTitulo = receta.titulo.toLowerCase().includes(textoBusqueda);
                 const coincideIngrediente = receta.ingredientes.some(ing => 
@@ -186,39 +174,33 @@
             }
         }
 
-        // --- FUNCIÓN 4: FILTRADO POR BOTONES (CON SOPORTE DARK MODE) ---
+        // --- GESTIÓN DE CATEGORÍAS ---
         let filtroActual = 'Todas';
 
         function filtrarCategoria(categoriaSeleccionada, botonPulsado) {
-        
             if (filtroActual === categoriaSeleccionada && categoriaSeleccionada !== 'Todas') {
                 categoriaSeleccionada = 'Todas';
                 botonPulsado = document.getElementById('btn-todas');
             }
             filtroActual = categoriaSeleccionada;
 
+            // Gestión visual de botones
             const todosLosBotones = document.querySelectorAll('.btn-filtro');
-
-            // ESTILOS INACTIVOS (Versión Clara y Oscura)
             const clasesInactivo = ['bg-white', 'text-slate-600', 'border-slate-200', 'hover:border-slate-400', 
-                                    'dark:bg-slate-800', 'dark:text-slate-300', 'dark:border-slate-700', 'dark:hover:border-slate-500'];
-            
-            // ESTILOS ACTIVOS (Versión Clara y Oscura)
+                                    'dark:bg-slate-700', 'dark:text-slate-300', 'dark:border-slate-600', 'dark:hover:border-slate-500'];
             const clasesActivo = ['bg-slate-800', 'text-white', 'border-transparent', 'dark:bg-blue-600', 'dark:text-white'];
 
             todosLosBotones.forEach(btn => {
-                // Reset a todos (ponerlos inactivos)
                 btn.classList.remove(...clasesActivo);
                 btn.classList.add(...clasesInactivo);
             });
 
-            // Activar solo el pulsado
             if (botonPulsado) {
                 botonPulsado.classList.remove(...clasesInactivo);
                 botonPulsado.classList.add(...clasesActivo);
             }
 
-            // Filtrar datos
+            // Filtrado de datos
             const catBuscada = categoriaSeleccionada.toLowerCase();
             if (catBuscada === 'todas') {
                 mostrarRecetas(listaRecetas);
@@ -227,7 +209,7 @@
 
             const listaFiltrada = listaRecetas.filter(receta => {
                 const categoriasDeLaReceta = Array.isArray(receta.categoria) ? receta.categoria : [receta.categoria];
-                return categoriasDeLaReceta.some(cat => cat.toLowerCase() === catBuscada);
+                return categoriasDeLaReceta.some(cat => cat.toLowerCase().includes(catBuscada));
             });
 
             if (listaFiltrada.length === 0) {
@@ -242,7 +224,11 @@
             mostrarRecetas(listaRecetas);
         }
 
+        // --- INICIO: Carga y Orden Automático ---
         if (typeof listaRecetas !== 'undefined') {
+            // ORDENAR AUTOMÁTICAMENTE A-Z AL INICIAR
+            listaRecetas.sort((a, b) => a.titulo.localeCompare(b.titulo));
+            
             mostrarRecetas(listaRecetas);
         } else {
             contenedor.innerHTML = '<p class="text-center text-red-500 py-10">Error: No se encuentra recetas.js</p>';
