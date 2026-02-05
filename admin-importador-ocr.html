@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Importador Mágico (OCR)</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Importador Grid Inteligente</title>
     <meta name="theme-color" content="#0f172a">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
-
+    
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
@@ -25,225 +21,180 @@
 
     <div class="max-w-6xl mx-auto px-4 py-8 mt-20">
         
-        <h1 class="text-3xl font-bold mb-6 flex items-center gap-2 text-slate-800 dark:text-white">
-            🤖 Importador con OCR (Desde Imagen)
+        <h1 class="text-3xl font-bold mb-2 flex items-center gap-2 text-slate-800 dark:text-white">
+            📸 Importador por Rejilla (Slicing)
         </h1>
+        <p class="text-slate-500 mb-8">Sube las dos imágenes. El sistema las recortará automáticamente para leer cada día por separado.</p>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             <div class="space-y-6">
                 
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-                    <label class="block text-sm font-bold mb-4 text-blue-600 dark:text-blue-400">OPCIÓN A: Sube una foto del menú</label>
-                    
-                    <div id="drop-zone-ocr" class="border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-8 text-center cursor-pointer hover:bg-blue-50 dark:hover:bg-slate-700 transition relative overflow-hidden group">
-                        <div id="ocr-instruction">
-                            <p class="text-2xl mb-2">📸</p>
-                            <p class="text-sm font-bold">Haz clic o arrastra la imagen aquí</p>
-                        </div>
-                        <div id="ocr-progress" class="hidden absolute inset-0 bg-white/90 dark:bg-slate-800/90 flex flex-col items-center justify-center z-10">
-                            <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-2"></div>
-                            <p class="text-xs font-bold text-blue-600 blink-anim" id="ocr-status">Iniciando cerebro...</p>
-                        </div>
-                        <input type="file" id="input-imagen" accept="image/*" class="hidden">
-                    </div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow border border-slate-200 dark:border-slate-700">
+                    <label class="block text-sm font-bold mb-2 text-orange-500">IMAGEN 1: Mañana (Desayuno + Almuerzo)</label>
+                    <input type="file" id="img-manana" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100">
+                    <p class="text-[10px] text-gray-400 mt-2">Recorta la imagen ajustada a los bordes negros (Lunes a Domingo).</p>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
-                    <label class="block text-sm font-bold mb-2 text-blue-600 dark:text-blue-400">OPCIÓN B: Texto (o Resultado del OCR)</label>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Aquí aparecerá lo que lea de la foto. <strong class="text-red-500">Corrige los errores</strong> antes de procesar.</p>
-                    <textarea id="texto-bruto" class="w-full h-64 p-4 text-xs font-mono border rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="El texto aparecerá aquí..."></textarea>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow border border-slate-200 dark:border-slate-700">
+                    <label class="block text-sm font-bold mb-2 text-indigo-500">IMAGEN 2: Tarde (Merienda + Cena)</label>
+                    <input type="file" id="img-tarde" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
                 </div>
 
-                <button onclick="procesarTexto()" class="w-full bg-slate-900 dark:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg transition transform active:scale-95 hover:bg-slate-800 dark:hover:bg-blue-700">
-                    ⚙️ 3. Convertir a Estructura Web
+                <button onclick="iniciarProceso()" id="btn-procesar" class="w-full bg-slate-900 dark:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg transition transform active:scale-95 hover:bg-slate-800 dark:hover:bg-blue-700">
+                    🚀 Escanear y Generar Menú
                 </button>
+
+                <div id="progreso-container" class="hidden">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mb-2">
+                        <div id="barra-progreso" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p id="texto-estado" class="text-xs text-center font-mono text-blue-600 animate-pulse">Iniciando...</p>
+                </div>
             </div>
 
             <div class="space-y-4">
-                <div class="bg-slate-900 text-green-400 p-6 rounded-xl shadow-lg border border-slate-700 relative group h-full flex flex-col min-h-[300px]">
-                    <label class="block text-sm font-bold mb-2 text-white">Resultado Final (JSON)</label>
-                    <textarea id="resultado-json" readonly class="w-full flex-1 bg-transparent border-none outline-none font-mono text-xs resize-none" placeholder="Aquí aparecerá el código para pegar en menus.js..."></textarea>
-                    
-                    <button onclick="copiarCodigo()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded text-xs font-bold transition border border-white/20 backdrop-blur">
-                        📋 Copiar
-                    </button>
+                <div class="bg-slate-900 text-green-400 p-6 rounded-xl shadow-lg border border-slate-700 relative h-full flex flex-col min-h-[400px]">
+                    <label class="block text-sm font-bold mb-2 text-white">Resultado JSON</label>
+                    <textarea id="resultado-json" readonly class="w-full flex-1 bg-transparent border-none outline-none font-mono text-xs resize-none" placeholder="El código aparecerá aquí..."></textarea>
+                    <button onclick="copiarCodigo()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded text-xs font-bold transition border border-white/20 backdrop-blur">📋 Copiar</button>
                 </div>
             </div>
         </div>
 
-        <div id="vista-previa" class="mt-8 hidden">
-            <h3 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">Vista Previa (Lo que he entendido):</h3>
-            <div id="grid-dias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-        </div>
+        <canvas id="canvas-oculto" class="hidden"></canvas>
 
     </div>
 
     <script src="navbar.js"></script>
 
     <script>
-        // --- LÓGICA DEL OCR (IMAGE TO TEXT) ---
-        const dropZone = document.getElementById('drop-zone-ocr');
-        const inputImg = document.getElementById('input-imagen');
-        const progressBar = document.getElementById('ocr-progress');
-        const statusText = document.getElementById('ocr-status');
-        const textArea = document.getElementById('texto-bruto');
+        const diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+        let menuFinal = { nombre: "Semana Escaneada", semana: [] };
 
-        dropZone.addEventListener('click', () => inputImg.click());
-
-        inputImg.addEventListener('change', (e) => {
-            if (e.target.files[0]) leerImagen(e.target.files[0]);
+        // Inicializar estructura vacía
+        diasSemana.forEach(dia => {
+            menuFinal.semana.push({
+                dia: dia,
+                comidas: { segundoDesayuno: [], almuerzo: [], merienda: [], cena: [] }
+            });
         });
 
-        // Eventos Drag & Drop visuales
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-blue-500', 'bg-blue-50'); });
-        dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('border-blue-500', 'bg-blue-50'); });
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('border-blue-500', 'bg-blue-50');
-            if (e.dataTransfer.files[0]) leerImagen(e.dataTransfer.files[0]);
-        });
+        async function iniciarProceso() {
+            const fileManana = document.getElementById('img-manana').files[0];
+            const fileTarde = document.getElementById('img-tarde').files[0];
 
-        function leerImagen(file) {
-            // Mostrar cargando
-            progressBar.classList.remove('hidden');
-            
-            Tesseract.recognize(
-                file,
-                'spa', // Idioma español
-                {
-                    logger: m => {
-                        // Actualizar estado (ej: "recognizing text: 50%")
-                        if (m.status === 'recognizing text') {
-                            statusText.innerText = `Leyendo... ${Math.round(m.progress * 100)}%`;
-                        } else {
-                            statusText.innerText = m.status;
-                        }
-                    }
-                }
-            ).then(({ data: { text } }) => {
-                // OCR TERMINADO
-                progressBar.classList.add('hidden');
-                
-                // Limpiar un poco el texto (quitar líneas vacías excesivas)
-                const textoLimpio = text.replace(/\n\s*\n/g, '\n');
-                textArea.value = textoLimpio;
-                
-                alert("✅ Texto extraído. Revisa el cuadro de texto por si hay errores antes de procesar.");
-            }).catch(err => {
-                progressBar.classList.add('hidden');
-                alert("Error al leer la imagen: " + err);
-            });
-        }
+            if (!fileManana || !fileTarde) return alert("⚠️ Por favor, sube ambas imágenes.");
 
+            document.getElementById('btn-procesar').disabled = true;
+            document.getElementById('btn-procesar').classList.add('opacity-50');
+            document.getElementById('progreso-container').classList.remove('hidden');
 
-        // --- LÓGICA DE PROCESAMIENTO (TEXT TO JSON) ---
-        // (Es la misma que tenías antes, pero conectada al botón)
+            try {
+                // 1. PROCESAR MAÑANA (Desayuno y Almuerzo)
+                actualizarEstado("Escaneando Mañanas...", 10);
+                await procesarImagenGrid(fileManana, ['segundoDesayuno', 'almuerzo']);
 
-        function procesarTexto() {
-            const texto = textArea.value;
-            if (!texto.trim()) return alert("¡La caja de texto está vacía!");
+                // 2. PROCESAR TARDE (Merienda y Cena)
+                actualizarEstado("Escaneando Tardes...", 60);
+                await procesarImagenGrid(fileTarde, ['merienda', 'cena']);
 
-            const nuevoMenu = {
-                nombre: "Semana Importada (OCR)",
-                semana: []
-            };
+                // 3. FINALIZAR
+                actualizarEstado("Generando código...", 100);
+                mostrarResultado();
 
-            const diasSemana = ["LUNES", "MARTES", "MIÉRCOLES", "MIERCOLES", "JUEVES", "VIERNES", "SÁBADO", "SABADO", "DOMINGO"];
-            let indices = [];
-            
-            diasSemana.forEach(dia => {
-                const regex = new RegExp(`\\b${dia}\\b`, 'gi');
-                let match;
-                while ((match = regex.exec(texto)) !== null) {
-                    indices.push({ dia: match[0].toUpperCase(), index: match.index });
-                }
-            });
-
-            indices.sort((a, b) => a.index - b.index);
-
-            if (indices.length === 0) return alert("No encuentro los días (Lunes, Martes...) en el texto leído.");
-
-            for (let i = 0; i < indices.length; i++) {
-                const diaActual = indices[i];
-                const siguienteDia = indices[i + 1];
-                const corteInicio = diaActual.index;
-                const corteFin = siguienteDia ? siguienteDia.index : texto.length;
-                const textoDia = texto.substring(corteInicio, corteFin);
-                
-                const comidas = analizarComidas(textoDia);
-                let nombreDia = diaActual.dia.charAt(0) + diaActual.dia.slice(1).toLowerCase();
-
-                nuevoMenu.semana.push({ dia: nombreDia, comidas: comidas });
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un error: " + error.message);
+            } finally {
+                document.getElementById('btn-procesar').disabled = false;
+                document.getElementById('btn-procesar').classList.remove('opacity-50');
             }
-
-            const jsonFinal = JSON.stringify(nuevoMenu, null, 4);
-            const jsonLimpio = jsonFinal.replace(/"(\w+)":/g, '$1:');
-
-            document.getElementById('resultado-json').value = 
-                "// Copia esto en menus.js\n" + jsonLimpio + ",";
-
-            renderizarVistaPrevia(nuevoMenu);
         }
 
-        function analizarComidas(texto) {
-            const bloque = { segundoDesayuno: ["-"], almuerzo: ["-"], merienda: ["-"], cena: ["-"] };
-            const lineas = texto.split('\n').map(l => l.trim()).filter(l => l.length > 2);
-            let modoActual = null;
-
-            lineas.forEach(linea => {
-                const l = linea.toLowerCase();
-                if (l.includes("desayuno") || l.includes("media mañana")) { modoActual = 'segundoDesayuno'; bloque.segundoDesayuno = []; return; }
-                if (l.includes("almuerzo") || l.includes("comida") || l.includes("mediodía")) { modoActual = 'almuerzo'; bloque.almuerzo = []; return; }
-                if (l.includes("merienda") || l.includes("tarde")) { modoActual = 'merienda'; bloque.merienda = []; return; }
-                if (l.includes("cena") || l.includes("noche")) { modoActual = 'cena'; bloque.cena = []; return; }
-
-                if (modoActual && !diasSemanaIncluido(l)) {
-                    // Limpieza extra post-OCR: quitar caracteres raros
-                    let platoLimpio = linea.replace(/[|*_]/g, '').trim(); 
-                    if (platoLimpio.length > 2) {
-                        const platoBonito = platoLimpio.charAt(0).toUpperCase() + platoLimpio.slice(1).toLowerCase();
-                        bloque[modoActual].push(platoBonito);
-                    }
-                }
-            });
-            return bloque;
+        function actualizarEstado(texto, porcentaje) {
+            document.getElementById('texto-estado').innerText = texto;
+            document.getElementById('barra-progreso').style.width = porcentaje + "%";
         }
 
-        function diasSemanaIncluido(str) {
-            const dias = ["lunes", "martes", "miércoles", "miercoles", "jueves", "viernes", "sábado", "sabado", "domingo"];
-            return dias.some(d => str.includes(d));
-        }
-
-        function renderizarVistaPrevia(menu) {
-            const container = document.getElementById('grid-dias');
-            container.innerHTML = "";
-            document.getElementById('vista-previa').classList.remove('hidden');
-
-            menu.semana.forEach(dia => {
-                const html = `
-                    <div class="bg-white dark:bg-slate-800 p-4 rounded shadow border border-slate-200 dark:border-slate-700 transition-colors">
-                        <h4 class="font-bold text-lg mb-2 text-blue-600 dark:text-blue-400 border-b dark:border-slate-700 pb-1">${dia.dia}</h4>
-                        <div class="text-xs space-y-2 text-slate-700 dark:text-slate-300">
-                            <p><strong class="text-slate-500 dark:text-slate-500">Desayuno:</strong> ${dia.comidas.segundoDesayuno.join(', ')}</p>
-                            <p><strong class="text-slate-500 dark:text-slate-500">Almuerzo:</strong> ${dia.comidas.almuerzo.join(', ')}</p>
-                            <p><strong class="text-slate-500 dark:text-slate-500">Merienda:</strong> ${dia.comidas.merienda.join(', ')}</p>
-                            <p><strong class="text-slate-500 dark:text-slate-500">Cena:</strong> ${dia.comidas.cena.join(', ')}</p>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += html;
-            });
+        async function procesarImagenGrid(file, tiposComida) {
+            // tiposComida será ['segundoDesayuno', 'almuerzo'] o ['merienda', 'cena']
             
-            // Scroll hacia la vista previa
-            document.getElementById('vista-previa').scrollIntoView({ behavior: 'smooth' });
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = async () => {
+                    const canvas = document.getElementById('canvas-oculto');
+                    const ctx = canvas.getContext('2d');
+
+                    // Calculamos el ancho de cada columna (Día)
+                    // Asumimos que la imagen tiene los 7 días (Lunes a Domingo)
+                    const anchoColumna = img.width / 7;
+                    const altoFila = img.height / 2; // Asumimos que la fila de arriba es comida 1 y la de abajo comida 2
+
+                    // Iterar por los 7 días
+                    for (let i = 0; i < 7; i++) {
+                        // --- FILA DE ARRIBA (Ej: Desayuno o Merienda) ---
+                        const textoArriba = await recortarYLeer(img, ctx, canvas, i * anchoColumna, 0, anchoColumna, altoFila);
+                        limpiarYGuardar(i, tiposComida[0], textoArriba);
+
+                        // --- FILA DE ABAJO (Ej: Almuerzo o Cena) ---
+                        const textoAbajo = await recortarYLeer(img, ctx, canvas, i * anchoColumna, altoFila, anchoColumna, altoFila);
+                        limpiarYGuardar(i, tiposComida[1], textoAbajo);
+                    }
+                    resolve();
+                };
+                img.src = URL.createObjectURL(file);
+            });
+        }
+
+        async function recortarYLeer(img, ctx, canvas, x, y, w, h) {
+            // Configurar canvas al tamaño del recorte
+            canvas.width = w;
+            canvas.height = h;
+            
+            // Dibujar solo el trocito
+            ctx.drawImage(img, x, y, w, h, 0, 0, w, h);
+            
+            // Convertir a imagen para Tesseract
+            const dataUrl = canvas.toDataURL('image/jpeg');
+
+            // Ejecutar OCR en ese trocito
+            const { data: { text } } = await Tesseract.recognize(dataUrl, 'spa');
+            return text;
+        }
+
+        function limpiarYGuardar(diaIndex, tipoComida, textoBruto) {
+            // 1. Limpieza básica
+            let lineas = textoBruto.split('\n')
+                .map(l => l.trim())
+                .filter(l => l.length > 3) // Quitar líneas muy cortas
+                .filter(l => !l.toLowerCase().includes('ver comentario')) // Quitar botones web
+                .filter(l => !l.toLowerCase().includes('pieza de fruta')) // Quitar genéricos repetitivos si quieres
+                .filter(l => !diasSemana.some(d => l.toLowerCase().includes(d.toLowerCase()))); // Quitar cabecera "LUNES"
+
+            // 2. Capitalizar
+            lineas = lineas.map(l => l.charAt(0).toUpperCase() + l.slice(1).toLowerCase());
+
+            // 3. Guardar en el objeto global
+            if (lineas.length === 0) lineas = ["-"];
+            menuFinal.semana[diaIndex].comidas[tipoComida] = lineas;
+        }
+
+        function mostrarResultado() {
+            let jsonString = JSON.stringify(menuFinal, null, 4);
+            // Quitar comillas de las claves
+            jsonString = jsonString.replace(/"(\w+)":/g, '$1:');
+            
+            document.getElementById('resultado-json').value = 
+                "// Pega esto en menus.js dentro de coleccionMenus.push(...)\n" +
+                jsonString + ",";
         }
 
         function copiarCodigo() {
             const codigo = document.getElementById('resultado-json');
             codigo.select();
             document.execCommand('copy');
-            alert("¡Copiado! Ahora pégalo en 'menus.js'.");
+            alert("¡Copiado! Ahora pégalo en menus.js.");
         }
     </script>
 </body>
