@@ -780,7 +780,7 @@ const coleccionMenus = [
     },
 // Pega esto en menus.js dentro de coleccionMenus.push(...)
     {
-        nombre: "Semana 5 (05-02-2026)",
+        nombre: "Semana 6 (05-02-2026)",
         semana: [
             {
                 dia: "Lunes",
