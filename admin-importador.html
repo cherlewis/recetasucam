@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importador Inteligente</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f172a">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen pb-20 transition-colors duration-300">
+
+    <div id="mi-menu-reutilizable"></div>
+
+    <div class="max-w-5xl mx-auto px-4 py-8 mt-20">
+        
+        <h1 class="text-3xl font-bold mb-6 flex items-center gap-2">
+            🤖 Importador de PDF (Texto)
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="space-y-4">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <label class="block text-sm font-bold mb-2 text-blue-600 dark:text-blue-400">PASO 1: Copia y Pega</label>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Abre tu PDF, selecciona todo el texto (Ctrl+A), cópialo y pégalo aquí.</p>
+                    <textarea id="texto-bruto" class="w-full h-96 p-4 text-xs font-mono border rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Pega aquí el texto desordenado del PDF..."></textarea>
+                </div>
+
+                <button onclick="procesarTexto()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg transition transform active:scale-95">
+                    ⚙️ Procesar e Intentar Entender
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-slate-900 text-green-400 p-6 rounded-xl shadow-lg border border-slate-700 relative group h-full flex flex-col">
+                    <label class="block text-sm font-bold mb-2 text-white">PASO 2: Resultado JSON</label>
+                    <textarea id="resultado-json" readonly class="w-full flex-1 bg-transparent border-none outline-none font-mono text-xs resize-none" placeholder="Aquí aparecerá el código mágico..."></textarea>
+                    
+                    <button onclick="copiarCodigo()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded text-xs font-bold transition">
+                        📋 Copiar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="vista-previa" class="mt-8 hidden">
+            <h3 class="text-xl font-bold mb-4">Vista Previa de lo detectado:</h3>
+            <div id="grid-dias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+
+    </div>
+
+    <script src="navbar.js"></script>
+
+    <script>
+        function procesarTexto() {
+            const texto = document.getElementById('texto-bruto').value;
+            if (!texto.trim()) return alert("¡Pega algo de texto primero!");
+
+            // ESTRUCTURA BASE
+            const nuevoMenu = {
+                nombre: "Semana Nueva (Importada)",
+                semana: []
+            };
+
+            const diasSemana = ["LUNES", "MARTES", "MIÉRCOLES", "MIERCOLES", "JUEVES", "VIERNES", "SÁBADO", "SABADO", "DOMINGO"];
+            
+            // 1. DIVIDIR EL TEXTO POR DÍAS
+            // Buscamos la posición de cada día en el texto
+            let indices = [];
+            diasSemana.forEach(dia => {
+                // Regex para buscar "LUNES" ignorando mayus/minus y asegurando que sea palabra completa
+                const regex = new RegExp(`\\b${dia}\\b`, 'gi');
+                let match;
+                while ((match = regex.exec(texto)) !== null) {
+                    indices.push({ dia: match[0].toUpperCase(), index: match.index });
+                }
+            });
+
+            // Ordenamos por aparición en el texto
+            indices.sort((a, b) => a.index - b.index);
+
+            // Si no encuentra días, error
+            if (indices.length === 0) return alert("No encuentro los días de la semana (Lunes, Martes...) en el texto.");
+
+            // 2. EXTRAER EL CONTENIDO DE CADA DÍA
+            for (let i = 0; i < indices.length; i++) {
+                const diaActual = indices[i];
+                const siguienteDia = indices[i + 1];
+                
+                // Cortamos el texto desde este día hasta el siguiente (o hasta el final)
+                const corteInicio = diaActual.index;
+                const corteFin = siguienteDia ? siguienteDia.index : texto.length;
+                
+                const textoDia = texto.substring(corteInicio, corteFin);
+                
+                // Analizar comidas dentro de ese trozo de texto
+                const comidas = analizarComidas(textoDia);
+
+                // Normalizar nombre del día (Quitar tildes para el JSON si quieres)
+                let nombreDia = diaActual.dia.charAt(0) + diaActual.dia.slice(1).toLowerCase();
+
+                nuevoMenu.semana.push({
+                    dia: nombreDia,
+                    comidas: comidas
+                });
+            }
+
+            // 3. GENERAR JSON
+            const jsonFinal = JSON.stringify(nuevoMenu, null, 4);
+            // Quitar comillas de las claves para formato JS
+            const jsonLimpio = jsonFinal.replace(/"(\w+)":/g, '$1:');
+
+            document.getElementById('resultado-json').value = 
+                "// Copia esto dentro de coleccionMenus.push(...) en menus.js\n" + 
+                jsonLimpio + ",";
+
+            // 4. MOSTRAR VISTA PREVIA
+            renderizarVistaPrevia(nuevoMenu);
+        }
+
+        function analizarComidas(texto) {
+            // Esta es la parte difícil: adivinar qué es cada comida.
+            // Estrategia: Buscar palabras clave y coger lo que hay después.
+            
+            const bloque = {
+                segundoDesayuno: ["-"],
+                almuerzo: ["-"],
+                merienda: ["-"],
+                cena: ["-"]
+            };
+
+            // Limpiamos saltos de línea raros
+            const lineas = texto.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+
+            // Palabras clave comunes en menús
+            let modoActual = null; // 'desayuno', 'almuerzo', 'cena'...
+
+            lineas.forEach(linea => {
+                const l = linea.toLowerCase();
+
+                // DETECTORES DE CAMBIO DE COMIDA
+                if (l.includes("desayuno") || l.includes("media mañana")) {
+                    modoActual = 'segundoDesayuno';
+                    bloque.segundoDesayuno = []; // Limpiar el "-" por defecto
+                    return; 
+                }
+                if (l.includes("almuerzo") || l.includes("comida") || l.includes("mediodía")) {
+                    modoActual = 'almuerzo';
+                    bloque.almuerzo = [];
+                    return;
+                }
+                if (l.includes("merienda") || l.includes("tarde")) {
+                    modoActual = 'merienda';
+                    bloque.merienda = [];
+                    return;
+                }
+                if (l.includes("cena") || l.includes("noche")) {
+                    modoActual = 'cena';
+                    bloque.cena = [];
+                    return;
+                }
+
+                // Si estamos en un modo y la línea no es el nombre del día, la guardamos
+                if (modoActual && !diasSemanaIncluido(l)) {
+                    // Evitar guardar basura como "Pág 1" o líneas vacías
+                    if (l.length > 3) {
+                        // Capitalizar primera letra
+                        const platoBonito = linea.charAt(0).toUpperCase() + linea.slice(1).toLowerCase();
+                        bloque[modoActual].push(platoBonito);
+                    }
+                }
+            });
+
+            return bloque;
+        }
+
+        function diasSemanaIncluido(str) {
+            const dias = ["lunes", "martes", "miércoles", "miercoles", "jueves", "viernes", "sábado", "sabado", "domingo"];
+            return dias.some(d => str.includes(d));
+        }
+
+        function renderizarVistaPrevia(menu) {
+            const container = document.getElementById('grid-dias');
+            container.innerHTML = "";
+            document.getElementById('vista-previa').classList.remove('hidden');
+
+            menu.semana.forEach(dia => {
+                const html = `
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded shadow border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-lg mb-2 text-blue-600 dark:text-blue-400 border-b pb-1">${dia.dia}</h4>
+                        <div class="text-xs space-y-2">
+                            <p><strong class="text-slate-500">Desayuno:</strong> ${dia.comidas.segundoDesayuno.join(', ')}</p>
+                            <p><strong class="text-slate-500">Almuerzo:</strong> ${dia.comidas.almuerzo.join(', ')}</p>
+                            <p><strong class="text-slate-500">Merienda:</strong> ${dia.comidas.merienda.join(', ')}</p>
+                            <p><strong class="text-slate-500">Cena:</strong> ${dia.comidas.cena.join(', ')}</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function copiarCodigo() {
+            const codigo = document.getElementById('resultado-json');
+            codigo.select();
+            document.execCommand('copy');
+            alert("¡Copiado! Ahora ve a 'menus.js' y pégalo al final del array.");
+        }
+    </script>
+</body>
+</html>
