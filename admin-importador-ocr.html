@@ -20,16 +20,19 @@
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Inter', sans-serif; }
         
         /* ESTILOS DE LOS SLIDERS CORREGIDOS */
+        /* Se añade 'appearance: none' para cumplir el estándar */
         input[type="range"] {
             -webkit-appearance: none;
             appearance: none; 
             background: transparent; 
         }
 
+        /* Estilo para el "pulgar" (el botón que mueves) en Chrome/Safari */
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -43,12 +46,24 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* Estilo para el riel (la línea de fondo) en Chrome/Safari */
         input[type="range"]::-webkit-slider-runnable-track {
             width: 100%; 
             height: 4px; 
             cursor: pointer; 
             background: #cbd5e1; 
             border-radius: 2px;
+        }
+
+        /* Estilo para Firefox (por compatibilidad) */
+        input[type="range"]::-moz-range-thumb {
+            height: 18px; 
+            width: 18px;
+            border-radius: 50%; 
+            background: #3b82f6; 
+            cursor: pointer; 
+            border: 2px solid white; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .slider-label {
@@ -116,6 +131,12 @@
 
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700 opacity-50 pointer-events-none transition" id="panel-accion">
                     <label class="block text-sm font-bold mb-3 text-green-600">3. Escanear datos</label>
+                    
+                    <div class="flex items-center mb-3">
+                        <input type="checkbox" id="check-mejora" checked class="w-4 h-4 text-blue-600 rounded">
+                        <label for="check-mejora" class="ml-2 text-xs font-bold text-slate-600 dark:text-slate-300">Activar Filtro Nitidez (B/N)</label>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-2 mb-3">
                         <button onclick="escanear('manana')" class="bg-orange-100 hover:bg-orange-200 text-orange-700 py-3 rounded-lg text-xs font-bold transition">
                             ☀️ Mañana<br>(Fila 1 / Fila 2)
@@ -163,13 +184,7 @@
         let canvas = document.getElementById('canvas-editor');
         let ctx = canvas.getContext('2d');
         
-        let cfg = {
-            startX: 12,
-            endX: 98,
-            startY: 5,
-            splitY: 50,
-            endY: 95
-        };
+        let cfg = { startX: 12, endX: 98, startY: 5, splitY: 50, endY: 95 };
         
         let datosFinales = {
             nombre: "Menú Nuevo",
@@ -204,19 +219,16 @@
 
         function dibujar() {
             if (!imgObj.src) return;
-
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(imgObj, 0, 0);
 
             const w = canvas.width;
             const h = canvas.height;
-
             const x1 = (cfg.startX / 100) * w;
             const x2 = (cfg.endX / 100) * w;
             const y1 = (cfg.startY / 100) * h;
             const ySplit = (cfg.splitY / 100) * h;
             const y2 = (cfg.endY / 100) * h;
-
             const anchoUtil = x2 - x1;
             const anchoDia = anchoUtil / 7;
 
@@ -227,20 +239,15 @@
             ctx.fillRect(x1, 0, anchoUtil, y1);
             ctx.fillRect(x1, y2, anchoUtil, h - y2);
 
-            // REJILLA VERDE
+            // REJILLA
             ctx.beginPath();
             ctx.strokeStyle = '#22c55e';
             ctx.lineWidth = 2;
             ctx.rect(x1, y1, anchoUtil, y2 - y1);
-            
-            for(let i=1; i<7; i++) {
-                let dx = x1 + (anchoDia * i);
-                ctx.moveTo(dx, y1);
-                ctx.lineTo(dx, y2);
-            }
+            for(let i=1; i<7; i++) ctx.moveTo(x1 + (anchoDia * i), y1), ctx.lineTo(x1 + (anchoDia * i), y2);
             ctx.stroke();
 
-            // LÍNEA DE CORTE AZUL
+            // CORTE AZUL
             ctx.beginPath();
             ctx.strokeStyle = '#3b82f6';
             ctx.lineWidth = 4;
@@ -248,14 +255,10 @@
             ctx.lineTo(x2, ySplit);
             ctx.stroke();
 
-            // Etiquetas
-            ctx.fillStyle = "white";
-            ctx.font = "bold 20px Arial";
+            // TEXTOS
+            ctx.fillStyle = "white"; ctx.font = "bold 20px Arial";
             ctx.fillText("Fila 1", x1 + 10, y1 + 25);
             ctx.fillText("Fila 2", x1 + 10, ySplit + 25);
-            ctx.fillStyle = "orange";
-            ctx.font = "bold 16px Arial";
-            ctx.fillText("IGNORADO", 10, y1 + 50);
         }
 
         // SLIDERS
@@ -279,11 +282,12 @@
             document.getElementById(id).addEventListener('input', actualizarCfg);
         });
 
-        // ESCANEO
+        // --- MOTOR DE ESCANEO MEJORADO ---
         async function escanear(modo) {
             const box = document.getElementById('progreso-box');
             const txt = document.getElementById('texto-estado');
             const bar = document.getElementById('barra-progreso');
+            const usarFiltro = document.getElementById('check-mejora').checked;
             box.classList.remove('hidden');
 
             const w = canvas.width;
@@ -291,7 +295,6 @@
             const x1 = (cfg.startX / 100) * w;
             const anchoUtil = ((cfg.endX / 100) * w) - x1;
             const anchoDia = anchoUtil / 7;
-            
             const y1 = (cfg.startY / 100) * h;
             const ySplit = (cfg.splitY / 100) * h;
             const y2 = (cfg.endY / 100) * h;
@@ -302,16 +305,14 @@
                 for(let i=0; i<7; i++) {
                     const diaX = x1 + (anchoDia * i);
 
-                    // Fila 1
-                    txt.innerText = `Leyendo Día ${i+1} (Arriba)...`;
+                    txt.innerText = `Mejorando y Leyendo Día ${i+1} (Arriba)...`;
                     bar.style.width = `${((i*2)+1)/14*100}%`;
-                    const txt1 = await leerRecorte(diaX, y1, anchoDia, ySplit - y1);
+                    const txt1 = await leerRecorte(diaX, y1, anchoDia, ySplit - y1, usarFiltro);
                     limpiarYGuardar(i, tipos[0], txt1);
 
-                    // Fila 2
-                    txt.innerText = `Leyendo Día ${i+1} (Abajo)...`;
+                    txt.innerText = `Mejorando y Leyendo Día ${i+1} (Abajo)...`;
                     bar.style.width = `${((i*2)+2)/14*100}%`;
-                    const txt2 = await leerRecorte(diaX, ySplit, anchoDia, y2 - ySplit);
+                    const txt2 = await leerRecorte(diaX, ySplit, anchoDia, y2 - ySplit, usarFiltro);
                     limpiarYGuardar(i, tipos[1], txt2);
                 }
                 
@@ -324,11 +325,32 @@
             }
         }
 
-        async function leerRecorte(x, y, w, h) {
+        async function leerRecorte(x, y, w, h, mejorar) {
             const tmpCv = document.createElement('canvas');
-            tmpCv.width = w; tmpCv.height = h;
             const tCtx = tmpCv.getContext('2d');
-            tCtx.drawImage(imgObj, x, y, w, h, 0, 0, w, h);
+
+            if (mejorar) {
+                // 1. ESCALADO (ZOOM)
+                const scale = 2.5;
+                tmpCv.width = w * scale;
+                tmpCv.height = h * scale;
+                
+                tCtx.drawImage(imgObj, x, y, w, h, 0, 0, w * scale, h * scale);
+                
+                // 2. BINARIZACIÓN
+                const imgData = tCtx.getImageData(0, 0, tmpCv.width, tmpCv.height);
+                const d = imgData.data;
+                for (let i = 0; i < d.length; i += 4) {
+                    const r = d[i], g = d[i+1], b = d[i+2];
+                    const v = (0.2126*r + 0.7152*g + 0.0722*b >= 160) ? 255 : 0;
+                    d[i] = d[i+1] = d[i+2] = v; 
+                }
+                tCtx.putImageData(imgData, 0, 0);
+
+            } else {
+                tmpCv.width = w; tmpCv.height = h;
+                tCtx.drawImage(imgObj, x, y, w, h, 0, 0, w, h);
+            }
             
             const { data: { text } } = await window.Tesseract.recognize(tmpCv.toDataURL('image/jpeg'), 'spa');
             return text;
@@ -337,9 +359,10 @@
         function limpiarYGuardar(diaIndex, tipo, texto) {
             let lineas = texto.split('\n')
                 .map(l => l.trim())
-                .filter(l => l.length > 3)
+                .filter(l => l.length > 2)
                 .filter(l => !l.toLowerCase().includes('comentario'));
             
+            lineas = lineas.map(l => l.replace(/^[|_.,-]+/g, '').trim()); 
             lineas = lineas.map(l => l.charAt(0).toUpperCase() + l.slice(1).toLowerCase());
             
             if(lineas.length === 0) lineas = ["-"];
