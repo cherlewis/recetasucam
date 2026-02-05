@@ -980,5 +980,47 @@ const listaRecetas = [
             "Zanahoria rallada",
             "Encurtidos: alcaparras, tápenas, tallos, pepinillos, cebolletas"
         ]
+    },
+    {
+        id: 612,
+        titulo: "Pasta garbanzos con atún",
+        tiempo: "45",
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "50 gramos de pasta de garbanzos",
+            "1 lata pequeña de atún al natural (50 gr.)",
+            "1 cucharada colmada de queso en polvo (10 gr.)",
+            "1 zanahoria (61 gr.)",
+            "1/2 pimiento verde pequeño (37 gr.)",
+           "1 vaso de salsa de tomate (245 gr.)",
+            "1 cebolla (110 gr.)",
+            "1 diente de ajo (3 gr.)",
+            "1 cucharada de orégano seco (1.8 gr.)",
+            "1 cucharada de perejil picado (3.8 gr.)",
+            "1 cucharadita de sal (6 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)"
+        ],
+        pasos: [
+            "Paso 1: Troceado (El corte perfecto)",
+            "\t1. Pon en el vaso el diente de ajo, la cebolla (en cuartos) y el pimiento verde (en trozos grandes).",
+            "\t2. Programación: 5 segundos / Velocidad 4.",
+            "\t3. Baja los restos de las paredes con la espátula.",
+            "\t4. Añade la zanahoria (en trozos medianos) si quieres picarla, o añádela ya rallada si prefieres esa textura. Si la quieres picar: 2 segundos / Velocidad 5. Voy a meterla rallada y mezclar",
+            "Paso 2: El Sofrito",
+            "1. Añade el aceite de oliva.",
+            "2. Programación: 7 minutos / 120°C (o Varoma en modelos antiguos) / Velocidad Cuchara / Giro Inverso. Si está muy líquido añadir 1-2 minutos más",
+            "3. Nota: No ponemos el cubilete para que evapore el agua de la verdura y se \"fría\" mejor. Puedes poner el cestillo encima para evitar salpicaduras.",
+            "Paso 3: La Salsa",
+            "\t1. Añade la salsa de tomate, el orégano y la sal",
+            "\t2. Programación: 10 minutos / 100°C / Velocidad Cuchara / Giro Inverso.",
+            "\t3. Cuando queden 2 minutos añadir el atún por el bocal",
+            "\t4. Prueba y rectifica de sal/pimienta.",
+            "Paso 4: La Pasta",
+            "Opción A (Recomendada): Hierve la pasta en una olla aparte mientras la Thermomix hace la salsa (siguiendo el paso 1 de la receta tradicional). Es más rápido y controlas mejor la textura de esta pasta tan delicada.",
+            "El Consejo del Chef para esta receta 👨‍🍳",
+            "La pasta de garbanzos es más seca que la normal. Guarda 3 cucharadas del agua de cocción de la pasta antes de escurrirla. Cuando mezcles la pasta con la salsa, añade esa agua. El almidón hará que la salsa se pegue mejor a los garbanzos y quede mucho más cremosa y menos \"pastosa\" en boca."
+        ]
     }
 ];
