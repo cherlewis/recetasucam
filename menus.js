@@ -777,5 +777,74 @@ const coleccionMenus = [
                 }
             }
         ]
+    },
+// Pega esto en menus.js dentro de coleccionMenus.push(...)
+    {
+        nombre: "Semana 5 (05-02-2026)",
+        semana: [
+            {
+                dia: "Lunes",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Gazpacho andaluz (sin pan)", "Salmón al horno", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Ensalada murciana", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Martes",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "14 gr. de mezcla de frutos secos"],
+                    almuerzo: ["Consultar planificación (Ver comentario)"], 
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Ensalada de pasta integral con pollo", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Miércoles",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Ensalada variada de verduras", "Quinoa con gambas", "Fruta rica en vitamina C"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión de manzanilla"],
+                    cena: ["Ensalada con salmón ahumado y queso fresco", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Jueves",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "14 gr. de mezcla de frutos secos"],
+                    almuerzo: ["Ensalada variada de verduras", "Pasta de garbanzos con atún", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Ensalada de atún y queso fresco", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Viernes",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Puré de verduras al gusto", "Sepia a la plancha", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
+                    cena: ["Fajitas con pollo"]
+                }
+            },
+            {
+                dia: "Sábado",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "14 gr. de mezcla de frutos secos"],
+                    almuerzo: ["Caballa al horno con verduras y patatas", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Salteado de verduras", "Hamburguesa a la plancha", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Domingo",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Ensalada variada de verduras", "Tortilla de patata"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
+                    cena: ["Ensalada de pimientos con sardinillas", "1 pieza de fruta (genérico)"]
+                }
+            }
+        ]
     }
 ];
