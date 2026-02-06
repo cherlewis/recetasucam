@@ -422,10 +422,9 @@ const listaRecetas = [
             "3 cucharadas de cebollino picado (9 gr.)"
         ],
         pasos: [
-            "Para elaborarla, su base (es decir, la ensalada mezclum), deberá lavarse y colocarse en un",
-            "bol o plato grandes. Luego, procederemos a preparar las verduras, para lo que emplearemos",
-            "una tabla de cortar y cortaremos los tomates cherrys por la mitad una vez hayan sido lavados, y las zanahorias babys también se pueden cortar en rodajas finas para que se integren mejor en esta ensalada, después de añadirlas al mezclum, sacaremos el salmón ahumado de su envase y cortaremos las lonchas grandes en tiras más pequeñas, distribuyéndolo así de forma homogénea con el resto de la ensalada, después añadiremos el",
-            "queso cottage con una cuchara en pequeños montones alrededor de la ensalada, y antes de servirla, la aliñaremos con especias al gusto, la cantidad de cebollino que veamos conveniente y una cucharada de aceite de oliva, también se le puede añadir pimienta negra e incluso limón o más cebollino para que así tenga mayor sabor."
+            "Para elaborarla, su base (es decir, la ensalada mezclum), deberá lavarse y colocarse en un bol o plato grandes.",
+            "Luego, procederemos a preparar las verduras, para lo que emplearemos una tabla de cortar y cortaremos los tomates cherrys por la mitad una vez hayan sido lavados, y las zanahorias babys también se pueden cortar en rodajas finas para que se integren mejor en esta ensalada, después de añadirlas al mezclum, sacaremos el salmón ahumado de su envase y cortaremos las lonchas grandes en tiras más pequeñas, distribuyéndolo así de forma homogénea con el resto de la ensalada.",
+            "Después añadiremos el queso cottage con una cuchara en pequeños montones alrededor de la ensalada, y antes de servirla, la aliñaremos con especias al gusto, la cantidad de cebollino que veamos conveniente y una cucharada de aceite de oliva, también se le puede añadir pimienta negra e incluso limón o más cebollino para que así tenga mayor sabor."
         ]
     },
     {
