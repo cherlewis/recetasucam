@@ -994,7 +994,7 @@ const listaRecetas = [
             "1 cucharada colmada de queso en polvo (10 gr.)",
             "1 zanahoria (61 gr.)",
             "1/2 pimiento verde pequeño (37 gr.)",
-           "1 vaso de salsa de tomate (245 gr.)",
+            "1 vaso de salsa de tomate (245 gr.)",
             "1 cebolla (110 gr.)",
             "1 diente de ajo (3 gr.)",
             "1 cucharada de orégano seco (1.8 gr.)",
@@ -1021,6 +1021,38 @@ const listaRecetas = [
             "Opción A (Recomendada): Hierve la pasta en una olla aparte mientras la Thermomix hace la salsa (siguiendo el paso 1 de la receta tradicional). Es más rápido y controlas mejor la textura de esta pasta tan delicada.",
             "El Consejo del Chef para esta receta 👨‍🍳",
             "La pasta de garbanzos es más seca que la normal. Guarda 3 cucharadas del agua de cocción de la pasta antes de escurrirla. Cuando mezcles la pasta con la salsa, añade esa agua. El almidón hará que la salsa se pegue mejor a los garbanzos y quede mucho más cremosa y menos \"pastosa\" en boca."
+        ]
+    },
+    {
+        id: 613,
+        titulo: "Fajitas de pollo",
+        tiempo: "30",
+        categoria: [
+            "Almuerzo",
+            "Cena"
+        ],
+        ingredientes: [
+            "2 Tortillas de trigo de tortilla de trigo integral hacendado (72 gr.)",
+            "140 gramos de pechuga de pollo",
+            "30 gramos de pimiento rojo",
+            "30 gramos de pimiento verde",
+            "30 gramos de pimiento amarillo",
+            "30 gramos de cebolla",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "2 lonchas de queso light tierno 0% (50 gr.)"
+        ],
+        pasos: [
+            "Cortar el pollo en tiras y salpimentar. Añadir las especias al gusto.",
+            "Lavar y cortar los pimientos y la cebolla en tiras finas.",
+            "En una sartén caliente con un poco de aceite, saltear el pollo hasta que esté dorado y hecho",
+            "por dentro. Retirar.",
+            "En la misma sartén, añadir los pimientos (y la cebolla, si se usa) y saltear a fuego medio-alto",
+            "hasta que estén tiernos pero aún crujientes.",
+            "MÁS FACIL: usa la fritada de pisto de hacendado",
+            "Incorporar de nuevo el pollo a la sartén, mezclar bien con las verduras y ajustar de especias.",
+            "Calentar las tortillas en una sartén limpia o al microondas unos segundos.",
+            "Rellenar las tortillas con la mezcla de pollo y pimientos, puedes añadir un poco de sazonador",
+            "o gratinar queso light"
         ]
     }
 ];
