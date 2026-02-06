@@ -782,11 +782,11 @@ const coleccionMenus = [
     {
         nombre: "Semana 6 (05-02-2026)",
         objetivo: [
-            "- Para mantener / no perder nuestra masa muscular necesitamos un buen estímulo (entrenamiento de fuerza) y una correcta ingesta de proteínas, en función de nuestras necesidades.",
-            "- DEPORTE + ALIMENTACIÓN",
-            "- No basta con estar sentados todo el día y salir a entrenar 2 veces a la semana 1 hora.",
-            "- Mantente activa, sube y baja escaleras, camina a paso ligero e intenta entrenar fuerza aunque sea media hora pero con más frecuencia.",
-            "- Asegura las cantidades de proteínas que te indico (carne, pescado, huevo, queso)",
+            "Para mantener / no perder nuestra masa muscular necesitamos un buen estímulo (entrenamiento de fuerza) y una correcta ingesta de proteínas, en función de nuestras necesidades.",
+            "DEPORTE + ALIMENTACIÓN",
+            "No basta con estar sentados todo el día y salir a entrenar 2 veces a la semana 1 hora.",
+            "Mantente activa, sube y baja escaleras, camina a paso ligero e intenta entrenar fuerza aunque sea media hora pero con más frecuencia.",
+            "Asegura las cantidades de proteínas que te indico (carne, pescado, huevo, queso)",
             "NOTA: Almuerzo Martes: Si la comida del cole te gusta y comes normal, no tomes la pasta de la ensalada de por la noche, haz una ensalada con pechuga de pollo el resto de ingredientes."
         ],
         semana: [
