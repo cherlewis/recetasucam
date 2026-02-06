@@ -95,23 +95,17 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
+        imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
         ingredientes: [
-            "150 gramos de ensalada mezclum",
-            "1 tomate pera (62 gr.)",
-            "1 cucharadita de aceite de oliva (4.5 gr.)"
+            "1 Vasito arroz integral",
+            "1 Huevo",
+            "Aceite De Oliva",
+            "Sal"
         ],
         pasos: [
             "Elabora una ensalada variada a tu gusto.",
-            "Ingredientes (elige al gusto):",
             "Base: lechuga, espinaca fresca, rúcula, canónigos o mezcla de brotes tiernos.",
-            "Verduras frescas: tomate, pepino, zanahoria o remolacha rallada, pimiento rojo/verde/amarillo, cebolla, rabanitos, apio.",
-            "Hortalizas cocidas (opcional): judías verdes, brócoli, coliflor, espárragos, remolacha cocida, calabacín a la plancha, berenjena asada.",
-            "Extras vegetales: maíz dulce, champiñones frescos, aguacate, brotes germinados, aceitunas, alcaparras.",
-            "Alíñala al gusto con:",
-            "Aceite de oliva virgen o virgen extra",
-            "Vinagre o limón",
-            "Sal y especias/ hierbas aromáticas",
-            "Comentarios: Hazlo fácil. Puedes utilizar ensaladas de bolsa ya lavadas y cortadas."
+            "Añadir el chorizo y dejar cocinar a fuego lento 30 min."
         ]
     },
     {
@@ -224,23 +218,23 @@ const listaRecetas = [
     },
     {
         id: 202,
-        titulo: "Gazpacho andaluz",
+        titulo: "Gazpacho andaluz (sin pan)",
         tiempo: "15 min",
         categoria: [
             "Almuerzo",
             "Entrante"
         ],
-        imagen: "https://images.unsplash.com/photo-1594966635294-8451c8909477?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "2 tomates maduros",
             "1/3 pimiento verde",
             "1/3 pepino",
-            "Ajo, aceite, vinagre y sal"
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "1/2 cucharada de vinagre de vino (7.5 gr.)",
+            "1 pizca de sal (0.4 gr.)"
         ],
         pasos: [
-            "Pelar tomates (escaldar si es necesario).",
-            "Triturar todo en batidora hasta que quede fino.",
-            "Servir bien frío."
+            "Pelar los tomates, se pueden escaldar (hervir unos segundos) previamente para que sea más fácil.",
+            "Triturar con el resto de ingredientes."
         ]
     },
     {
@@ -419,17 +413,21 @@ const listaRecetas = [
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "Mezclum",
-            "Salmón ahumado",
-            "Queso cottage",
-            "Zanahoria baby y cherrys"
+            "150 gramos de ensalada mezclum",
+            "1 porción de queso cottage (113 gr.)",
+            "4 lonchas de salmón ahumado (68 gr.)",
+            "5 zanahorias baby (50 gr.)",
+            "6 tomates cherry (90 gr.)",
+            "1 cucharada mediana de",
+            "aceite de oliva (10 gr.)",
+            "3 cucharadas de cebollino picado (9 gr.)"
         ],
         pasos: [
-            "Disponer ensalada y verduras.",
-            "Añadir tiras de salmón y montoncitos de queso.",
-            "Aliñar con cebollino y aceite."
+            "Para elaborarla, su base (es decir, la ensalada mezclum), deberá lavarse y colocarse en un",
+            "bol o plato grandes. Luego, procederemos a preparar las verduras, para lo que emplearemos",
+            "una tabla de cortar y cortaremos los tomates cherrys por la mitad una vez hayan sido lavados, y las zanahorias babys también se pueden cortar en rodajas finas para que se integren mejor en esta ensalada, después de añadirlas al mezclum, sacaremos el salmón ahumado de su envase y cortaremos las lonchas grandes en tiras más pequeñas, distribuyéndolo así de forma homogénea con el resto de la ensalada, después añadiremos el",
+            "queso cottage con una cuchara en pequeños montones alrededor de la ensalada, y antes de servirla, la aliñaremos con especias al gusto, la cantidad de cebollino que veamos conveniente y una cucharada de aceite de oliva, también se le puede añadir pimienta negra e incluso limón o más cebollino para que así tenga mayor sabor."
         ]
     },
     {
@@ -505,6 +503,21 @@ const listaRecetas = [
         pasos: [
             "Plancha: 2-3 min por lado.",
             "Servir con limón o ajo/perejil."
+        ]
+    },
+    {
+        id: 401,
+        titulo: "Ensalada variada de verduras",
+        tiempo: "5 min",
+        categoria: [
+            "Guarnición"
+        ],
+        imagen: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+        ingredientes: [
+            "Lechuga, tomate, pepino, maíz... al gusto"
+        ],
+        pasos: [
+            "Mezclar ingredientes y aliñar."
         ]
     },
     {
@@ -680,7 +693,8 @@ const listaRecetas = [
             "20 gramos de puerro",
             "40 gramos de calabacín",
             "20 gramos de zanahorias",
-            "1 cucharadita de aceite de oliva (4.5 gr.)"
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "200 gramos de agua"
         ],
         pasos: [
             "ELIGE LAS VERDURAS QUE TE GUSTEN Y TENGAS DISPONIBLES.",
@@ -690,7 +704,16 @@ const listaRecetas = [
             "Cocer a fuego medio durante 20 minutos, hasta que las verduras estén tiernas.",
             "Triturar con batidora hasta obtener una textura cremosa y homogénea.",
             "Ajustar de sal, pimienta y especias al gusto.",
-            "Servir caliente, con un chorrito de aceite de oliva o semillas por encima (opcional)."
+            "Servir caliente, con un chorrito de aceite de oliva o semillas por encima (opcional).",
+            "Receta en Thermomix:",
+            "- Troceado",
+            "Pon en el vaso la zanahoria, calabacín, patata, puerro y cebolla. Programar: 5 segundos / Velocidad 4. Baja los restos de las paredes con la espátula.",
+            "- Cocción",
+            "Añade el agua (unos 200 g). Programar: 20 minutos / 100°C / Velocidad 1.",
+            "- Triturado",
+            "Espera a que baje un poco la temperatura. Programar: 30 segundos / Velocidad progresiva 5-10. Comprueba la textura. Si te gusta más líquido, añade un poco más de agua y mezcla 10 segundos más.",
+            "- Servir. Sirve en dos boles y reparte el aceite de oliva en crudo (una cucharadita por ración) justo antes de comer.",
+            "He echado 500 gramos de agua, sale muy líquida, la próxima vez echar 400"
         ]
     },
     {
@@ -1161,5 +1184,149 @@ const listaRecetas = [
             "100 gramos de leche de soja sin edulcorar (enriquecida)"
         ],
         pasos: []
+    },
+    {
+        id: 619,
+        titulo: "Salmón al horno",
+        tiempo: "40",
+        categoria: [
+            "Almuerzo",
+            "Cena"
+        ],
+        ingredientes: [
+            "150 gramos de salmón fresco",
+            "1 cucharada mediana de aceite de oliva (10 gr.)"
+        ],
+        pasos: [
+            "Precalienta el horno.",
+            "Cuando haya alcanzado 180 grados, mete los filetes del pescado ya sazonado y añádele un chorrito de AOVE por encima. Déjalo hasta que se dore, aproximadamente 20 minutos (dependiendo del tamaño del filete)."
+        ]
+    },
+    {
+        id: 620,
+        titulo: "Fruta rica en vitamina C",
+        tiempo: "5",
+        categoria: [
+            "Almuerzo",
+            "Merienda",
+            "Cena"
+        ],
+        ingredientes: [
+            "1 pieza de fruta (genérico) (150 gr.)",
+            "Naranja y mandarina",
+            "Kiwi",
+            "Fresas",
+            "Piña",
+            "Papaya",
+            "Mango"
+        ],
+        pasos: [
+            "Cuando consumimos legumbres (lentejas, garbanzos, alubias…), aportamos hierro de origen",
+            "vegetal.",
+            "Sin embargo, este hierro no se absorbe con tanta facilidad como el hierro de origen animal.",
+            "Para mejorar su aprovechamiento, un truco sencillo y eficaz es acompañar el plato con una fruta rica en vitamina C.",
+            "La vitamina C actúa como un potenciador natural de la absorción de hierro.",
+            "Entre las frutas más ricas en vitamina C destacan:",
+            "Naranja y mandarina",
+            "Kiwi",
+            "Fresas",
+            "Piña",
+            "Papaya",
+            "Mango",
+            "Frutas del bosque (moras, arándanos, frambuesas)",
+            "** Evita consumir yogures, leche, queso o café después de consumir legumbres ya que",
+            "dificulta la absorción de hierro."
+        ]
+    },
+    {
+        id: 621,
+        titulo: "Sandwich al gusto",
+        tiempo: "",
+        categoria: [
+            "Segundo Desayuno"
+        ],
+        ingredientes: [
+            "2 rebanadas de pan de molde (54 gr.)",
+            "50 gramos de jamón cocido (jamón york)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Dos rebanadas de pan de molde integral y elige 1 opción de proteina:",
+            "Lomo embuchado 30–35 g",
+            "Jamón serrano 35–40 g",
+            "Queso en lonchas (tierno/semicurado) 45–50 g",
+            "Atún al natural (escurrido) 1 lata",
+            "Jamón cocido extra 50–55 g",
+            "Añade aceite de oliva virgen o virgen extra.",
+            "Opcional: puedes añadir tomate, aguacate, lechuga, pimiento"
+        ]
+    },
+    {
+        id: 622,
+        titulo: "Salteado de verduras",
+        tiempo: "15",
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "60 gramos de calabacín",
+            "50 gramos de pimiento rojo",
+            "50 gramos de champiñones blancos",
+            "40 gramos de cebolla",
+            "50 gramos de brócoli",
+            "1 cucharada mediana de aceite de oliva (10 gr.)",
+            "1 cucharadita de pimienta negra molida (0.8 gr.)",
+            "1 pizca de sal (0.4 gr.)"
+        ],
+        pasos: [
+            "Cortar todos los ingredientes en trozos grandes.",
+            "Se agrega el aceite a la sartén y todos los ingredientes juntos.",
+            "Se saltea todo junto hasta que los ingredientes logren una textura cocida media (aprox. por 10-15 minutos a fuego medio)."
+        ]
+    },
+    {
+        id: 623,
+        titulo: "Hamburguesa a la plancha",
+        tiempo: "20",
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "1 hamburguesa de carne blanca (113 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Condimentos y acompañamientos opcionales (sin pan):",
+            "Verduras frescas: rodajas de tomate, lechuga, rúcula, cebolla, pepino.",
+            "Verduras cocinadas: cebolla caramelizada, champiñones salteados, pimientos asados,",
+            "calabacín o berenjena a la plancha.",
+            "Quesos: loncha de queso, mozzarella, queso curado rallado.",
+            "Salsas caseras o ligeras: cucharada de ketchup o mayonesa light, mostaza o guacamole"
+        ]
+    },
+    {
+        id: 624,
+        titulo: "Ensalada de pimientos con sardinillas",
+        tiempo: "10",
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "150 gramos de pimiento rojo (pimientos rojos asados EN CONSERVA)",
+            "1 lata de sardinas con aceite (peso escurrido) (80",
+            "gr.)",
+            "4 aros de cebolla (72 gr.)",
+            "3 aceitunas (11.7 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "1/2 diente de ajo (1.5 gr.)"
+        ],
+        pasos: [
+            "Cortar los pimientos asados en tiras y colocarlos en un bol o plato.",
+            "Puedes usar pimientos rojos asados EN CONSERVA.",
+            "Escurrir bien el aceite de las sardinillas. Puedes utilizar papel de cocina para secarlas bien.",
+            "Añadir las sardinillas por encima, enteras o en trozos.",
+            "Aliñar con aceite de oliva virgen o virgen extra, ajo picado (si se desea), sal y pimienta.",
+            "Servir a temperatura ambiente o ligeramente fresca."
+        ]
     }
 ];
