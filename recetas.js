@@ -406,7 +406,7 @@ const listaRecetas = [
     },
     {
         id: 303,
-        titulo: "Ensalada con salmón ahumado",
+        titulo: "Ensalada con salmón ahumado y queso fresco",
         tiempo: "10 min",
         categoria: [
             "Cena"
