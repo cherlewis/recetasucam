@@ -288,16 +288,14 @@ const listaRecetas = [
     {
         id: 205,
         titulo: "Salmón al horno",
-        tiempo: "30 min",
+        tiempo: "30",
         categoria: [
             "Almuerzo",
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "150g salmón fresco",
-            "Aceite de oliva",
-            "Especias al gusto"
+            "150 gramos de salmón fresco",
+            "1 cucharada mediana de aceite de oliva (10 gr.)"
         ],
         pasos: [
             "Precalentar horno 180ºC.",
@@ -1184,23 +1182,6 @@ const listaRecetas = [
             "100 gramos de leche de soja sin edulcorar (enriquecida)"
         ],
         pasos: []
-    },
-    {
-        id: 619,
-        titulo: "Salmón al horno",
-        tiempo: "40",
-        categoria: [
-            "Almuerzo",
-            "Cena"
-        ],
-        ingredientes: [
-            "150 gramos de salmón fresco",
-            "1 cucharada mediana de aceite de oliva (10 gr.)"
-        ],
-        pasos: [
-            "Precalienta el horno.",
-            "Cuando haya alcanzado 180 grados, mete los filetes del pescado ya sazonado y añádele un chorrito de AOVE por encima. Déjalo hasta que se dore, aproximadamente 20 minutos (dependiendo del tamaño del filete)."
-        ]
     },
     {
         id: 620,
