@@ -1025,7 +1025,7 @@ const listaRecetas = [
     },
     {
         id: 613,
-        titulo: "Fajitas de pollo",
+        titulo: "Fajitas con pollo",
         tiempo: "30",
         categoria: [
             "Almuerzo",
