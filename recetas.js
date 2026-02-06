@@ -1138,8 +1138,7 @@ const listaRecetas = [
         ],
         pasos: [
             "Cocer la pasta integral en abundante agua con sal, escurrir y dejar enfriar.",
-            "Cocinar la pechuga de pollo a la plancha con un poco de sal y pimienta cortarla en dados o",
-            "tiras.",
+            "Cocinar la pechuga de pollo a la plancha con un poco de sal y pimienta cortarla en dados o tiras.",
             "Lavar y preparar las verduras.",
             "En un bol grande, mezclar la pasta, el pollo y las verduras.",
             "Aliñar con la salsa de yogur justo antes de servir."
