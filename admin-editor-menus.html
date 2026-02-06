@@ -27,7 +27,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-slate-800 dark:text-white">📝 Editor de Menús</h1>
-                <p class="text-slate-500 dark:text-slate-400">Modifica los platos de la semana y guarda los cambios.</p>
+                <p class="text-slate-500 dark:text-slate-400">Modifica los platos y objetivos de la semana.</p>
             </div>
             <button onclick="descargarArchivo()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-xl transition shadow-lg flex items-center gap-2 w-full md:w-auto justify-center">
                 💾 Guardar cambios (Descargar)
@@ -40,6 +40,24 @@
             </select>
         </div>
 
+        <div class="mb-8 bg-blue-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-blue-100 dark:border-slate-700 transition-colors relative">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="text-2xl">🎯</span>
+                <label class="block text-sm font-bold text-blue-800 dark:text-blue-300 uppercase">Objetivos de esta semana</label>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Escribe cada objetivo en una línea nueva. Se mostrarán como una lista en el Plan Semanal.</p>
+            
+            <textarea 
+                id="input-objetivos" 
+                oninput="actualizarObjetivos(this.value)"
+                class="w-full p-4 border rounded-xl min-h-[100px] outline-none transition-colors
+                       bg-white dark:bg-slate-700 
+                       text-slate-800 dark:text-white
+                       border-blue-200 dark:border-slate-600
+                       focus:ring-2 focus:ring-blue-400 placeholder:text-slate-300 dark:placeholder:text-slate-500"
+                placeholder="Ej: Beber 2L de agua&#10;Caminar 30 min&#10;Dormir 8 horas..."
+            ></textarea>
+        </div>
         <div id="contenedor-dias" class="grid grid-cols-1 xl:grid-cols-2 gap-8">
             </div>
 
@@ -51,6 +69,7 @@
     <script>
         // Referencias globales
         let datosGlobales = []; 
+        let indiceActual = 0; // Guardamos el índice globalmente
         
         // Al iniciar
         window.onload = function() {
@@ -78,9 +97,24 @@
         }
 
         function cargarSemana() {
-            const index = document.getElementById('selector-semana').value;
-            const menuActual = datosGlobales[index];
+            indiceActual = document.getElementById('selector-semana').value;
+            const menuActual = datosGlobales[indiceActual];
             const contenedor = document.getElementById('contenedor-dias');
+            
+            // 1. CARGAR OBJETIVOS EN EL NUEVO TEXTAREA
+            const cajaObjetivos = document.getElementById('input-objetivos');
+            if (menuActual.objetivo) {
+                // Si es array lo unimos con saltos de linea, si es string lo dejamos tal cual
+                if(Array.isArray(menuActual.objetivo)) {
+                    cajaObjetivos.value = menuActual.objetivo.join('\n');
+                } else {
+                    cajaObjetivos.value = menuActual.objetivo;
+                }
+            } else {
+                cajaObjetivos.value = "";
+            }
+
+            // 2. CARGAR DÍAS
             contenedor.innerHTML = "";
 
             menuActual.semana.forEach((diaObj, diaIndex) => {
@@ -89,15 +123,22 @@
                     <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-700 pb-2 capitalize">${diaObj.dia}</h3>
                     
                     <div class="space-y-4">
-                        ${crearInput(index, diaIndex, 'segundoDesayuno', 'Segundo Desayuno', diaObj.comidas.segundoDesayuno)}
-                        ${crearInput(index, diaIndex, 'almuerzo', 'Almuerzo', diaObj.comidas.almuerzo)}
-                        ${crearInput(index, diaIndex, 'merienda', 'Merienda', diaObj.comidas.merienda)}
-                        ${crearInput(index, diaIndex, 'cena', 'Cena', diaObj.comidas.cena)}
+                        ${crearInput(indiceActual, diaIndex, 'segundoDesayuno', 'Segundo Desayuno', diaObj.comidas.segundoDesayuno)}
+                        ${crearInput(indiceActual, diaIndex, 'almuerzo', 'Almuerzo', diaObj.comidas.almuerzo)}
+                        ${crearInput(indiceActual, diaIndex, 'merienda', 'Merienda', diaObj.comidas.merienda)}
+                        ${crearInput(indiceActual, diaIndex, 'cena', 'Cena', diaObj.comidas.cena)}
                     </div>
                 </div>
                 `;
                 contenedor.innerHTML += htmlDia;
             });
+        }
+
+        // NUEVA FUNCIÓN PARA GUARDAR OBJETIVOS
+        function actualizarObjetivos(valorTexto) {
+            // Convertimos el texto del textarea en un Array separado por líneas
+            const listaObjetivos = valorTexto.split('\n').filter(linea => linea.trim() !== "");
+            datosGlobales[indiceActual].objetivo = listaObjetivos;
         }
 
         function crearInput(menuIdx, diaIdx, tipoComida, label, valores) {
