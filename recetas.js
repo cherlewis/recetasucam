@@ -95,17 +95,23 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
         ingredientes: [
-            "1 Vasito arroz integral",
-            "1 Huevo",
-            "Aceite De Oliva",
-            "Sal"
+            "150 gramos de ensalada mezclum",
+            "1 tomate pera (62 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
             "Elabora una ensalada variada a tu gusto.",
+            "Ingredientes (elige al gusto):",
             "Base: lechuga, espinaca fresca, rúcula, canónigos o mezcla de brotes tiernos.",
-            "Añadir el chorizo y dejar cocinar a fuego lento 30 min."
+            "Verduras frescas: tomate, pepino, zanahoria o remolacha rallada, pimiento rojo/verde/amarillo, cebolla, rabanitos, apio.",
+            "Hortalizas cocidas (opcional): judías verdes, brócoli, coliflor, espárragos, remolacha cocida, calabacín a la plancha, berenjena asada.",
+            "Extras vegetales: maíz dulce, champiñones frescos, aguacate, brotes germinados, aceitunas, alcaparras.",
+            "Alíñala al gusto con:",
+            "Aceite de oliva virgen o virgen extra",
+            "Vinagre o limón",
+            "Sal y especias/ hierbas aromáticas",
+            "Comentarios: Hazlo fácil. Puedes utilizar ensaladas de bolsa ya lavadas y cortadas."
         ]
     },
     {
@@ -499,21 +505,6 @@ const listaRecetas = [
         pasos: [
             "Plancha: 2-3 min por lado.",
             "Servir con limón o ajo/perejil."
-        ]
-    },
-    {
-        id: 401,
-        titulo: "Ensalada variada de verduras",
-        tiempo: "5 min",
-        categoria: [
-            "Guarnición"
-        ],
-        imagen: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
-        ingredientes: [
-            "Lechuga, tomate, pepino, maíz... al gusto"
-        ],
-        pasos: [
-            "Mezclar ingredientes y aliñar."
         ]
     },
     {
