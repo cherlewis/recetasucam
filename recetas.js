@@ -1054,5 +1054,121 @@ const listaRecetas = [
             "Rellenar las tortillas con la mezcla de pollo y pimientos, puedes añadir un poco de sazonador",
             "o gratinar queso light"
         ]
+    },
+    {
+        id: 614,
+        titulo: "Sepia a la plancha",
+        tiempo: "30",
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "150 gramos de sepia",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Lavar y secar bien la sepia con papel de cocina.",
+            "Calentar una plancha o sartén antiadherente a fuego alto con unas gotas de aceite.",
+            "Cocinar la sepia 2–3 minutos por cada lado, hasta que esté dorada por fuera y tierna por dentro.",
+            "Servir caliente y añadir el aliño elegido.",
+            "Opciones de aliño y condimentos:",
+            "Clásico mediterráneo: ajo picado, perejil fresco y un chorrito de limón.",
+            "Especiado suave: orégano, tomillo o albahaca seca con un poco de pimienta negra.",
+            "Toque ahumado: pimentón dulce o picante y un hilo de aceite de oliva virgen extra.",
+            "Estilo cítrico: ralladura y zumo de limón o lima con cilantro fresco.",
+            "Oriental: salsa de soja ligera, jengibre rallado y semillas de sésamo.",
+            "Picante: guindilla fresca o cayena molida junto con ajo y perejil."
+        ]
+    },
+    {
+        id: 615,
+        titulo: "Caballa al horno con verduras y patatas",
+        tiempo: "",
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "140 gramos de caballa fresca",
+            "100 gramos de patatas (peladas)",
+            "1 pimiento verde pequeño (74 gr.)",
+            "2 aros de cebolla (36 gr.)",
+            "1 tomate pera (62 gr.)",
+            "1 diente de ajo (3 gr.)",
+            "1 cucharada de perejil picado (3.8 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)",
+            "1 pizca de sal (0.4 gr.)",
+            "2 rodajas de limón (14 gr.)"
+        ],
+        pasos: [
+            "Limpia las vísceras de la caballa o pide en la pescadería que lo hagan por ti.",
+            "Pela las patatas en rodajas de medio centímetro.",
+            "Cortar la cebolla en rodajas, cortar los pimientos en rodajas.",
+            "Hacer una picada con los ajos, perejil y aceite de oliva.",
+            "En una bandeja de horno, echar un poco de aceite en la base para que no se pegue, colocar las patatas, espolvorear sal y colocar encima los pimientos, las cebollas y los tomates en rodajas (bien lavados).",
+            "Espolvorear un poco más de sal, echar unas cucharadas de la mezcla anterior y meter en el horno. Dejar que se cocine la guarnición durante 30 min 200 grados arriba y abajo.",
+            "Una vez que la verdura haya dorado, corta unas rodajas de limón, mételas dentro de la caballa y coloca el pescado sobre la guarnición horneada. Deja que se cocine la dorada hasta que se le pongan los ojos blancos unos 20 min 180 grados."
+        ]
+    },
+    {
+        id: 616,
+        titulo: "Ensalada de pasta integral con pollo",
+        tiempo: "30",
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "60 gramos de pasta integral",
+            "140 gramos de pechuga de pollo",
+            "40 gramos de tomate",
+            "20 gramos de zanahorias, en conserva",
+            "15 gramos de maíz dulce en conserva (maíz amarillo)",
+            "2 Cucharadas de salsa de yogurt hacendado (30 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Cocer la pasta integral en abundante agua con sal, escurrir y dejar enfriar.",
+            "Cocinar la pechuga de pollo a la plancha con un poco de sal y pimienta cortarla en dados o",
+            "tiras.",
+            "Lavar y preparar las verduras.",
+            "En un bol grande, mezclar la pasta, el pollo y las verduras.",
+            "Aliñar con la salsa de yogur justo antes de servir."
+        ]
+    },
+    {
+        id: 617,
+        titulo: "Ensalada murciana",
+        tiempo: "30",
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "2 tomates (246 gr.)",
+            "2 huevos duros (100 gr.)",
+            "1/2 cebolleta pequeña (2.5 gr.)",
+            "2 cucharadas de aceitunas (16.8 gr.)",
+            "1 lata pequeña de atún al natural (50 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)",
+            "1 pizca de sal (0.4 gr.)"
+        ],
+        pasos: [
+            "Pon a cocer el huevo en agua hirviendo durante 10 minutos para que quede duro. Enfríalo con agua fría y pélalo.",
+            "Pela la media cebolleta y córtala en juliana (tiras finitas).",
+            "Saca los tomates enteros de la lata y trocéalo a tamaño mediano.",
+            "Escurre el atún del jugo de la lata.",
+            "En un plato o bol mezcla todos los ingredientes incluidos el aceite y la sal. Listo para comer"
+        ]
+    },
+    {
+        id: 618,
+        titulo: "Batido de proteína con bebida vegetal",
+        tiempo: "20",
+        categoria: [
+            "Merienda"
+        ],
+        ingredientes: [
+            "1 scoop de aislado de proteína de suero de leche, 80% whey neutra (30 gr.)",
+            "100 gramos de leche de soja sin edulcorar (enriquecida)"
+        ],
+        pasos: []
     }
 ];
