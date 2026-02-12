@@ -26,41 +26,6 @@ const listaRecetas = [
         ]
     },
     {
-        id: 2,
-        titulo: "Pasta Carbonara",
-        tiempo: "15 min",
-        categoria: [
-            "Almuerzo"
-        ],
-        imagen: "https://images.unsplash.com/photo-1612874742237-6526221588e3",
-        ingredientes: [
-            "Pasta",
-            "Huevo",
-            "Guanciale",
-            "Pimienta"
-        ],
-        pasos: [
-            "Poner las lentejas en remojo la noche anterior.",
-            "Cocer las lentejas con las verduras troceadas.",
-            "Añadir el chorizo y dejar cocinar a fuego lento 30 min."
-        ]
-    },
-    {
-        id: 3,
-        titulo: "Tostada de Aguacate",
-        tiempo: "5 min",
-        categoria: [
-            "Desayuno"
-        ],
-        imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
-        ingredientes: [
-            "Pan",
-            "Aguacate",
-            "Aceite",
-            "Sal"
-        ]
-    },
-    {
         id: 4,
         titulo: "Arroz salteado estilo chino",
         tiempo: "10 min",
@@ -209,18 +174,23 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "60g hélices de lenteja roja",
-            "50g cebolla y 50g zanahoria",
-            "1 lata de atún (o carne picada pollo según receta)",
-            "60g salsa de tomate"
+            "60 gramos de hélices de lenteja roja",
+            "50 gramos de cebolla",
+            "50 gramos de zanahorias",
+            "2 gramos de ajo",
+            "1 cucharada de aceite de oliva (13 gr.)",
+            "1 cucharadita de orégano seco (1 gr.)",
+            "80 gramos de carne picada de pollo",
+            "60 gramos de salsa de tomate en conserva"
         ],
         pasos: [
-            "Cocer la pasta según fabricante.",
-            "Sofreír cebolla, ajo y zanahoria.",
-            "Añadir atún/pollo y tomate. Cocinar 10 min.",
-            "Mezclar con la pasta."
+            "Cocer la pasta de lentejas rojas en abundante agua siguiendo las instrucciones del envase.",
+            "Escurrir y reservar.",
+            "En una sartén con aceite de oliva, sofreír la cebolla, el ajo y la zanahoria picados finamente.",
+            "Añadir el atún escurrido, salpimentar y cocinar.",
+            "Incorporar el tomate triturado y las especias, y dejar cocinar a fuego medio 10–15 minutos.",
+            "Servir la pasta y cubrir con la salsa boloñesa"
         ]
     },
     {
@@ -252,17 +222,37 @@ const listaRecetas = [
             "Almuerzo",
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1662486989736-d8df98056262?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "2 huevos pequeños",
-            "1 patata pequeña (170g)",
-            "1/2 cebolla",
-            "Aceite de oliva"
+            "3 huevos pequeños (150 gr.)",
+            "1 patata pequeña (170 gr.)",
+            "1/2 cebolla pequeña (35 gr.)",
+            "1 cucharadita de sal (6 gr.)",
+            "La cantidad de aceite necesaria para realizar la fritura. Preferiblemente de oliva."
         ],
         pasos: [
-            "Pochar patata y cebolla en aceite hasta que estén tiernas.",
-            "Batir huevos. Escurrir patatas del aceite y mezclar.",
-            "Cuajar en sartén por ambos lados al gusto."
+            "Necesitamos:",
+            "- Sartén.",
+            "- Tabla de cortar.",
+            "- Cuchillo.",
+            "- Pelador.",
+            "- Varilla o tenedor para batir.",
+            "- Cuchara o paleta de cocina.",
+            "- Escurridor o colador.",
+            "- Bol.",
+            "- Tapa o plato.",
+            "Elaboración:",
+            "Primero lava y pela la patata y la cebolla.",
+            "Pon todo el aceite a calentar a fuego medio en la sartén y mientras se calienta corta la patata en trozos pequeños. Sazona ligeramente las patatas y añádelas al aceite caliente.",
+            "Corta la cebolla también en trozos pequeños e incorpóralos a la sartén junto con la patata.",
+            "Has de cocinar removiendo de vez en cuando hasta que la patata y la cebolla estén blanditas, también puedes dejar que se doren ligeramente.",
+            "Rompe los dos huevos en un bol y bátelos junto con una pizca de sal.",
+            "Saca la patata y la cebolla de la sartén a un colador o escurridor para quitarle todo el aceite.",
+            "Incorpóralo al bol con el huevo y mezcla todo bien.",
+            "Pruébalo de sal y añade a tu gusto si es necesario.",
+            "Coge una sartén y ponla a calentar a fuego medio con una cucharada de aceite, cuanto esté caliente añade toda la mezcla de la tortilla y remueve un poco con una cuchara o paleta de cocina.",
+            "Deja que cuaje casi la mitad del huevo y dale la vuelta con la ayuda de una tapadera o plato.",
+            "Deja que termine de cuajar a tu gusto y en cuanto esté sácala de la sartén a un plato para",
+            "que no siga secándose."
         ]
     },
     {
@@ -316,18 +306,36 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "Arroz grano corto",
-            "Langostinos, mejillones, almejas, sepia",
-            "Cebolla, tomate, pimiento",
-            "Caldo de pescado"
+            "Ingredientes para 4:",
+            "400 gramos de arroz blanco de grano corto",
+            "200 gramos de langostinos frescos (gambas, camarones)",
+            "200 gramos de mejillón fresco (peso sin cáscara)",
+            "200 gramos de almejas",
+            "200 gramos de sepia",
+            "2 cebollas (220 gr.)",
+            "2 tomates (246 gr.)",
+            "1 pimiento rojo grande (164 gr.)",
+            "1 pimiento verde grande (164 gr.)",
+            "2 cucharaditas de ajo (5.6 gr.)",
+            "1 cucharadita de azafrán (0.7 gr.)",
+            "3 cucharadas de aceite de oliva (39 gr.)",
+            "2 cucharaditas de sal (12 gr.)"
         ],
         pasos: [
-            "Hacer caldo con cáscaras de langostino.",
-            "Sofreír verduras y sepia.",
-            "Añadir arroz y caldo. Cocinar 18 min.",
-            "Añadir marisco en los últimos 5 min."
+            "Pelar casi todos los langostinos y reservar las cáscaras para el caldo. Guardar algunos enteros para decorar la paella de mariscos.",
+            "Rehogar con un poco de aceite las peladuras de langostinos durante un minuto y cubrir con agua para cocerlas durante 15 minutos.",
+            "Limpiar los mejillones y las almejas. Hervir por separado y reservar el líquido colado para añadirlo al caldo.",
+            "Cortar la cebolla y el pimiento rojo muy finos. Rallar el ajo, pelar el tomate y rallarlo también. Por último, cortar la sepia en daditos.",
+            "Poner la paella en el fuego con aceite, el ajo y la cebolla y rehogar hasta que esté dorado.",
+            "Agregar el pimiento rojo, cocinar 2 minutos y añadir el tomate. Echar la sepia y cocinar unos 4 minutos.",
+            "Añadir el arroz y cubrir con 2 partes y media de caldo por cada una de arroz, mantener el resto del caldo caliente por si nos pide más líquido. Agregar sal y unas hebras de azafrán.",
+            "Una vez que hierva, cocinar a fuego medio unos 18 minutos.",
+            "5 minutos antes de que termine el arroz, poner las almejas, los mejillones, los langostinos y las tiras de pimiento asado, a modo de decoración.",
+            "Cuando esté, apagamos el fuego y lo dejamos reposar 5 minutos antes de servir.",
+            "Servir la paella de mariscos.",
+            "Comentarios:",
+            "Se puede servir con pimienta y con rodajas de limón."
         ]
     },
     {
@@ -337,36 +345,58 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1594967399388-12d83395c026?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "110g lentejas",
-            "Jamón serrano magro",
-            "Zanahoria, puerro, pimiento, tomate",
-            "Laurel y pimentón"
+            "110 gramos de lentejas",
+            "60 gramos de jamón serrano, magro",
+            "30 gramos de zanahorias",
+            "15 gramos de puerro",
+            "20 gramos de pimiento rojo",
+            "30 gramos de tomate triturado envasado",
+            "1/2 diente de ajo (1.5 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)",
+            "1 hoja de laurel (2 gr.)",
+            "1 cucharadita de pimentón dulce (2.3 gr.)"
         ],
         pasos: [
-            "Sofreír verduras.",
-            "Añadir lentejas, jamón y cubrir con agua.",
-            "Cocer 35-45 min hasta tiernas."
+            "Lavar las lentejas bajo el grifo y escurrir.",
+            "Pelar y trocear las verduras: zanahoria en rodajas, cebolla y pimiento en trozos pequeños, puerro en aros y tomate picado.",
+            "En una olla, calentar el aceite y sofreír la cebolla, el puerro y el pimiento durante unos minutos.",
+            "Añadir el ajo picado, la zanahoria, el tomate y el pimentón dulce. Remover rápidamente para que no se queme.",
+            "Incorporar las lentejas, el hueso de jamón y la hoja de laurel.",
+            "Cubrir con agua o caldo (que queden bien sumergidas).",
+            "Cocinar a fuego medio-bajo durante 35–45 minutos (olla normal) o 15–20 minutos en olla rápida, hasta que las lentejas estén tiernas.",
+            "Ajustar de sal al final —añadir poca, ya que el hueso de jamón aporta sal.",
+            "Retirar el hueso de jamón y servir caliente."
         ]
     },
     {
         id: 208,
-        titulo: "Pollo asado con verduras",
+        titulo: "Pollo asado con verduras y patata",
         tiempo: "1h 15min",
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1598103442097-8b74072756b1?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "120g Pollo",
-            "Patata, zanahoria, cebolla, calabacín",
-            "Vino blanco y especias"
+            "120 gramos de pollo (fresco y con piel)",
+            "2 patatas (426 gr.)",
+            "1 tomate pequeño (91 gr.)",
+            "50 gramos de zanahorias",
+            "40 gramos de cebolla",
+            "50 gramos de calabacín",
+            "1 diente de ajo (3 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
-            "Cama de verduras en bandeja.",
-            "Pollo encima sazonado.",
-            "Hornear a 200ºC durante 45-60 min."
+            "Precalentar el horno a 200 gradosC.",
+            "Pelar las patatas y cortarlas en rodajas gruesas cortar la zanahoria en bastones y el calabacín en rodajas la cebolla en juliana.",
+            "Utilizar las verduras que más te gusten y tengas disponibles.",
+            "Colocar las verduras y las patatas en una bandeja de horno, añadir sal, especias (romero, tomillo, orégano, pimentón, pimienta negra) y un chorrito de aceite de oliva.",
+            "Sazonar el pollo (entero o en piezas) con sal, pimienta y hierbas.",
+            "Colocar el pollo encima de la cama de verduras.",
+            "Añadir los dientes de ajo sin pelar y regar con el vino blanco o caldo si se usa.",
+            "Hornear 60–75 minutos (si es un pollo entero) o 40–45 minutos (si son piezas), dándole la vuelta a mitad de la cocción para que quede dorado por ambos lados.",
+            "Comprobar el punto de cocción (que los jugos salgan claros) y servir caliente acompañado",
+            "de las patatas y verduras."
         ]
     },
     {
@@ -469,15 +499,15 @@ const listaRecetas = [
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1615141982880-1313d41bc6e3?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "1 filete lubina (150g)",
-            "Aceite de oliva",
-            "Ajo y perejil (opcional)"
+            "1 filete grande de lubina (150 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
-            "Cocinar en plancha 2-3 min por lado (primero piel).",
-            "Opcional: hacer en Airfryer 8-10 min a 180ºC."
+            "Si es entera o en filete con piel: hacer unos pequeños cortes superficiales en la piel para que no se encoja al cocinar.",
+            "Plancha: calentar una sartén con unas gotas de aceite y cocinar la lubina 2–3 minutos por el lado de la piel, después 1–2 minutos por el otro lado, hasta que esté dorada y jugosa.",
+            "Airfryer: precalentar a 180 gradosC, pincelar el filete con un poco de aceite, colocar en la cubeta y cocinar durante 8–10 minutos, según grosor.",
+            "Añadir el condimento elegido justo antes de servir o durante la cocción, según el tipo (hierbas frescas mejor al final, especias pueden ir antes)."
         ]
     },
     {
@@ -487,17 +517,20 @@ const listaRecetas = [
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1518596696144-8cb5d5a639b7?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "60g pan",
-            "30g jamón serrano magro",
-            "Tomate maduro y ajo",
-            "Aceite de oliva"
+            "60 gramos de pan",
+            "1 diente de ajo (3 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "1 tomate pequeño (91 gr.)",
+            "30 gramos de jamón serrano, magro"
         ],
         pasos: [
-            "Tostar pan.",
-            "Restregar ajo y tomate.",
-            "Añadir aceite y el jamón."
+            "Corta una buena rebanada de pan blanco y tuéstala.",
+            "El pan que se usa tradicionalmente en Cataluña se llama pan de coca.",
+            "Pela el ajo y refriégalo sobre la rebanada de pan.",
+            "Extiende sobre el pan una cucharadita de aceite de oliva, si puede ser, virgen extra.",
+            "Parte un tomate maduro a la mitad y refriégalo sobre la rebanada de pan. La variedad de tomate más utilizado en Cataluña es el tomate de colgar, es muy sabrosos y jugoso.",
+            "Por último, pon las lonchas de jamón serrano sobre la rebanada de pan."
         ]
     },
     {
@@ -1260,8 +1293,7 @@ const listaRecetas = [
         pasos: [
             "Condimentos y acompañamientos opcionales (sin pan):",
             "Verduras frescas: rodajas de tomate, lechuga, rúcula, cebolla, pepino.",
-            "Verduras cocinadas: cebolla caramelizada, champiñones salteados, pimientos asados,",
-            "calabacín o berenjena a la plancha.",
+            "Verduras cocinadas: cebolla caramelizada, champiñones salteados, pimientos asados, calabacín o berenjena a la plancha.",
             "Quesos: loncha de queso, mozzarella, queso curado rallado.",
             "Salsas caseras o ligeras: cucharada de ketchup o mayonesa light, mostaza o guacamole"
         ]
