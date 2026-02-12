@@ -23,7 +23,7 @@
     <div id="mi-menu-reutilizable"></div>
 
     <div id="detalle-receta" class="max-w-4xl mx-auto mt-20 px-4">
-        </div>
+    </div>
 
     <script src="navbar.js"></script>
     <script src="recetas.js"></script>
@@ -47,6 +47,14 @@
             // Imagen de respaldo
             const fallbackImagen = 'https://images.unsplash.com/photo-1495521841625-277d8d09b381?q=80&w=1000&auto=format&fit=crop';
 
+            // --- LÓGICA DE TIEMPO (NUEVO) ---
+            let tiempoMostrado = "-";
+            if (receta.tiempo) {
+                // Si es número (formato nuevo) añadimos " min", si es texto (viejo) se deja igual
+                tiempoMostrado = !isNaN(receta.tiempo) ? `${receta.tiempo} min` : receta.tiempo;
+            }
+            // --------------------------------
+
             contenedor.innerHTML = `
                 <div class="relative h-64 md:h-96 rounded-3xl overflow-hidden shadow-2xl mb-10 group">
                     <img src="${rutaImagen}" 
@@ -63,8 +71,9 @@
                                 `).join('') }
                             </div>
                             <h1 class="text-3xl md:text-5xl font-bold mb-2 text-shadow">${receta.titulo}</h1>
-                            <p class="text-gray-300 flex items-center gap-2 font-medium">
-                                ⏱️ Tiempo: ${receta.tiempo}
+                            
+                            <p class="text-gray-300 flex items-center gap-2 font-medium text-lg">
+                                ⏱️ Tiempo: <span class="text-white font-bold">${tiempoMostrado}</span>
                             </p>
                         </div>
                     </div>
@@ -101,7 +110,7 @@
                                         <div class="flex-shrink-0 w-10 h-10 bg-slate-800 dark:bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold shadow-lg shadow-slate-200 dark:shadow-none group-hover:bg-blue-600 transition-colors">
                                             ${index + 1}
                                         </div>
-                                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 text-lg">${paso}</p>
+                                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 text-lg border-b border-slate-50 dark:border-slate-700 pb-4 w-full">${paso}</p>
                                     </div>
                                 `).join('') : '<p class="text-gray-500 italic">No hay instrucciones definidas.</p>'}
                             </div>
@@ -147,6 +156,7 @@
             listaUL.innerHTML = "";
 
             receta.ingredientes.forEach(linea => {
+                // Regex para detectar números al inicio (ej: "200 gr de harina" o "1/2 taza")
                 const regex = /^([\d\.,\/]+)\s*(.*)/;
                 const match = linea.trim().match(regex);
                 let textoFinal = "";
@@ -155,19 +165,19 @@
                     let cantidadBase = convertirANumero(match[1]);
                     let restoTexto = match[2];
                     let cantidadCalculada = cantidadBase * racionesActuales;
+                    
+                    // Redondear decimales feos (ej: 3.33333 -> 3.33) pero dejar enteros limpios
                     let cantidadBonita = Number.isInteger(cantidadCalculada) ? cantidadCalculada : parseFloat(cantidadCalculada.toFixed(2));
 
-                    // Números en azul (dark mode: azul claro)
-                    textoFinal = `<span class="font-bold text-blue-600 dark:text-blue-400">${cantidadBonita}</span> ${restoTexto}`;
+                    textoFinal = `<span class="font-bold text-blue-600 dark:text-blue-400 text-lg">${cantidadBonita}</span> <span class="text-slate-700 dark:text-slate-200">${restoTexto}</span>`;
                 } else {
-                    textoFinal = linea;
+                    textoFinal = `<span class="text-slate-700 dark:text-slate-200">${linea}</span>`;
                 }
 
-                // Elementos de lista adaptados al modo oscuro
                 listaUL.innerHTML += `
-                    <li class="flex items-start text-slate-600 dark:text-slate-300 py-1 border-b border-slate-50 dark:border-slate-700 last:border-0">
-                        <svg class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-sm md:text-base">${textoFinal}</span>
+                    <li class="flex items-start py-2 border-b border-slate-50 dark:border-slate-700 last:border-0 hover:bg-slate-50 dark:hover:bg-slate-700/50 px-2 rounded transition-colors">
+                        <svg class="w-4 h-4 text-green-500 mr-2 shrink-0 mt-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <div class="text-sm md:text-base leading-snug">${textoFinal}</div>
                     </li>
                 `;
             });

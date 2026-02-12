@@ -69,14 +69,18 @@
                                       focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-400">
                         <p class="text-[10px] text-gray-400 mt-1">Archivo: <span id="nombre-foto-preview" class="font-bold">...jpg</span></p>
                     </div>
+                    
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Tiempo</label>
-                        <input type="text" id="tiempo" 
-                               class="w-full p-2 border rounded outline-none transition-colors
-                                      bg-slate-50 dark:bg-slate-700 
-                                      text-slate-800 dark:text-white
-                                      border-slate-200 dark:border-slate-600
-                                      focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-400">
+                        <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Tiempo (Minutos)</label>
+                        <div class="relative">
+                            <input type="number" id="tiempo" placeholder="Ej: 45"
+                                   class="w-full p-2 border rounded outline-none transition-colors
+                                          bg-slate-50 dark:bg-slate-700 
+                                          text-slate-800 dark:text-white
+                                          border-slate-200 dark:border-slate-600
+                                          focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-400 pr-12">
+                            <span class="absolute right-3 top-2 text-sm text-gray-400 font-bold select-none pointer-events-none">min</span>
+                        </div>
                     </div>
                 </div>
 
@@ -169,20 +173,26 @@
                 if (receta.titulo.toLowerCase().includes(filtro.toLowerCase())) {
                     const div = document.createElement('div');
                     
-                    // LÓGICA DE CLASES CON DARK MODE
                     let clasesBase = "p-3 rounded-lg cursor-pointer transition border text-sm font-medium ";
                     let clasesEstado = "";
 
                     if (recetaActualId === receta.id) {
-                        // Seleccionado
                         clasesEstado = "bg-blue-100 dark:bg-blue-900/50 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200 font-bold";
                     } else {
-                        // Normal
                         clasesEstado = "text-slate-600 dark:text-slate-300 border-transparent hover:bg-slate-100 dark:hover:bg-slate-700";
                     }
 
                     div.className = clasesBase + clasesEstado;
-                    div.innerText = `${receta.id} - ${receta.titulo}`;
+
+                    // CAMBIO: Mostrar tiempo formateado en la lista lateral
+                    const tiempoTexto = !isNaN(receta.tiempo) ? receta.tiempo + " min" : receta.tiempo;
+                    
+                    div.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span>${receta.id} - ${receta.titulo}</span>
+                            <span class="text-xs opacity-60 bg-white dark:bg-slate-900 px-1 rounded">${tiempoTexto}</span>
+                        </div>
+                    `;
                     div.onclick = () => cargarReceta(receta.id);
                     lista.appendChild(div);
                 }
@@ -204,7 +214,16 @@
 
             document.getElementById('id-receta').value = receta.id;
             document.getElementById('titulo').value = receta.titulo;
-            document.getElementById('tiempo').value = receta.tiempo;
+            
+            // CAMBIO: LIMPIEZA DE DATOS (TEXTO -> NÚMERO)
+            // Si viene como "45 min", extraemos el 45. Si ya es número, lo dejamos.
+            let tiempoLimpio = receta.tiempo;
+            if (typeof tiempoLimpio === 'string') {
+                // Intentar sacar el número del string
+                tiempoLimpio = parseInt(tiempoLimpio) || "";
+            }
+            document.getElementById('tiempo').value = tiempoLimpio;
+
             document.getElementById('categoria').value = receta.categoria.join(', ');
             document.getElementById('ingredientes').value = receta.ingredientes.join('\n');
             document.getElementById('pasos').value = receta.pasos.join('\n');
@@ -237,10 +256,14 @@
             const titulo = document.getElementById('titulo').value;
             if (!titulo) return alert("¡El título es obligatorio!");
 
+            // CAMBIO: GUARDAR TIEMPO COMO NÚMERO
+            const tiempoInput = document.getElementById('tiempo').value;
+            const tiempoNum = parseInt(tiempoInput) || 0; // Guardamos Integer
+
             const nuevaReceta = {
                 id: id,
                 titulo: titulo,
-                tiempo: document.getElementById('tiempo').value,
+                tiempo: tiempoNum, // <--- CAMBIO AQUÍ
                 categoria: document.getElementById('categoria').value.split(',').map(c => c.trim()).filter(c => c !== ""),
                 ingredientes: document.getElementById('ingredientes').value.split('\n').filter(l => l.trim() !== ""),
                 pasos: document.getElementById('pasos').value.split('\n').filter(l => l.trim() !== "")
@@ -253,13 +276,13 @@
                     return alert("Error: Ya existe otra receta con el ID " + id);
                 }
                 recetasGlobales[indiceExistente] = nuevaReceta;
-                alert("✅ Receta actualizada en memoria.");
+                alert("✅ Receta actualizada. (Tiempo guardado como número)");
             } else {
                 if (recetasGlobales.some(r => r.id === id)) {
                     return alert("Error: Ya existe una receta con el ID " + id);
                 }
                 recetasGlobales.push(nuevaReceta);
-                alert("✅ Nueva receta creada en memoria.");
+                alert("✅ Nueva receta creada.");
             }
             cargarReceta(id);
         }
