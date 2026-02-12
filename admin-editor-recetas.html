@@ -94,16 +94,36 @@
                                   focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-400">
                 </div>
 
-                <div class="mb-4">
-                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Categorías (Separadas por coma)</label>
-                    <input type="text" id="categoria" 
-                           class="w-full p-2 border rounded outline-none transition-colors
-                                  bg-slate-50 dark:bg-slate-700 
-                                  text-slate-800 dark:text-white
-                                  border-slate-200 dark:border-slate-600
-                                  focus:bg-white dark:focus:bg-slate-600 focus:ring-2 focus:ring-blue-400">
-                </div>
+                <div class="mb-4 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl border border-slate-200 dark:border-slate-600">
+                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-3">Categorías</label>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+                        <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
+                            <input type="checkbox" name="cat-check" value="Desayuno" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm font-medium">☕ Desayuno</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
+                            <input type="checkbox" name="cat-check" value="Almuerzo" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm font-medium">🍲 Almuerzo</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
+                            <input type="checkbox" name="cat-check" value="Merienda" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm font-medium">🥪 Merienda</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
+                            <input type="checkbox" name="cat-check" value="Cena" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-sm font-medium">🌙 Cena</span>
+                        </label>
+                    </div>
 
+                    <div>
+                        <input type="text" id="categoria-extra" placeholder="Otras categorías (ej: Postre, Vegano)..." 
+                               class="w-full p-2 border-b bg-transparent outline-none text-sm transition-colors
+                                      text-slate-800 dark:text-white
+                                      border-slate-300 dark:border-slate-500
+                                      focus:border-blue-500 placeholder:text-slate-400">
+                    </div>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Ingredientes (Uno por línea)</label>
@@ -157,7 +177,6 @@
                 alert("Error: No se encuentra recetas.js");
             }
 
-            // Preview del nombre de foto
             document.getElementById('id-receta').addEventListener('input', (e) => {
                 document.getElementById('nombre-foto-preview').innerText = e.target.value + ".jpg";
             });
@@ -183,8 +202,6 @@
                     }
 
                     div.className = clasesBase + clasesEstado;
-
-                    // CAMBIO: Mostrar tiempo formateado en la lista lateral
                     const tiempoTexto = !isNaN(receta.tiempo) ? receta.tiempo + " min" : receta.tiempo;
                     
                     div.innerHTML = `
@@ -215,16 +232,35 @@
             document.getElementById('id-receta').value = receta.id;
             document.getElementById('titulo').value = receta.titulo;
             
-            // CAMBIO: LIMPIEZA DE DATOS (TEXTO -> NÚMERO)
-            // Si viene como "45 min", extraemos el 45. Si ya es número, lo dejamos.
+            // Tiempo numérico
             let tiempoLimpio = receta.tiempo;
             if (typeof tiempoLimpio === 'string') {
-                // Intentar sacar el número del string
                 tiempoLimpio = parseInt(tiempoLimpio) || "";
             }
             document.getElementById('tiempo').value = tiempoLimpio;
 
-            document.getElementById('categoria').value = receta.categoria.join(', ');
+            // --- CARGAR CATEGORÍAS EN CHECKBOXES ---
+            // 1. Limpiar todos los checks y el input extra
+            document.querySelectorAll('input[name="cat-check"]').forEach(cb => cb.checked = false);
+            document.getElementById('categoria-extra').value = "";
+
+            const cats = Array.isArray(receta.categoria) ? receta.categoria : [receta.categoria];
+            const extras = [];
+
+            cats.forEach(c => {
+                // Buscamos si existe un checkbox con este valor
+                const checkbox = document.querySelector(`input[name="cat-check"][value="${c}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                } else {
+                    // Si no está en los principales, lo guardamos para el input extra
+                    if (c && c.trim() !== "") extras.push(c);
+                }
+            });
+            // Ponemos los extras separados por coma
+            document.getElementById('categoria-extra').value = extras.join(', ');
+            // ----------------------------------------
+
             document.getElementById('ingredientes').value = receta.ingredientes.join('\n');
             document.getElementById('pasos').value = receta.pasos.join('\n');
             document.getElementById('nombre-foto-preview').innerText = receta.id + ".jpg";
@@ -243,7 +279,11 @@
             document.getElementById('nombre-foto-preview').innerText = (maxId + 1) + ".jpg";
             document.getElementById('titulo').value = "";
             document.getElementById('tiempo').value = "";
-            document.getElementById('categoria').value = "";
+            
+            // Limpiar categorías
+            document.querySelectorAll('input[name="cat-check"]').forEach(cb => cb.checked = false);
+            document.getElementById('categoria-extra').value = "";
+
             document.getElementById('ingredientes').value = "";
             document.getElementById('pasos').value = "";
             
@@ -256,15 +296,25 @@
             const titulo = document.getElementById('titulo').value;
             if (!titulo) return alert("¡El título es obligatorio!");
 
-            // CAMBIO: GUARDAR TIEMPO COMO NÚMERO
             const tiempoInput = document.getElementById('tiempo').value;
-            const tiempoNum = parseInt(tiempoInput) || 0; // Guardamos Integer
+            const tiempoNum = parseInt(tiempoInput) || 0; 
+
+            // --- RECOGER CATEGORÍAS ---
+            const categoriasSeleccionadas = [];
+            // 1. Checkboxes marcados
+            document.querySelectorAll('input[name="cat-check"]:checked').forEach(cb => {
+                categoriasSeleccionadas.push(cb.value);
+            });
+            // 2. Input extra
+            const extras = document.getElementById('categoria-extra').value.split(',').map(c => c.trim()).filter(c => c !== "");
+            const categoriasFinales = [...categoriasSeleccionadas, ...extras];
+            // ---------------------------
 
             const nuevaReceta = {
                 id: id,
                 titulo: titulo,
-                tiempo: tiempoNum, // <--- CAMBIO AQUÍ
-                categoria: document.getElementById('categoria').value.split(',').map(c => c.trim()).filter(c => c !== ""),
+                tiempo: tiempoNum,
+                categoria: categoriasFinales, // Array limpio
                 ingredientes: document.getElementById('ingredientes').value.split('\n').filter(l => l.trim() !== ""),
                 pasos: document.getElementById('pasos').value.split('\n').filter(l => l.trim() !== "")
             };
@@ -276,7 +326,7 @@
                     return alert("Error: Ya existe otra receta con el ID " + id);
                 }
                 recetasGlobales[indiceExistente] = nuevaReceta;
-                alert("✅ Receta actualizada. (Tiempo guardado como número)");
+                alert("✅ Receta actualizada.");
             } else {
                 if (recetasGlobales.some(r => r.id === id)) {
                     return alert("Error: Ya existe una receta con el ID " + id);
