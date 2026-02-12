@@ -251,8 +251,7 @@ const listaRecetas = [
             "Pruébalo de sal y añade a tu gusto si es necesario.",
             "Coge una sartén y ponla a calentar a fuego medio con una cucharada de aceite, cuanto esté caliente añade toda la mezcla de la tortilla y remueve un poco con una cuchara o paleta de cocina.",
             "Deja que cuaje casi la mitad del huevo y dale la vuelta con la ayuda de una tapadera o plato.",
-            "Deja que termine de cuajar a tu gusto y en cuanto esté sácala de la sartén a un plato para",
-            "que no siga secándose."
+            "Deja que termine de cuajar a tu gusto y en cuanto esté sácala de la sartén a un plato para que no siga secándose."
         ]
     },
     {
