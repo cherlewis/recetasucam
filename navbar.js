@@ -73,7 +73,6 @@ const menuHTML = `
                     <div class="absolute right-0 w-56 mt-2 bg-white dark:bg-slate-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-1 border border-slate-200 dark:border-slate-700 overflow-hidden">
                         <a href="admin-editor-menus.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 border-b border-gray-100 dark:border-slate-700">📝 Editor Menús</a>
                         <a href="admin-editor-recetas.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 border-b border-gray-100 dark:border-slate-700">👨‍🍳 Gestor Recetas</a>
-                        <a href="admin.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 border-b border-gray-100 dark:border-slate-700">➕ Añadir Receta</a>
                         <a href="admin-editor-fotos.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600">📸 Gestor Fotos</a>
                     </div>
                 </li>
@@ -91,7 +90,6 @@ const menuHTML = `
             </li>
             <li><a href="admin-editor-menus.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">📝 Editar Menús</a></li>
             <li><a href="admin-editor-recetas.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">👨‍🍳 Gestor Recetas</a></li>
-            <li><a href="admin.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">➕ Añadir Receta</a></li>
         </ul>
     </div>
 </nav>
