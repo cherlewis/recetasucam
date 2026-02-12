@@ -301,7 +301,7 @@ const listaRecetas = [
     {
         id: 206,
         titulo: "Paella de marisco",
-        tiempo: "1h",
+        tiempo: 60,
         categoria: [
             "Almuerzo"
         ],
@@ -371,7 +371,7 @@ const listaRecetas = [
     {
         id: 208,
         titulo: "Pollo asado con verduras y patata",
-        tiempo: "1h 15min",
+        tiempo: 75,
         categoria: [
             "Almuerzo"
         ],
@@ -1111,7 +1111,7 @@ const listaRecetas = [
     {
         id: 615,
         titulo: "Caballa al horno con verduras y patatas",
-        tiempo: "",
+        tiempo: 45,
         categoria: [
             "Almuerzo"
         ],
@@ -1235,7 +1235,7 @@ const listaRecetas = [
     {
         id: 621,
         titulo: "Sandwich al gusto",
-        tiempo: "",
+        tiempo: 5,
         categoria: [
             "Segundo Desayuno"
         ],
