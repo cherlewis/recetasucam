@@ -95,17 +95,24 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
         ingredientes: [
-            "1 Vasito arroz integral",
-            "1 Huevo",
-            "Aceite De Oliva",
-            "Sal"
+            "150 gramos de ensalada mezclum",
+            "1 tomate pera (62 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
             "Elabora una ensalada variada a tu gusto.",
+            "Ingredientes (elige al gusto):",
             "Base: lechuga, espinaca fresca, rúcula, canónigos o mezcla de brotes tiernos.",
-            "Añadir el chorizo y dejar cocinar a fuego lento 30 min."
+            "Verduras frescas: tomate, pepino, zanahoria o remolacha rallada, pimiento rojo/verde/amarillo, cebolla, rabanitos, apio.",
+            "Hortalizas cocidas (opcional): judías verdes, brócoli, coliflor, espárragos, remolacha cocida, calabacín a la plancha, berenjena asada.",
+            "Extras vegetales: maíz dulce, champiñones frescos, aguacate, brotes germinados, aceitunas, alcaparras.",
+            "Alíñala al gusto con:",
+            "Aceite de oliva virgen o virgen extra",
+            "Vinagre o limón",
+            "Sal y especias/ hierbas aromáticas",
+            "Comentarios:",
+            "Hazlo fácil. Puedes utilizar ensaladas de bolsa ya lavadas y cortadas."
         ]
     },
     {
@@ -364,23 +371,25 @@ const listaRecetas = [
     },
     {
         id: 301,
-        titulo: "Ensalada con queso fresco y jamón",
+        titulo: "Ensalada con queso fresco y taquitos de jamón",
         tiempo: "10 min",
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1529312266912-b33cf6227e2f?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "Mezclum de lechuga",
-            "Taquitos de jamón york",
-            "Queso fresco tipo Burgos",
-            "Maíz y tomate",
-            "Vinagre balsámico"
+            "150 gramos de ensalada mezclum",
+            "4 lonchas de jamón cocido (jamón york) (112 gr.)",
+            "1 tarrina pequeña de queso fresco 0% tipo burgos (72 gr.)",
+            "80 gramos de maíz dulce en conserva (maíz amarillo)",
+            "3 tomates pequeños (273 gr.)",
+            "3 cucharadas de vinagre balsámico (48 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
-            "Mezclar base verde con tomate y maíz.",
-            "Añadir dados de queso y jamón.",
-            "Aliñar al gusto."
+            "Para elaborar esta ensalada, la base de esta (es decir, la ensalada mezclum), en un bol o plato grandes.",
+            "Después de esto, cogeremos una tabla de cortar y cortaremos las lonchas de jamón cocido en taquitos más pequeños (también está la opción de comprarlos directamente en el mercadona si es más cómodo así), luego, se añadirán el resto de ingredientes: el maíz, el tomate ya troceado y el queso fresco cortado en dados medianos, luego, mezclaremos todo este conjunto con los taquitos de jamón que ya hemos cortado antes y lo aliñaremos",
+            "con especias al gusto, la cantidad de vinagre que veamos conveniente y una cucharada de",
+            "aceite de oliva."
         ]
     },
     {
@@ -391,17 +400,23 @@ const listaRecetas = [
             "Cena",
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
-            "200g patata cocida",
-            "1 huevo duro",
-            "1 lata atún",
-            "Pimiento rojo, aceitunas, cebolla"
+            "200 gramos de patatas",
+            "1 huevo duro (50 gr.)",
+            "1 lata pequeña de atún al natural (50 gr.)",
+            "40 gramos de pimiento rojo",
+            "2 aceitunas (5.4 gr.)",
+            "20 gramos de cebolla",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
-            "Cocer patata y huevo.",
-            "Trocear y mezclar en bol con atún y verduras.",
-            "Aliñar y servir fría."
+            "Lavar la patata y cocerla entera con piel en agua con sal durante 20–25 minutos, hasta que esté tierna.",
+            "Dejar enfriar, pelar y cortar en dados medianos - También puedes usar patata en conserva o de microondas para que sea más fácil.",
+            "Cocer el huevo durante 10 minutos, enfriar, pelar y cortar en trozos o gajos.",
+            "En un bol, mezclar la patata, el huevo y el atún desmenuzado.",
+            "Añadir el pimiento rojo en conserva troceado, y si se desea, la cebolla picada y las aceitunas.",
+            "Aliñar con aceite de oliva, vinagre o zumo de limón, sal y pimienta al gusto.",
+            "Mezclar suavemente y servir fría o a temperatura ambiente"
         ]
     },
     {
@@ -503,21 +518,6 @@ const listaRecetas = [
         ]
     },
     {
-        id: 401,
-        titulo: "Ensalada variada de verduras",
-        tiempo: "5 min",
-        categoria: [
-            "Guarnición"
-        ],
-        imagen: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
-        ingredientes: [
-            "Lechuga, tomate, pepino, maíz... al gusto"
-        ],
-        pasos: [
-            "Mezclar ingredientes y aliñar."
-        ]
-    },
-    {
         id: 402,
         titulo: "Boniatos al horno especiados",
         tiempo: "30 min",
@@ -525,12 +525,17 @@ const listaRecetas = [
             "Guarnición"
         ],
         ingredientes: [
-            "1 boniato",
-            "Pimienta, sal, aceite"
+            "1 boniato (250 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "1 pizca de sal (0.4 gr.)",
+            "1 cucharadita de pimienta negra molida (0.8 gr.)"
         ],
         pasos: [
-            "Cortar en sticks.",
-            "Hornear 20-25 min a 220ºC."
+            "Calentar el horno a 220 grados.",
+            "Pelar los boniatos y cortarlos a sticks como si fuésemos a hacer patatas fritas rectangulares.",
+            "Mezclar en un pequeño bol o vaso el aceite de oliva, la sal y la pimienta negra molida.",
+            "Forrar una bandeja para horno con papel de hornear, disponer los sticks de boniato por encima. Añadir el aliño y mezclar bien con las manos. Colocarlos bien distribuidos por toda la bandeja.",
+            "Hornear a media altura durante 15-20-25 minutos."
         ]
     },
     {
@@ -559,14 +564,20 @@ const listaRecetas = [
         categoria: [
             "Guarnición"
         ],
-        imagen: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "150g brócoli",
-            "Especias"
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
         ],
         pasos: [
-            "Vapor: 5-7 min.",
-            "Horno: 15-20 min a 200ºC con especias."
+            "Al vapor: cocer el brócoli en microondas, vaporera o al vapor en una olla durante 5–7 minutos, hasta que quede tierno pero firme.",
+            "Al horno: precalentar el horno a 180–200 grados. Colocar los ramilletes de brócoli en una bandeja, añadir aceite y sal, y hornear 15–20 minutos hasta que estén dorados en los bordes.",
+            "Comentarios:",
+            "Condimentos posibles:",
+            "Clásicos: ajo en polvo o laminado, pimienta negra, limón exprimido.",
+            "Hierbas: tomillo, romero, orégano, albahaca seca o fresca, perejil picado.",
+            "Especiados: pimentón dulce o picante, cúrcuma, curry suave, comino.",
+            "Más sabrosos: queso rallado gratinado al horno, salsa de yogur con hierbas, mostaza suave, semillas de sésamo tostadas, almendras picadas o laminadas",
+            "tostadas."
         ]
     },
     {
@@ -733,7 +744,7 @@ const listaRecetas = [
             "Coger las espinacas frescas para ensalada, lavarlas con mucha agua potable y escurrirlas de forma adecuada para eliminar el exceso de humedad. Ponerlas como base en el plato o bol que vayamos a usar en la ensalada",
             "Abrir la lata de atún al natural, escurrir completamente el líquido que lo conserva y distribuirlo encima de las espinacas",
             "Trocear el queso fresco en dados de más o menos el mismo tamaño, para añadirlos posteriormente a las espinacas junto con el atún.",
-            "CPelar la cebolla dulce, cortarla en rodajas finas y añadirla al conjunto para aportar sabor y textura.",
+            "Pelar la cebolla dulce, cortarla en rodajas finas y añadirla al conjunto para aportar sabor y textura.",
             "Lavar los tomates cherry, cortarlos por la mitad e incorporarlos a la ensalada de forma repartida.",
             "Por último y después de todo esto, aliñar toda la mezcla con aceite, vinagre y sal y las especias que se deseen."
         ]
@@ -816,28 +827,6 @@ const listaRecetas = [
         ]
     },
     {
-        id: 610,
-        titulo: "Dorada al horno con pimientos",
-        tiempo: "50 min",
-        categoria: [
-            "Almuerzo"
-        ],
-        ingredientes: [
-            "160 gramos de dorada",
-            "1 pimiento verde",
-            "Cebolla y tomate en rodajas",
-            "Patatas para la base",
-            "Ajo, perejil, vino blanco y limón"
-        ],
-        pasos: [
-            "En bandeja de horno: cama de patatas, pimientos, cebolla y tomate. Salar y echar un poco de aceite.",
-            "Hornear la verdura 30 min a 200ºC.",
-            "Hacer una picada con ajo, perejil, vino y aceite.",
-            "Poner la dorada sobre la verdura (con rodajas de limón dentro).",
-            "Hornear todo junto 20 min a 180ºC hasta que el ojo de la dorada esté blanco."
-        ]
-    },
-    {
         id: 611,
         titulo: "Ensalada waldorf (con manzana y nueces)",
         tiempo: "10 min",
@@ -891,7 +880,6 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "160 gramos de dorada",
             "1 pimiento verde (119 gr.)",
@@ -1055,15 +1043,12 @@ const listaRecetas = [
         pasos: [
             "Cortar el pollo en tiras y salpimentar. Añadir las especias al gusto.",
             "Lavar y cortar los pimientos y la cebolla en tiras finas.",
-            "En una sartén caliente con un poco de aceite, saltear el pollo hasta que esté dorado y hecho",
-            "por dentro. Retirar.",
-            "En la misma sartén, añadir los pimientos (y la cebolla, si se usa) y saltear a fuego medio-alto",
-            "hasta que estén tiernos pero aún crujientes.",
+            "En una sartén caliente con un poco de aceite, saltear el pollo hasta que esté dorado y hecho por dentro. Retirar.",
+            "En la misma sartén, añadir los pimientos (y la cebolla, si se usa) y saltear a fuego medio-alto hasta que estén tiernos pero aún crujientes.",
             "MÁS FACIL: usa la fritada de pisto de hacendado",
             "Incorporar de nuevo el pollo a la sartén, mezclar bien con las verduras y ajustar de especias.",
             "Calentar las tortillas en una sartén limpia o al microondas unos segundos.",
-            "Rellenar las tortillas con la mezcla de pollo y pimientos, puedes añadir un poco de sazonador",
-            "o gratinar queso light"
+            "Rellenar las tortillas con la mezcla de pollo y pimientos, puedes añadir un poco de sazonador o gratinar queso light"
         ]
     },
     {
@@ -1138,8 +1123,7 @@ const listaRecetas = [
         ],
         pasos: [
             "Cocer la pasta integral en abundante agua con sal, escurrir y dejar enfriar.",
-            "Cocinar la pechuga de pollo a la plancha con un poco de sal y pimienta cortarla en dados o",
-            "tiras.",
+            "Cocinar la pechuga de pollo a la plancha con un poco de sal y pimienta cortarla en dados o tiras.",
             "Lavar y preparar las verduras.",
             "En un bol grande, mezclar la pasta, el pollo y las verduras.",
             "Aliñar con la salsa de yogur justo antes de servir."
@@ -1201,8 +1185,7 @@ const listaRecetas = [
             "Mango"
         ],
         pasos: [
-            "Cuando consumimos legumbres (lentejas, garbanzos, alubias…), aportamos hierro de origen",
-            "vegetal.",
+            "Cuando consumimos legumbres (lentejas, garbanzos, alubias…), aportamos hierro de origen vegetal.",
             "Sin embargo, este hierro no se absorbe con tanta facilidad como el hierro de origen animal.",
             "Para mejorar su aprovechamiento, un truco sencillo y eficaz es acompañar el plato con una fruta rica en vitamina C.",
             "La vitamina C actúa como un potenciador natural de la absorción de hierro.",
@@ -1214,8 +1197,7 @@ const listaRecetas = [
             "Papaya",
             "Mango",
             "Frutas del bosque (moras, arándanos, frambuesas)",
-            "** Evita consumir yogures, leche, queso o café después de consumir legumbres ya que",
-            "dificulta la absorción de hierro."
+            "** Evita consumir yogures, leche, queso o café después de consumir legumbres ya que dificulta la absorción de hierro."
         ]
     },
     {
