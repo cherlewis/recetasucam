@@ -6,7 +6,6 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "100 gramos de lechuga (romana o similar)",
             "20 gramos de zanahorias",
@@ -32,7 +31,6 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d",
         ingredientes: [
             "1 Vasito de vasito arroz integral (microondas) (125 gr.)",
             "1 huevo L (70 gr.)",
@@ -88,7 +86,6 @@ const listaRecetas = [
             "Desayuno",
             "Media Mañana"
         ],
-        imagen: "https://images.unsplash.com/photo-1559466273-d95e72debaf8?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "2 rebanadas grandes de pan (60 gr.)",
             "2 lonchas de jamón cocido (56 gr.)",
@@ -133,7 +130,6 @@ const listaRecetas = [
         categoria: [
             "Desayuno"
         ],
-        imagen: "https://images.unsplash.com/photo-1541519527329-df1b2ad88363?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "60g pan integral",
             "50g hummus",
@@ -154,7 +150,6 @@ const listaRecetas = [
             "Media Mañana",
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "60g pan",
             "100g pechuga de pollo",
@@ -478,7 +473,6 @@ const listaRecetas = [
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "1 pan hamburguesa",
             "1 hamburguesa carne blanca",
@@ -539,7 +533,6 @@ const listaRecetas = [
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1549488497-62886f34bb4e?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "120g merluza",
             "Aceite de oliva"
@@ -577,7 +570,6 @@ const listaRecetas = [
         categoria: [
             "Bebida"
         ],
-        imagen: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80",
         ingredientes: [
             "Jengibre fresco",
             "Agua",
@@ -813,7 +805,6 @@ const listaRecetas = [
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "230 gramos de berenjena",
             "1.5 latas pequeñas de atún al natural (75 gr.)",
