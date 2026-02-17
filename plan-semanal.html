@@ -88,19 +88,38 @@
             return crearEnlaceSiExiste(contenido);
         }
 
-        // --- INICIALIZACIÓN ---
+        // --- INICIALIZACIÓN INTELIGENTE (VERSIÓN MENUS.JS) ---
         if (typeof coleccionMenus !== 'undefined' && coleccionMenus.length > 0) {
+            
+            let indiceInicial = -1;
+
+            // 1. Llenar el selector
             coleccionMenus.forEach((menu, index) => {
                 const opcion = document.createElement('option');
                 opcion.value = index;
-                opcion.text = menu.nombre;
+                
+                // Si el menú tiene la propiedad activa: true, le ponemos estrella y guardamos el índice
+                if (menu.activa === true) {
+                    opcion.text = `★ ${menu.nombre}`;
+                    indiceInicial = index;
+                } else {
+                    opcion.text = menu.nombre;
+                }
+                
                 selector.appendChild(opcion);
             });
-            const ultimoIndice = coleccionMenus.length - 1;
-            selector.value = ultimoIndice;
-            renderizarSemana(ultimoIndice);
+
+            // 2. Si no se encontró ningún menú activo, usamos el último por defecto
+            if (indiceInicial === -1) {
+                indiceInicial = coleccionMenus.length - 1;
+            }
+
+            // 3. Renderizar
+            selector.value = indiceInicial;
+            renderizarSemana(indiceInicial);
+
         } else {
-            contenedor.innerHTML = '<p class="text-red-500">Error: No se encuentra el archivo menus.js o está vacío</p>';
+            contenedor.innerHTML = '<p class="text-red-500 text-center py-10">Error: No se encuentra el archivo menus.js o está vacío</p>';
         }
 
         function cambiarMenu() {

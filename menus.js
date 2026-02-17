@@ -854,5 +854,80 @@ const coleccionMenus = [
                 }
             }
         ]
+    },
+    {
+        nombre: "Menú 7 (16-02-2026)",
+        activa: true,  // <--- ¡ESTA ES LA CLAVE para el menú por defecto! 🎯
+        objetivo: [
+            "Mantener la masa muscular: entrenamiento de fuerza + proteína.",
+            "Combinar Deporte + Alimentación (evitar sedentarismo).",
+            "Mantenerse activa: subir escaleras, caminar a paso ligero...",
+            "Asegurar las cantidades de proteína (carne, pescado, huevo, queso)."
+        ],
+        semana: [
+            {
+                dia: "Lunes",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Gazpacho andaluz (sin pan)", "Salmón al horno", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Ensalada con mango y langostinos", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Martes",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "14 gr. de mezcla de frutos secos"],
+                    almuerzo: ["Comida libre / Colegio (Ver comentario)"], 
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Ensalada de pasta integral con pollo", "1 yogur natural +proteínas", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Miércoles",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Ensalada de arroz", "1 unidad de merluza rebozada (hacendado)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión de manzanilla"],
+                    cena: ["Ensalada de aguacate y huevo", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Jueves",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "14 gr. de mezcla de frutos secos"],
+                    almuerzo: ["Pasta de lentejas rojas estilo boloñesa", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Cogollos rellenos de caballa, maíz y salsa yogur", "Mini pizzas de berenjena"]
+                }
+            },
+            {
+                dia: "Viernes",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Ensalada de patata con huevo y atún", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
+                    cena: ["Fajipizza", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Sábado",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "14 gr. de mezcla de frutos secos"],
+                    almuerzo: ["Ensalada variada de verduras", "Tortilla de patata", "1 pieza de fruta (genérico)"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 vaso de infusión cola de caballo"],
+                    cena: ["Pechuga de pollo o pavo a la plancha", "1 pieza de fruta (genérico)"]
+                }
+            },
+            {
+                dia: "Domingo",
+                comidas: {
+                    segundoDesayuno: ["Sandwich al gusto", "1 vaso de yogur líquido natural sin azúcar"],
+                    almuerzo: ["Ensalada variada de verduras", "Sepia a la plancha", "Patatas asadas a las hierbas"],
+                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
+                    cena: ["Ensalada cítrica", "Hamburguesa a la plancha", "1 pieza de fruta (genérico)"]
+                }
+            }
+        ]
     }
 ];
