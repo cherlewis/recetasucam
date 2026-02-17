@@ -1034,7 +1034,7 @@ const coleccionMenus = [
                         "1 vaso de infusión cola de caballo"
                     ],
                     cena: [
-                        "Cogollos rellenos de caballa, maíz y salsa yogur",
+                        "Cogollos rellenos de caballa, maíz y salsa de yogur",
                         "1 pieza de fruta (genérico)"
                     ]
                 }
