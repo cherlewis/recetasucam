@@ -942,7 +942,7 @@ const coleccionMenus = [
         ]
     },
     {
-        nombre: "Menú 7 (16-02-2026)",
+        nombre: "Semana 7 (16-02-2026)",
         activa: true,
         objetivo: [
             "OBJETIVOS:",
