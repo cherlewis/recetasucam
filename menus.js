@@ -946,8 +946,7 @@ const coleccionMenus = [
         activa: true,
         objetivo: [
             "OBJETIVOS:",
-            "- Para mantener / no perder nuestra masa muscular necesitamos un buen estímulo (entrenamiento de fuerza) y una correcta ingesta de proteínas, en",
-            "función de nuestras necesidades.",
+            "- Para mantener / no perder nuestra masa muscular necesitamos un buen estímulo (entrenamiento de fuerza) y una correcta ingesta de proteínas, en función de nuestras necesidades.",
             "- DEPORTE + ALIMENTACIÓN",
             "- No basta con estar sentados todo el día y salir a entrenar 2 veces a la semana 1 hora.",
             "- Mantente activa, sube y baja escaleras, camina a paso ligero e intenta entrenar fuerza aunque sea media hora pero con más frecuencia.",
