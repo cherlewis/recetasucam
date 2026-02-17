@@ -613,13 +613,12 @@ const listaRecetas = [
         ]
     },
     {
-        id: 3148,
+        id: 50,
         titulo: "Galletas de Navidad",
-        tiempo: "60 minutos",
+        tiempo: 60,
         categoria: [
             "Merienda"
         ],
-        imagen: "https://unsplash.com/es/fotos/galletas-marrones-en-plato-de-ceramica-blanca-3DrCZblTGoQ",
         ingredientes: [
             "* Para la masa:",
             "120 g de azúcar glas",
@@ -884,13 +883,12 @@ const listaRecetas = [
         ]
     },
     {
-        id: 9236,
+        id: 536,
         titulo: "Tostada de pan integral con jamón cocido",
-        tiempo: "10",
+        tiempo: 10,
         categoria: [
             "Cena"
         ],
-        imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "70 gramos de pan integral de centeno",
             "3 rodajas de tomate (60 gr.)",
@@ -906,9 +904,9 @@ const listaRecetas = [
         ]
     },
     {
-        id: 1216,
+        id: 516,
         titulo: "Dorada al horno con pimientos",
-        tiempo: "45",
+        tiempo: 45,
         categoria: [
             "Almuerzo"
         ],
@@ -936,13 +934,12 @@ const listaRecetas = [
         ]
     },
     {
-        id: 5846,
+        id: 546,
         titulo: "Pechuga de pollo o pavo a la plancha",
-        tiempo: "10",
+        tiempo: 10,
         categoria: [
             "Almuerzo"
         ],
-        imagen: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
         ingredientes: [
             "120 gramos de pechuga de pollo",
             "1 cucharada mediana de aceite de oliva (10 gr.)"
@@ -1320,6 +1317,241 @@ const listaRecetas = [
             "Añadir las sardinillas por encima, enteras o en trozos.",
             "Aliñar con aceite de oliva virgen o virgen extra, ajo picado (si se desea), sal y pimienta.",
             "Servir a temperatura ambiente o ligeramente fresca."
+        ]
+    },
+    {
+        id: 625,
+        titulo: "Ensalada de arroz",
+        tiempo: 15,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "Ingredientes para 1:",
+            "140 gramos de arroz blanco, cocido",
+            "50 gramos de tomate",
+            "50 gramos de aguacate",
+            "20 gramos de queso feta",
+            "30 gramos de zanahorias",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Cocinar el arroz, según las instrucciones del envase. Dejar enfriar.",
+            "Cortar el queso fresco en dados y el aguacate en cubos.",
+            "Cortar los ingredientes y mezclar en un bol grande.",
+            "Aliñar con aceite de oliva, zumo de limón o vinagre, sal y pimienta.",
+            "Servir frío o a temperatura ambiente"
+        ]
+    },
+    {
+        id: 626,
+        titulo: "Pasta de lentejas rojas",
+        tiempo: 40,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "60 gramos de hélices de lenteja roja",
+            "100 gramos de carne picada de cerdo",
+            "150 gramos de salsa de tomate en conserva",
+            "50 gramos de cebolla",
+            "50 gramos de zanahorias",
+            "2 gramos de ajo",
+            "1 cucharada de aceite de oliva (13 gr.)",
+            "1 cucharadita de orégano"
+        ],
+        pasos: [
+            "Cocer la pasta de lentejas rojas en abundante agua siguiendo las instrucciones del envase. seco (1 gr.)",
+            "Escurrir y reservar.",
+            "En una sartén con aceite de oliva, sofreír la cebolla, el ajo y la zanahoria picados finamente.",
+            "Añadir la carne picada, salpimentar y cocinar hasta que quede dorada.",
+            "Incorporar el tomate triturado y las especias, y dejar cocinar a fuego medio 10–15 minutos.",
+            "Servir la pasta y cubrir con la salsa boloñesa."
+        ]
+    },
+    {
+        id: 627,
+        titulo: "Ensalada de patata con huevo y atún",
+        tiempo: 30,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "200 gramos de patatas",
+            "1 huevo duro (50 gr.)",
+            "1 lata pequeña de atún al natural (50 gr.)",
+            "40 gramos de pimiento rojo",
+            "4 aceitunas (10.8 gr.)",
+            "20 gramos de cebolla",
+            "1 cucharada de aceite de aceite de oliva (13 gr.)"
+        ],
+        pasos: [
+            "Lavar la patata y cocerla entera con piel en agua con sal durante 20–25 minutos, hasta que esté tierna.",
+            "Dejar enfriar, pelar y cortar en dados medianos - También puedes usar patata en conserva o de microondas para que sea más fácil.",
+            "Cocer el huevo durante 10 minutos, enfriar, pelar y cortar en trozos o gajos.",
+            "En un bol, mezclar la patata, el huevo y el atún desmenuzado.",
+            "Añadir el pimiento rojo en conserva troceado, y si se desea, la cebolla picada y las aceitunas.",
+            "Aliñar con aceite de oliva, vinagre o zumo de limón, sal y pimienta al gusto.",
+            "Mezclar suavemente y servir fría o a temperatura ambiente."
+        ]
+    },
+    {
+        id: 628,
+        titulo: "Patatas asadas a las hierbas",
+        tiempo: 45,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "1 patata (213 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)",
+            "2 pizcas de sal (0.8 gr.)",
+            "1 gramos de tomillo seco",
+            "1 gramos de romero seco",
+            "1 cucharadita de orégano seco (1 gr.)",
+            "2 pizcas de pimienta negra molida (0.2 gr.)"
+        ],
+        pasos: [
+            "Trocear las patatas a gajos. Podemos utilizar patatas pequeñas de guarnición.",
+            "Mezclar con las especias y el aceite.",
+            "Cocinar en el horno, en Air Fryer (electrodoméstico para freír sin aceite) o al microondas:",
+            "- En el horno: calentar el horno a 220 grados, colocar en una bandeja sobre papel de horno y hornear durante 30min. Remover a los 15 minutos.",
+            "- En el microondas: colocar en un recipiente con tapa para microondas y calentar a máxima potencia durante 10 minutos. Remover y cocinar 5 minutos más.",
+            "- En AirFryer: colocar en el recipiente y calentar durante 10 minutos. Remover y cocinar 5 minutos más."
+        ]
+    },
+    {
+        id: 629,
+        titulo: "Ensalada con mango y langostinos",
+        tiempo: 25,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "150 gramos de lechuga (hoja verde)",
+            "40 gramos de aguacate",
+            "20 gramos de langostinos frescos (gambas, camarones)",
+            "70 gramos de mango",
+            "20 gramos de cebolla morada",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Lavar y escurrir los brotes tiernos, colocándolos como base en un bol o plato grande.",
+            "Pelar y cortar el aguacate en dados.",
+            "Pelar el mango y trocearlo en cubos pequeños.",
+            "Cortar la cebolla morada en láminas finas.",
+            "Pelar y trocear los langostinos cocidos.",
+            "Colocar todos los ingredientes sobre los brotes tiernos de manera equilibrada.",
+            "Aliñar justo antes de servir con la opción elegida.",
+            "Comentarios:",
+            "Aliños que combinan muy bien con esta receta:",
+            "Cítrico fresco: aceite de oliva + zumo de lima o limón + sal y pimienta.",
+            "Dulce-salado: aceite de oliva + vinagre balsámico + un toque de miel.",
+            "Exótico: aceite de oliva + zumo de naranja + jengibre rallado + un poco de cilantro fresco.",
+            "Cremoso ligero: yogur natural + zumo de limón + eneldo o hierbabuena."
+        ]
+    },
+    {
+        id: 630,
+        titulo: "Cogollos rellenos de caballa, maíz y salsa de yogur",
+        tiempo: 15,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "100 gramos de lechuga (hoja verde)",
+            "2 cucharaditas de aceite de oliva (9 gr.)",
+            "1 lata de caballa en conserva (70 gr.)",
+            "2 Cucharadas de salsa de yogurt hacendado (30 gr.)",
+            "70 gramos de maíz cocido"
+        ],
+        pasos: [
+            "Lava el cogollo y separa las hojas.",
+            "Desmenuza la caballa y mézclala con el maíz.",
+            "Mezcla el yogur con el limón, sal y pimienta.",
+            "Incorpora la salsa a la caballa y remueve.",
+            "Rellena las hojas y sirve al momento."
+        ]
+    },
+    {
+        id: 631,
+        titulo: "Mini pizzas de berenjena",
+        tiempo: 30,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "1 berenjena (250 gr.)",
+            "1 vaso pequeño de tomate triturado (82 gr.)",
+            "1 vaso de queso mozzarella rallado (113 gr.)",
+            "1 cucharada de orégano seco (1.8 gr.)",
+            "1 pizca de sal (0.4 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)"
+        ],
+        pasos: [
+            "Calentar el horno a 200 grados.",
+            "Cortar la berenjena a rodajas (serán las bases de las pizzas), las aliñamos con aceite de oliva y sal. Las horneamos durante 5 minutos en un recipiente con tapa apto para microondas.",
+            "Las sacamos y las extendemos sobre la bandeja del horno. Las untamos con el tomate triturado.",
+            "Añadimos lo que queramos encima: pimiento rojo picado, albahaca fresca, espinacas frescas, cebolla cortada fina, etc. Las cubrimos con el queso mozzarella y espolvoreamos con orégano.",
+            "Hornear durante 7 minutos aproximadamente y servir."
+        ]
+    },
+    {
+        id: 632,
+        titulo: "Fajipizza",
+        tiempo: 30,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "78 gramos de fajitas integrales hacendado",
+            "50 gramos de tomate triturado envasado",
+            "60 gramos de queso rallado",
+            "30 gramos de pimiento rojo",
+            "30 gramos de pimiento amarillo",
+            "40 gramos de cebolla",
+            "1 cucharadita de orégano seco (1 gr.)",
+            "6 lonchas de jamón cocido (jamón york) (168 gr.)"
+        ],
+        pasos: [
+            "Preparar la base",
+            "Coloca las fajitas integrales ligeramente solapadas sobre una bandeja de horno con papel vegetal, formando una base redonda. Presiona suavemente para que queden compactas.",
+            "Añadir el tomate",
+            "Extiende el tomate triturado de manera uniforme sobre la base, sin llegar del todo a los bordes.",
+            "Incorporar las verduras.",
+            "Reparte por encima el pimiento rojo, el pimiento amarillo y la cebolla previamente cortados en tiras finas.",
+            "Añadir el jamón y el queso.",
+            "Coloca las lonchas de jamón cocido troceadas y cubre con el queso rallado.",
+            "Condimentar",
+            "Espolvorea el orégano seco por toda la pizza.",
+            "Hornear",
+            "Hornea a 180 gradosC durante 10–12 minutos, hasta que el queso esté fundido y ligeramente dorado."
+        ]
+    },
+    {
+        id: 633,
+        titulo: "Ensalada cítrica",
+        tiempo: 10,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "4 vasos de rúcula (40 gr.)",
+            "75 gramos de queso feta",
+            "1 cucharada de piñones (13 gr.)",
+            "5 tomates cherry (75 gr.)",
+            "1 naranja (130 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "1 cucharada de zumo de limón natural (16 gr.)"
+        ],
+        pasos: [
+            "Lava y escurre bien 4 vasos de rúcula. Colócala como base en una ensaladera.",
+            "Pela 1 naranja, retira la parte blanca y córtala en gajos o dados. Añádela a la ensalada.",
+            "Incorpora 5 tomates cherry cortados por la mitad.",
+            "Desmenuza 75 g de queso feta por encima.",
+            "Añade 1 cucharada de piñones (puedes tostarlos ligeramente en una sartén para potenciar su sabor).",
+            "Prepara el aliño mezclando 1 cucharadita de aceite de oliva con 1 cucharada de zumo de limón natural.",
+            "Vierte el aliño sobre la ensalada, mezcla suavemente y sirve al momento."
         ]
     }
 ];
