@@ -781,6 +781,7 @@ const coleccionMenus = [
 // Pega esto en menus.js dentro de coleccionMenus.push(...)
     {
         nombre: "Semana 6 (05-02-2026)",
+        activa: true,  // <--- ¡ESTA ES LA CLAVE para el menú por defecto! 🎯
         objetivo: [
             "Para mantener / no perder nuestra masa muscular necesitamos un buen estímulo (entrenamiento de fuerza) y una correcta ingesta de proteínas, en función de nuestras necesidades.",
             "DEPORTE + ALIMENTACIÓN",
@@ -857,7 +858,7 @@ const coleccionMenus = [
     },
     {
         nombre: "Menú 7 (16-02-2026)",
-        activa: true,  // <--- ¡ESTA ES LA CLAVE para el menú por defecto! 🎯
+        activa: false,  // <--- ¡ESTA ES LA CLAVE para el menú por defecto! 🎯
         objetivo: [
             "Mantener la masa muscular: entrenamiento de fuerza + proteína.",
             "Combinar Deporte + Alimentación (evitar sedentarismo).",
