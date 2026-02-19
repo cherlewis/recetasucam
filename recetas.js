@@ -1309,7 +1309,7 @@ const listaRecetas = [
     },
     {
         id: 626,
-        titulo: "Pasta de lentejas rojas",
+        titulo: "Pasta de lentejas rojas estilo boloñesa",
         tiempo: 40,
         categoria: [
             "Almuerzo"
