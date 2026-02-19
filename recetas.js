@@ -417,33 +417,6 @@ const listaRecetas = [
         ]
     },
     {
-        id: 302,
-        titulo: "Ensalada de patata con huevo y atún",
-        tiempo: "30 min",
-        categoria: [
-            "Cena",
-            "Almuerzo"
-        ],
-        ingredientes: [
-            "200 gramos de patatas",
-            "1 huevo duro (50 gr.)",
-            "1 lata pequeña de atún al natural (50 gr.)",
-            "40 gramos de pimiento rojo",
-            "2 aceitunas (5.4 gr.)",
-            "20 gramos de cebolla",
-            "1 cucharadita de aceite de oliva (4.5 gr.)"
-        ],
-        pasos: [
-            "Lavar la patata y cocerla entera con piel en agua con sal durante 20–25 minutos, hasta que esté tierna.",
-            "Dejar enfriar, pelar y cortar en dados medianos - También puedes usar patata en conserva o de microondas para que sea más fácil.",
-            "Cocer el huevo durante 10 minutos, enfriar, pelar y cortar en trozos o gajos.",
-            "En un bol, mezclar la patata, el huevo y el atún desmenuzado.",
-            "Añadir el pimiento rojo en conserva troceado, y si se desea, la cebolla picada y las aceitunas.",
-            "Aliñar con aceite de oliva, vinagre o zumo de limón, sal y pimienta al gusto.",
-            "Mezclar suavemente y servir fría o a temperatura ambiente"
-        ]
-    },
-    {
         id: 303,
         titulo: "Ensalada con salmón ahumado y queso fresco",
         tiempo: "10 min",
@@ -1365,16 +1338,17 @@ const listaRecetas = [
         titulo: "Ensalada de patata con huevo y atún",
         tiempo: 30,
         categoria: [
-            "Almuerzo"
+            "Almuerzo",
+            "Cena"
         ],
         ingredientes: [
             "200 gramos de patatas",
             "1 huevo duro (50 gr.)",
             "1 lata pequeña de atún al natural (50 gr.)",
             "40 gramos de pimiento rojo",
-            "4 aceitunas (10.8 gr.)",
+            "2 aceitunas (5.4 gr.) (Almuerzo 4)",
             "20 gramos de cebolla",
-            "1 cucharada de aceite de aceite de oliva (13 gr.)"
+            "1 cucharadita de aceite de oliva (4.5 gr.) (Almuerzo 13 gr)"
         ],
         pasos: [
             "Lavar la patata y cocerla entera con piel en agua con sal durante 20–25 minutos, hasta que esté tierna.",
@@ -1383,7 +1357,7 @@ const listaRecetas = [
             "En un bol, mezclar la patata, el huevo y el atún desmenuzado.",
             "Añadir el pimiento rojo en conserva troceado, y si se desea, la cebolla picada y las aceitunas.",
             "Aliñar con aceite de oliva, vinagre o zumo de limón, sal y pimienta al gusto.",
-            "Mezclar suavemente y servir fría o a temperatura ambiente."
+            "Mezclar suavemente y servir fría o a temperatura ambiente"
         ]
     },
     {
