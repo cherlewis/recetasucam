@@ -1518,5 +1518,27 @@ const listaRecetas = [
             "Prepara el aliño mezclando 1 cucharadita de aceite de oliva con 1 cucharada de zumo de limón natural.",
             "Vierte el aliño sobre la ensalada, mezcla suavemente y sirve al momento."
         ]
+    },
+    {
+        id: 634,
+        titulo: "Fajitas de atún",
+        tiempo: 25,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "2 Tortillas de trigo de tortilla de trigo integral hacendado (72 gr.)",
+            "2 latas pequeñas de atún al natural (100 gr.)",
+            "1 hoja externa de lechuga (hoja verde) (24 gr.)",
+            "50 gramos de tomate",
+            "50 gramos de aguacate",
+            "2 cucharadas de mayonesa baja en calorías (29.2 gr.)"
+        ],
+        pasos: [
+            "En un bol, cortamos el aguacate, unas hojas de lechuga y el tomate en rodajas. Reservamos.",
+            "A continuación, escurrimos el atún y empezamos a montar las fajitas.",
+            "Las calentamos, podemos pasarlas por la sartén o por el microondas. Lo mejor es seguir las indicaciones del fabricante.",
+            "Cogemos las fajitas abiertas, añadimos dos cucharadas de mayonesa, y la cantidad de atún, aguacate, lechuga y tomate que consideremos."
+        ]
     }
 ];
