@@ -1540,5 +1540,63 @@ const listaRecetas = [
             "Las calentamos, podemos pasarlas por la sartén o por el microondas. Lo mejor es seguir las indicaciones del fabricante.",
             "Cogemos las fajitas abiertas, añadimos dos cucharadas de mayonesa, y la cantidad de atún, aguacate, lechuga y tomate que consideremos."
         ]
+    },
+    {
+        id: 51,
+        titulo: "Bizcocho avena",
+        tiempo: 45,
+        categoria: [
+            "Postre"
+        ],
+        ingredientes: [
+            "6 dátiles (unos 7 gramos cada dátil sin el hueso) = 40g aprox",
+            "1 yogur (135g)",
+            "3 medidas de harina de avena integral (200g aprox)",
+            "3 huevos",
+            "1/5 aceite (20g)",
+            "Un sobre de levadura química",
+            "Pepitas chocolate negro",
+            "https://youtu.be/Ao0H6dfMAwg?si=x4J8sYhKnMQ_DU0i",
+            "HORNO : 180°C con calor arriba y abajo - 30 min (depende del molde) o hasta que un palillo salga seco.",
+            "25-27 minutos estaba listo"
+        ],
+        pasos: [
+            "Pasta de Dátiles: Se obtiene remojando dátiles sin hueso en agua caliente y luego triturándolos hasta conseguir una pasta suave.",
+            "Cómo endulzar un bizcocho de forma saludable: Triturar junto con el yogur natural los dátiles",
+            "Cuántos huevos utilizar para un bizcocho saludable",
+            "Añade la harina de avena y el aceite con la medida del vaso de yogur",
+            "Cómo darle un toque diferente al bizcocho saludable: coco deshidratado",
+            "Incorpora así la harina a la mezcla húmeda para evitar grumos",
+            "Cómo evitar que quede seco y conseguir un bizcocho esponjoso",
+            "Pasar la mezcla al molde así, decorar y hornear a 180°C",
+            "La mejor manera de tomar este bizcocho para perder grasa y ganar salud",
+            "Atemperar el bizcocho para que no se rompa",
+            "Resultado final y prueba del bizcocho.",
+            "Calorías y macronutrientes: proteínas, grasas e hidratos de carbono."
+        ]
+    },
+    {
+        id: 52,
+        titulo: "Tortitas avena RealFooder",
+        tiempo: 30,
+        categoria: [
+            "Postre"
+        ],
+        ingredientes: [
+            "50 gr de avena",
+            "100 gr de yogur natural (o de stracciatela)",
+            "1 plátano maduro",
+            "1 huevo",
+            "Canela",
+            "1/2 cdta levadura",
+            "https://www.instagram.com/reel/CVUiuXdqw06/?igsh=c2xhdHQwaGl0bDR5"
+        ],
+        pasos: [
+            "Empezamos triturando los copos de avena con el yogur, el plátano, el huevo, la canela y la levadura hasta obtener una masa homogénea.",
+            "Vamos vertiendo la mezcla en una sartén muy caliente ligeramente engrasada, y cocinamos las tortitas por ambos lados.",
+            "Las vamos sirviendo a un plato, poniendo crema de cacao y plátano entre capas.",
+            "Decoramos con unos frutos secos picados.",
+            "Reel de @leckerandhealthy, administradora de @realfooding"
+        ]
     }
 ];
