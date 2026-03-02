@@ -788,6 +788,7 @@ const coleccionMenus = [
             "Asegura las cantidades de proteínas que te indico (carne, pescado, huevo, queso)",
             "NOTA: Almuerzo Martes: Si la comida del cole te gusta y comes normal, no tomes la pasta de la ensalada de por la noche, haz una ensalada con pechuga de pollo el resto de ingredientes."
         ],
+        activa: true,
         semana: [
             {
                 dia: "Lunes",
@@ -943,7 +944,7 @@ const coleccionMenus = [
     },
     {
         nombre: "Semana 7 (16-02-2026)",
-        activa: true,
+        activa: false,
         objetivo: [
             "OBJETIVOS:",
             "- Para mantener / no perder nuestra masa muscular necesitamos un buen estímulo (entrenamiento de fuerza) y una correcta ingesta de proteínas, en función de nuestras necesidades.",
