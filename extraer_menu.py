@@ -24,7 +24,9 @@ if st.button("🚀 Extraer Menú con IA", type="primary"):
             try:
                 # 1. Encendemos el cerebro de Google
                 genai.configure(api_key=api_key)
-                modelo = genai.GenerativeModel('gemini-1.5-flash')
+                
+                # LA SOLUCIÓN ESTÁ AQUÍ: Usamos el modelo Pro más reciente
+                modelo = genai.GenerativeModel('gemini-1.5-pro-latest')
                 
                 # 2. Preparamos el PDF
                 documento = {
@@ -55,11 +57,11 @@ if st.button("🚀 Extraer Menú con IA", type="primary"):
                 }}
                 Reglas obligatorias:
                 1. Hay días de Lunes a Domingo.
-                2. Si el menú no tiene "Desayuno", deja la lista vacía [].
+                2. Si el menú no tiene "Desayuno", deja la lista vacía []. Lo mismo para cualquier otra comida que falte.
                 3. Une inteligentemente las frases cortadas (ej: "1 Unidad de" y "yogur natural" lo pones junto).
                 4. No inventes platos, copia el texto real del PDF.
                 5. Los objetivos sácalos de la sección "Comentarios".
-                6. Devuelve SÓLO el JSON.
+                6. Devuelve SÓLO el JSON limpio, sin formato de código markdown alrededor.
                 """
                 
                 # 4. Enviamos la orden
