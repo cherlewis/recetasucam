@@ -7,7 +7,7 @@ import re
 st.set_page_config(page_title="Extractor de Menús", page_icon="🥦", layout="centered")
 
 st.title("🥦 Extractor de Menús a JS")
-st.write("Sube tu PDF de ICNS Health Software y conviértelo en código para tu web.")
+st.write("Sube tu PDF de ICNS Health Software y extrae los platos de forma inteligente.")
 
 # --- INTERFAZ ---
 nombre_menu = st.text_input("Nombre del Menú (ej: Menú 8 - María Salud)", "Menú Nuevo")
@@ -41,29 +41,60 @@ def extraer_menu_pdf(pdf_file, nombre):
     
     comida_actual = None
 
-    # pdfplumber lee directamente el archivo subido en Streamlit
     with pdfplumber.open(pdf_file) as pdf:
-        # 1. Extraer Platos
+        # 1. Extraer Platos (Tabla)
         for pagina in pdf.pages:
             tablas = pagina.extract_tables()
             for tabla in tablas:
                 for fila in tabla:
-                    fila_limpia = [str(celda).strip().replace('\n', ' ') if celda else "" for celda in fila]
-                    if not any(fila_limpia): continue
+                    if not any(fila): continue # Fila vacía
                         
-                    columna_0 = fila_limpia[0].lower()
+                    col_0_texto = str(fila[0]).lower().strip() if fila[0] else ""
                     
-                    for clave_pdf, clave_js in mapa_comidas.items():
-                        if clave_pdf in columna_0:
-                            comida_actual = clave_js
-                            break
+                    # Detectar en qué comida estamos
+                    if col_0_texto:
+                        encontrado = False
+                        for clave_pdf, clave_js in mapa_comidas.items():
+                            if clave_pdf in col_0_texto:
+                                comida_actual = clave_js
+                                encontrado = True
+                                break
+                        if not encontrado:
+                            comida_actual = None # Es una cabecera u otra cosa
                             
+                    # Extraer los platos de Lunes a Domingo
                     if comida_actual:
-                        for idx_dia in range(1, min(8, len(fila_limpia))):
-                            plato = fila_limpia[idx_dia]
-                            if plato and len(plato) > 2 and comida_actual.lower() not in plato.lower():
-                                plato = re.sub(r'^[-•%]\s*', '', plato)
-                                semana[idx_dia-1]["comidas"][comida_actual].append(plato.strip())
+                        for idx_dia in range(1, min(8, len(fila))):
+                            celda = fila[idx_dia]
+                            if not celda: continue
+                            
+                            # Separar por saltos de línea físicos del PDF
+                            lineas = str(celda).split('\n')
+                            plato_actual = ""
+                            
+                            for linea in lineas:
+                                linea = linea.strip()
+                                if not linea: continue
+                                
+                                # Quitar viñetas iniciales por si acaso
+                                linea_limpia = re.sub(r'^[-•%]\s*', '', linea)
+                                
+                                # LOGICA INTELIGENTE:
+                                # ¿Empieza por Mayúscula o Número? -> Es un nuevo plato
+                                if re.match(r'^[A-ZÁÉÍÓÚÑ0-9]', linea_limpia) or not plato_actual:
+                                    if plato_actual:
+                                        # Guardamos el plato anterior antes de empezar el nuevo
+                                        if plato_actual.lower() != comida_actual.lower():
+                                            semana[idx_dia-1]["comidas"][comida_actual].append(plato_actual)
+                                    plato_actual = linea_limpia
+                                else:
+                                    # Empieza por minúscula o símbolo -> Es continuación del plato de arriba
+                                    plato_actual += " " + linea_limpia
+                                    
+                            # Guardar el último plato procesado de esa celda
+                            if plato_actual:
+                                if plato_actual.lower() != comida_actual.lower():
+                                    semana[idx_dia-1]["comidas"][comida_actual].append(plato_actual)
 
         # 2. Extraer Objetivos
         for pagina in pdf.pages:
@@ -78,12 +109,11 @@ def extraer_menu_pdf(pdf_file, nombre):
                         continue
                     if capturando:
                         if linea.startswith('-'):
-                            # AQUÍ ESTABA EL ERROR: Decía 'line' en lugar de 'linea'
                             objetivos.append(linea[1:].strip())
                         elif linea and objetivos:
                             objetivos[-1] += " " + linea
 
-    # 3. Limpiar comidas vacías
+    # 3. Limpiar comidas vacías para que quede bonito
     for dia_data in semana:
         comidas_limpias = {}
         for comida, platos in dia_data["comidas"].items():
@@ -103,16 +133,15 @@ def extraer_menu_pdf(pdf_file, nombre):
 # --- BOTÓN DE PROCESAR ---
 if archivo_pdf is not None:
     if st.button("🚀 Extraer Menú", type="primary"):
-        with st.spinner("Procesando PDF..."):
+        with st.spinner("Leyendo y organizando los platos..."):
             try:
                 datos = extraer_menu_pdf(archivo_pdf, nombre_menu)
                 
                 # Generar el código JS bonito
-                codigo_js = f"    {{\n        nombre: \"{nombre_menu}\",\n        activa: false,\n        objetivo: {json.dumps(datos['objetivo'], ensure_ascii=False, indent=4)},\n        semana: {json.dumps(datos['semana'], ensure_ascii=False, indent=4)}\n    }}"
-                codigo_js = re.sub(r'"(\w+)":', r'\1:', codigo_js) # Quitar comillas a las claves JS
+                json_str = json.dumps(datos, ensure_ascii=False, indent=4)
+                codigo_js = re.sub(r'"(\w+)":', r'\1:', json_str) # Quitar comillas a las claves JS
                 
                 st.success("¡Extracción completada con éxito!")
-                
                 st.write("### Código generado (Cópialo y pégalo en menus.js):")
                 st.code(codigo_js + ",", language="javascript")
                 
