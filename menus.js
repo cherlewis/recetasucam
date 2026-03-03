@@ -1107,7 +1107,7 @@ const coleccionMenus = [
             }
         ]
     },
-        {
+    {
         nombre: "Semana 8 (26-02-2026)",
         activa: true,
         objetivo: [
@@ -1119,74 +1119,179 @@ const coleccionMenus = [
             {
                 dia: "Lunes",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich al gusto", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Gazpacho andaluz (sin pan)", "Salmón al horno", "1 pieza de fruta (genérico)"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Ensalada estilo césar", "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich al gusto",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Gazpacho andaluz (sin pan)",
+                        "Salmón al horno",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Ensalada estilo césar",
+                        "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"
+                    ]
                 }
             },
             {
                 dia: "Martes",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich con aguacate y jamón", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Poké bowl con gambas", "1 pieza de fruta (genérico)"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Ensalada caprese", "Tortilla francesa", "1 Yogur natural semidesnatado"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich con aguacate y jamón",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Ensalada variada de verduras",
+                        "Pasta con atún",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Ensalada caprese",
+                        "Tortilla francesa",
+                        "1 Yogur natural semidesnatado"
+                    ]
                 }
             },
             {
                 dia: "Miércoles",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich al gusto", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Ensalada variada de verduras", "Pasta con atún", "1 pieza de fruta (genérico)"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Ensalada con queso fresco y taquitos de jamón", "Lomo de cerdo a la plancha", "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich al gusto",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Ensalada de quinoa con salmón ahumado y tzatziki",
+                        "Fruta rica en vitamina C"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Ensalada con queso fresco y taquitos de jamón",
+                        "Lomo de cerdo a la plancha",
+                        "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"
+                    ]
                 }
             },
             {
                 dia: "Jueves",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich con aguacate, jamón y queso", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Ensalada de quinoa con salmón ahumado y tzatziki", "Fruta rica en vitamina C"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Ensalada murciana", "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich con aguacate, jamón y queso",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Ensalada variada de verduras",
+                        "Lentejas con verduras y jamón",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Ensalada murciana",
+                        "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"
+                    ]
                 }
             },
             {
                 dia: "Viernes",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich al gusto", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Ensalada variada de verduras", "Lentejas con verduras y jamón", "1 pieza de fruta (genérico)"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Pan pizza con jamón", "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich al gusto",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Poké bowl con gambas",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Salteado de verduras",
+                        "Tortilla de patata",
+                        "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"
+                    ]
                 }
             },
             {
                 dia: "Sábado",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich al gusto", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Ensalada variada de verduras", "Pollo asado con verduras y patata", "1 pieza de fruta (genérico)"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Salteado de verduras", "Tortilla de patata", "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich al gusto",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Ensalada variada de verduras",
+                        "Pollo asado con verduras y patata",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Pan pizza con jamón"
+                    ]
                 }
             },
             {
                 dia: "Domingo",
                 comidas: {
-                    desayuno: ["1 Yogur griego natural"],
-                    segundoDesayuno: ["Sandwich al gusto", "35 gr. de mezcla de frutos secos"],
-                    almuerzo: ["Ensalada variada de verduras", "Berenjenas con verduras y carne picada de vacuno", "1 pieza de fruta (genérico)"],
-                    merienda: ["Batido de proteína con bebida vegetal", "1 pieza de fruta (genérico)"],
-                    cena: ["Puré de verduras al gusto", "Tostada de pan integral con aguacate y jamón", "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"]
+                    desayuno: [
+                        "1 Yogur griego natural"
+                    ],
+                    segundoDesayuno: [
+                        "Sandwich al gusto",
+                        "35 gr. de mezcla de frutos secos"
+                    ],
+                    almuerzo: [
+                        "Ensalada variada de verduras",
+                        "Berenjenas con verduras y carne picada de vacuno",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    merienda: [
+                        "Batido de proteína con bebida vegetal",
+                        "1 pieza de fruta (genérico)"
+                    ],
+                    cena: [
+                        "Puré de verduras al gusto",
+                        "Tostada de pan integral con aguacate y jamón",
+                        "1 Unidad de yogur natural +proteínas hacendado (unidad - 120g)"
+                    ]
                 }
             }
         ]
     }
-
 ];
