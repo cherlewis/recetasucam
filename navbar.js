@@ -92,7 +92,7 @@ const menuHTML = `
             <li><a href="admin-editor-menus.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">📝 Editar Menús</a></li>
             <li><a href="admin-editor-recetas.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">👨‍🍳 Gestor Recetas</a></li>
             <li><a href="admin-editor-fotos.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">📸 Gestor Fotos</a></li>
-            <li><a href="extraer_menu.py" target="_blank" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">🐍 Script Python</a></li>
+            <li><a href="https://recetasucam.streamlit.app/" target="_blank" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">🐍 Script Python</a></li>
         </ul>
     </div>
 </nav>
