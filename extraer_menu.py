@@ -47,29 +47,28 @@ def extraer_menu_pdf(pdf_file, nombre):
             tablas = pagina.extract_tables()
             for tabla in tablas:
                 for fila in tabla:
-                    if not any(fila): continue # Fila vacía
+                    # Limpiamos las celdas para comprobar si la fila está vacía
+                    celdas = [str(c).strip() if c else "" for c in fila]
+                    if not any(celdas): 
+                        continue
                         
-                    col_0_texto = str(fila[0]).lower().strip() if fila[0] else ""
+                    col_0_texto = celdas[0].lower()
                     
-                    # Detectar en qué comida estamos
-                    if col_0_texto:
-                        encontrado = False
-                        for clave_pdf, clave_js in mapa_comidas.items():
-                            if clave_pdf in col_0_texto:
-                                comida_actual = clave_js
-                                encontrado = True
-                                break
-                        if not encontrado:
-                            comida_actual = None # Es una cabecera u otra cosa
+                    # Detectar si cambiamos de comida
+                    for clave_pdf, clave_js in mapa_comidas.items():
+                        if clave_pdf in col_0_texto:
+                            comida_actual = clave_js
+                            break
                             
-                    # Extraer los platos de Lunes a Domingo
+                    # Si ya sabemos en qué comida estamos, extraemos de Lunes(1) a Domingo(7)
                     if comida_actual:
                         for idx_dia in range(1, min(8, len(fila))):
-                            celda = fila[idx_dia]
-                            if not celda: continue
+                            celda_original = fila[idx_dia]
+                            if not celda_original: 
+                                continue
                             
                             # Separar por saltos de línea físicos del PDF
-                            lineas = str(celda).split('\n')
+                            lineas = str(celda_original).split('\n')
                             plato_actual = ""
                             
                             for linea in lineas:
@@ -83,8 +82,8 @@ def extraer_menu_pdf(pdf_file, nombre):
                                 # ¿Empieza por Mayúscula o Número? -> Es un nuevo plato
                                 if re.match(r'^[A-ZÁÉÍÓÚÑ0-9]', linea_limpia) or not plato_actual:
                                     if plato_actual:
-                                        # Guardamos el plato anterior antes de empezar el nuevo
-                                        if plato_actual.lower() != comida_actual.lower():
+                                        # Guardar el plato anterior asegurándonos de que no es la cabecera
+                                        if plato_actual.lower() not in comida_actual.lower() and len(plato_actual) > 2:
                                             semana[idx_dia-1]["comidas"][comida_actual].append(plato_actual)
                                     plato_actual = linea_limpia
                                 else:
@@ -93,7 +92,7 @@ def extraer_menu_pdf(pdf_file, nombre):
                                     
                             # Guardar el último plato procesado de esa celda
                             if plato_actual:
-                                if plato_actual.lower() != comida_actual.lower():
+                                if plato_actual.lower() not in comida_actual.lower() and len(plato_actual) > 2:
                                     semana[idx_dia-1]["comidas"][comida_actual].append(plato_actual)
 
         # 2. Extraer Objetivos
