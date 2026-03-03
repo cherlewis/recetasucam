@@ -3,21 +3,17 @@ import pdfplumber
 import json
 import re
 
-# --- CONFIGURACIÓN DE LA PÁGINA ---
 st.set_page_config(page_title="Extractor de Menús", page_icon="🥦", layout="centered")
 
 st.title("🥦 Extractor de Menús a JS")
-st.write("Sube tu PDF de ICNS Health Software. Soporta 4 o 5 comidas dinámicamente.")
+st.write("Extractor ultra-preciso basado en el mapa de columnas (Lunes=Col 2, Domingo=Col 8).")
 
-# --- INTERFAZ ---
 nombre_menu = st.text_input("Nombre del Menú (ej: Menú 8 - María Salud)", "Menú Nuevo")
 archivo_pdf = st.file_uploader("Sube el PDF del menú semanal", type=["pdf"])
 
-# --- FUNCIÓN EXTRACTORA ---
 def extraer_menu_pdf(pdf_file, nombre):
     dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
     
-    # Preparamos el molde con las 5 comidas posibles
     semana = []
     for dia in dias_semana:
         semana.append({
@@ -33,7 +29,6 @@ def extraer_menu_pdf(pdf_file, nombre):
         
     objetivos = []
     
-    # IMPORTANTE: "segundo desayuno" debe comprobarse ANTES que "desayuno"
     mapa_comidas = {
         "segundo desayuno": "segundoDesayuno",
         "desayuno": "desayuno",
@@ -45,42 +40,39 @@ def extraer_menu_pdf(pdf_file, nombre):
     comida_actual = None
 
     with pdfplumber.open(pdf_file) as pdf:
-        # 1. Extraer Platos (Tabla)
         for pagina in pdf.pages:
             tablas = pagina.extract_tables()
             for tabla in tablas:
                 for fila in tabla:
-                    # Filtro para ignorar tablas pequeñas (como las de comentarios)
-                    if len(fila) < 7:
-                        continue
-                        
-                    # Limpiar celdas 
                     celdas = [str(c).strip() if c else "" for c in fila]
                     
-                    # Rellenar con vacíos si hay menos de 8 columnas
+                    # Rellenamos con vacíos para asegurar que SIEMPRE haya 8 columnas (Cabecera + 7 días)
                     while len(celdas) < 8:
                         celdas.append("")
                         
+                    # Comprobamos si la fila está totalmente vacía
                     if not any(celdas): 
                         continue
                         
+                    # Leemos la primera columna para saber en qué comida estamos
                     col_0 = celdas[0].lower()
                     
-                    # Evitar procesar la fila de cabecera de los días
+                    # Ignorar las filas de los títulos de los días
                     if "lunes" in col_0 or "lunes" in celdas[1].lower():
-                        comida_actual = None
                         continue
                     
-                    # Detectar si estamos cambiando de tipo de comida
+                    # Detectar cambio de comida
                     for clave_pdf, clave_js in mapa_comidas.items():
                         if clave_pdf in col_0:
                             comida_actual = clave_js
                             break
                             
-                    # Si ya estamos en una comida, leemos de Lunes(1) a Domingo(7)
+                    # TU PISTA DE ORO: Si ya sabemos la comida, leemos de la columna 2 a la 8
                     if comida_actual:
-                        for idx_dia in range(1, 8):
-                            texto_celda = celdas[idx_dia]
+                        # celdas[1:8] coge exactamente del Lunes (índice 1) al Domingo (índice 7)
+                        dias_textos = celdas[1:8] 
+                        
+                        for idx_dia, texto_celda in enumerate(dias_textos):
                             if not texto_celda: 
                                 continue
                             
@@ -88,27 +80,26 @@ def extraer_menu_pdf(pdf_file, nombre):
                             
                             for linea in lineas:
                                 linea = linea.strip()
-                                if not linea: continue
-                                
-                                # Quitar viñetas o símbolos raros al inicio
+                                # Limpiar símbolos raros de inicio
                                 linea = re.sub(r'^[-•%*]\s*', '', linea)
+                                if not linea: 
+                                    continue
                                 
-                                lista_comida = semana[idx_dia-1]["comidas"][comida_actual]
+                                # Evitar añadir el título de la comida como plato
+                                if comida_actual.lower() in linea.lower() and len(linea) < 20:
+                                    continue
                                 
-                                # LÓGICA INTELIGENTE: Mayúscula/Número = Plato nuevo
+                                lista_comida = semana[idx_dia]["comidas"][comida_actual]
+                                
+                                # LOGICA DE UNIÓN DE TEXTOS:
+                                # Si empieza por MAYÚSCULA o NÚMERO -> Es un plato nuevo
                                 if re.match(r'^[A-ZÁÉÍÓÚÑ0-9]', linea) or not lista_comida:
-                                    # Evitar meter el nombre de la comida por error
-                                    if len(linea) > 2 and comida_actual.lower() not in linea.lower():
-                                        lista_comida.append(linea)
+                                    lista_comida.append(linea)
                                 else:
-                                    # Minúscula/símbolo = Continuación del plato de arriba
-                                    if lista_comida:
-                                        lista_comida[-1] += " " + linea
-                                    else:
-                                        if len(linea) > 2:
-                                            lista_comida.append(linea)
+                                    # Si empieza por minúscula o símbolo (ej. paréntesis) -> Se une al plato anterior
+                                    lista_comida[-1] += " " + linea
 
-        # 2. Extraer Objetivos
+        # 2. Extraer Objetivos de la página de comentarios
         for pagina in pdf.pages:
             texto = pagina.extract_text()
             if texto and "OBJETIVOS:" in texto:
@@ -125,35 +116,27 @@ def extraer_menu_pdf(pdf_file, nombre):
                         elif linea and objetivos:
                             objetivos[-1] += " " + linea
 
-    # 3. LIMPIEZA MÁGICA: Quita las comidas que estén vacías (ej: si no hay desayuno)
+    # 3. Limpieza: Eliminar las comidas que no tengan ningún plato asignado
     for dia_data in semana:
         comidas_limpias = {}
         for comida, platos in dia_data["comidas"].items():
-            if platos: # Solo guarda la comida si tiene platos dentro
+            if platos:
                 comidas_limpias[comida] = platos
         dia_data["comidas"] = comidas_limpias
 
-    resultado = {
-        "nombre": nombre,
-        "activa": False,
-        "objetivo": objetivos,
-        "semana": semana
-    }
-    
-    return resultado
+    return {"nombre": nombre, "activa": False, "objetivo": objetivos, "semana": semana}
 
 # --- BOTÓN DE PROCESAR ---
 if archivo_pdf is not None:
     if st.button("🚀 Extraer Menú", type="primary"):
-        with st.spinner("Leyendo y organizando la semana..."):
+        with st.spinner("Mapeando columnas y extrayendo platos..."):
             try:
                 datos = extraer_menu_pdf(archivo_pdf, nombre_menu)
                 
-                # Generar el código JS
                 json_str = json.dumps(datos, ensure_ascii=False, indent=4)
                 codigo_js = re.sub(r'"(\w+)":', r'\1:', json_str) 
                 
-                st.success("¡Extracción completada! 👩‍🍳")
+                st.success("¡Extracción completada! 🎉")
                 st.write("### Código generado (Cópialo y pégalo en menus.js):")
                 st.code(codigo_js + ",", language="javascript")
                 
