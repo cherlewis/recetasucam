@@ -36,7 +36,7 @@ function actualizarIcono(esOscuro) {
     }
 }
 
-// EL HTML DE LA BARRA (Actualizado con el botón)
+// EL HTML DE LA BARRA (Actualizado con el botón de Python)
 const menuHTML = `
 <nav class="fixed w-full z-50 top-0 start-0 border-b border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900/95 backdrop-blur-md text-slate-800 dark:text-white transition-colors duration-300">
     <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -73,7 +73,8 @@ const menuHTML = `
                     <div class="absolute right-0 w-56 mt-2 bg-white dark:bg-slate-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-1 border border-slate-200 dark:border-slate-700 overflow-hidden">
                         <a href="admin-editor-menus.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 border-b border-gray-100 dark:border-slate-700">📝 Editor Menús</a>
                         <a href="admin-editor-recetas.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 border-b border-gray-100 dark:border-slate-700">👨‍🍳 Gestor Recetas</a>
-                        <a href="admin-editor-fotos.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600">📸 Gestor Fotos</a>
+                        <a href="admin-editor-fotos.html" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 border-b border-gray-100 dark:border-slate-700">📸 Gestor Fotos</a>
+                        <a href="extraer_menu.py" target="_blank" class="block px-4 py-3 text-sm hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600">🐍 Script Python</a>
                     </div>
                 </li>
             </ul>
@@ -90,6 +91,8 @@ const menuHTML = `
             </li>
             <li><a href="admin-editor-menus.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">📝 Editar Menús</a></li>
             <li><a href="admin-editor-recetas.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">👨‍🍳 Gestor Recetas</a></li>
+            <li><a href="admin-editor-fotos.html" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">📸 Gestor Fotos</a></li>
+            <li><a href="extraer_menu.py" target="_blank" class="block py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600">🐍 Script Python</a></li>
         </ul>
     </div>
 </nav>
