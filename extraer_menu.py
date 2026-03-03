@@ -7,7 +7,7 @@ import re
 st.set_page_config(page_title="Extractor de Menús", page_icon="🥦", layout="centered")
 
 st.title("🥦 Extractor de Menús a JS")
-st.write("Sube tu PDF de ICNS Health Software y extrae los platos de forma inteligente.")
+st.write("Sube tu PDF de ICNS Health Software. Soporta 4 o 5 comidas dinámicamente.")
 
 # --- INTERFAZ ---
 nombre_menu = st.text_input("Nombre del Menú (ej: Menú 8 - María Salud)", "Menú Nuevo")
@@ -17,6 +17,7 @@ archivo_pdf = st.file_uploader("Sube el PDF del menú semanal", type=["pdf"])
 def extraer_menu_pdf(pdf_file, nombre):
     dias_semana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
     
+    # Preparamos el molde con las 5 comidas posibles
     semana = []
     for dia in dias_semana:
         semana.append({
@@ -32,7 +33,7 @@ def extraer_menu_pdf(pdf_file, nombre):
         
     objetivos = []
     
-    # El orden es importante: primero comprobar "segundo desayuno" y luego "desayuno"
+    # IMPORTANTE: "segundo desayuno" debe comprobarse ANTES que "desayuno"
     mapa_comidas = {
         "segundo desayuno": "segundoDesayuno",
         "desayuno": "desayuno",
@@ -49,15 +50,14 @@ def extraer_menu_pdf(pdf_file, nombre):
             tablas = pagina.extract_tables()
             for tabla in tablas:
                 for fila in tabla:
-                    # FILTRO MÁGICO: La tabla de la semana tiene 8 columnas. 
-                    # Si tiene menos de 7, es la tabla de "Comentarios", la ignoramos.
+                    # Filtro para ignorar tablas pequeñas (como las de comentarios)
                     if len(fila) < 7:
                         continue
                         
                     # Limpiar celdas 
                     celdas = [str(c).strip() if c else "" for c in fila]
                     
-                    # Rellenar con vacíos si por algún error de lectura hay menos de 8
+                    # Rellenar con vacíos si hay menos de 8 columnas
                     while len(celdas) < 8:
                         celdas.append("")
                         
@@ -66,7 +66,7 @@ def extraer_menu_pdf(pdf_file, nombre):
                         
                     col_0 = celdas[0].lower()
                     
-                    # Evitar procesar la fila de cabecera de los días (LUNES, MARTES...)
+                    # Evitar procesar la fila de cabecera de los días
                     if "lunes" in col_0 or "lunes" in celdas[1].lower():
                         comida_actual = None
                         continue
@@ -95,23 +95,20 @@ def extraer_menu_pdf(pdf_file, nombre):
                                 
                                 lista_comida = semana[idx_dia-1]["comidas"][comida_actual]
                                 
-                                # LÓGICA INTELIGENTE: 
-                                # Empieza por Mayúscula o Número -> Plato nuevo
-                                # O si la lista está vacía -> Plato nuevo
+                                # LÓGICA INTELIGENTE: Mayúscula/Número = Plato nuevo
                                 if re.match(r'^[A-ZÁÉÍÓÚÑ0-9]', linea) or not lista_comida:
-                                    # Evitar meter el nombre de la comida por error (ej: "Desayuno")
+                                    # Evitar meter el nombre de la comida por error
                                     if len(linea) > 2 and comida_actual.lower() not in linea.lower():
                                         lista_comida.append(linea)
                                 else:
-                                    # Empieza por minúscula o símbolo -> Continuación de la línea de arriba
+                                    # Minúscula/símbolo = Continuación del plato de arriba
                                     if lista_comida:
                                         lista_comida[-1] += " " + linea
                                     else:
-                                        # Por seguridad extrema
                                         if len(linea) > 2:
                                             lista_comida.append(linea)
 
-        # 2. Extraer Objetivos (Texto libre fuera de las tablas)
+        # 2. Extraer Objetivos
         for pagina in pdf.pages:
             texto = pagina.extract_text()
             if texto and "OBJETIVOS:" in texto:
@@ -128,11 +125,11 @@ def extraer_menu_pdf(pdf_file, nombre):
                         elif linea and objetivos:
                             objetivos[-1] += " " + linea
 
-    # 3. Limpiar y formatear el código resultante
+    # 3. LIMPIEZA MÁGICA: Quita las comidas que estén vacías (ej: si no hay desayuno)
     for dia_data in semana:
         comidas_limpias = {}
         for comida, platos in dia_data["comidas"].items():
-            if platos:
+            if platos: # Solo guarda la comida si tiene platos dentro
                 comidas_limpias[comida] = platos
         dia_data["comidas"] = comidas_limpias
 
@@ -148,15 +145,15 @@ def extraer_menu_pdf(pdf_file, nombre):
 # --- BOTÓN DE PROCESAR ---
 if archivo_pdf is not None:
     if st.button("🚀 Extraer Menú", type="primary"):
-        with st.spinner("Leyendo, limpiando y organizando la semana..."):
+        with st.spinner("Leyendo y organizando la semana..."):
             try:
                 datos = extraer_menu_pdf(archivo_pdf, nombre_menu)
                 
-                # Generar el código JS bonito
+                # Generar el código JS
                 json_str = json.dumps(datos, ensure_ascii=False, indent=4)
-                codigo_js = re.sub(r'"(\w+)":', r'\1:', json_str) # Quitar comillas a las claves JS
+                codigo_js = re.sub(r'"(\w+)":', r'\1:', json_str) 
                 
-                st.success("¡Extracción completada a la perfección! 👩‍🍳")
+                st.success("¡Extracción completada! 👩‍🍳")
                 st.write("### Código generado (Cópialo y pégalo en menus.js):")
                 st.code(codigo_js + ",", language="javascript")
                 
