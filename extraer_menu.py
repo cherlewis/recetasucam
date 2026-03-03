@@ -78,7 +78,8 @@ def extraer_menu_pdf(pdf_file, nombre):
                         continue
                     if capturando:
                         if linea.startswith('-'):
-                            objetivos.append(line[1:].strip())
+                            # AQUÍ ESTABA EL ERROR: Decía 'line' en lugar de 'linea'
+                            objetivos.append(linea[1:].strip())
                         elif linea and objetivos:
                             objetivos[-1] += " " + linea
 
