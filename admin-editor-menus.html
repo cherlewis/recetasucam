@@ -69,7 +69,7 @@
     <script>
         // Referencias globales
         let datosGlobales = []; 
-        let indiceActual = 0; // Guardamos el índice globalmente
+        let indiceActual = 0; 
         
         // Al iniciar
         window.onload = function() {
@@ -114,19 +114,23 @@
                 cajaObjetivos.value = "";
             }
 
-            // 2. CARGAR DÍAS
+            // 2. CARGAR DÍAS (ACTUALIZADO A 5 COMIDAS)
             contenedor.innerHTML = "";
 
             menuActual.semana.forEach((diaObj, diaIndex) => {
+                // Protección para menús antiguos que no tengan inicializadas todas las comidas
+                if(!diaObj.comidas) diaObj.comidas = {};
+
                 const htmlDia = `
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-slate-200 dark:border-slate-700 transition-colors">
                     <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-700 pb-2 capitalize">${diaObj.dia}</h3>
                     
                     <div class="space-y-4">
-                        ${crearInput(indiceActual, diaIndex, 'segundoDesayuno', 'Segundo Desayuno', diaObj.comidas.segundoDesayuno)}
-                        ${crearInput(indiceActual, diaIndex, 'almuerzo', 'Almuerzo', diaObj.comidas.almuerzo)}
-                        ${crearInput(indiceActual, diaIndex, 'merienda', 'Merienda', diaObj.comidas.merienda)}
-                        ${crearInput(indiceActual, diaIndex, 'cena', 'Cena', diaObj.comidas.cena)}
+                        ${crearInput(indiceActual, diaIndex, 'desayuno', 'Desayuno (primer desayuno)', diaObj.comidas.desayuno || [])}
+                        ${crearInput(indiceActual, diaIndex, 'segundoDesayuno', 'Desayuno (Segundo desayuno)', diaObj.comidas.segundoDesayuno || [])}
+                        ${crearInput(indiceActual, diaIndex, 'almuerzo', 'Almuerzo', diaObj.comidas.almuerzo || [])}
+                        ${crearInput(indiceActual, diaIndex, 'merienda', 'Merienda', diaObj.comidas.merienda || [])}
+                        ${crearInput(indiceActual, diaIndex, 'cena', 'Cena', diaObj.comidas.cena || [])}
                     </div>
                 </div>
                 `;
@@ -142,7 +146,7 @@
         }
 
         function crearInput(menuIdx, diaIdx, tipoComida, label, valores) {
-            const textoValor = Array.isArray(valores) ? valores.join('\n') : valores;
+            const textoValor = Array.isArray(valores) ? valores.join('\n') : (valores || "");
 
             // TEXTAREAS ADAPTADOS AL MODO OSCURO
             return `
@@ -163,6 +167,12 @@
 
         function actualizarDato(menuIdx, diaIdx, tipoComida, nuevoValor) {
             const arrayPlatos = nuevoValor.split('\n').filter(linea => linea.trim() !== "");
+            
+            // Si por algún motivo el objeto comidas no existe, lo creamos
+            if (!datosGlobales[menuIdx].semana[diaIdx].comidas) {
+                datosGlobales[menuIdx].semana[diaIdx].comidas = {};
+            }
+            
             datosGlobales[menuIdx].semana[diaIdx].comidas[tipoComida] = arrayPlatos;
         }
 
