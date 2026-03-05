@@ -95,24 +95,28 @@
                 </div>
 
                 <div class="mb-4 bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl border border-slate-200 dark:border-slate-600">
-                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-3">Categorías</label>
+                    <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-3">Categorías / Comidas</label>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mb-3">
                         <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
-                            <input type="checkbox" name="cat-check" value="Desayuno" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
-                            <span class="text-sm font-medium">☕ Desayuno</span>
+                            <input type="checkbox" name="cat-check" value="Desayuno (primer desayuno)" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                            <span class="text-xs font-medium leading-tight">☕ 1º Desayuno</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
-                            <input type="checkbox" name="cat-check" value="Almuerzo" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
-                            <span class="text-sm font-medium">🍲 Almuerzo</span>
+                            <input type="checkbox" name="cat-check" value="Desayuno (Segundo desayuno)" class="w-4 h-4 text-orange-500 rounded focus:ring-orange-500">
+                            <span class="text-xs font-medium leading-tight">🥪 2º Desayuno</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
-                            <input type="checkbox" name="cat-check" value="Merienda" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
-                            <span class="text-sm font-medium">🥪 Merienda</span>
+                            <input type="checkbox" name="cat-check" value="Almuerzo" class="w-4 h-4 text-green-600 rounded focus:ring-green-500">
+                            <span class="text-xs font-medium leading-tight">🍲 Almuerzo</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
-                            <input type="checkbox" name="cat-check" value="Cena" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
-                            <span class="text-sm font-medium">🌙 Cena</span>
+                            <input type="checkbox" name="cat-check" value="Merienda" class="w-4 h-4 text-yellow-500 rounded focus:ring-yellow-500">
+                            <span class="text-xs font-medium leading-tight">🍎 Merienda</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition">
+                            <input type="checkbox" name="cat-check" value="Cena" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500">
+                            <span class="text-xs font-medium leading-tight">🌙 Cena</span>
                         </label>
                     </div>
 
@@ -240,7 +244,6 @@
             document.getElementById('tiempo').value = tiempoLimpio;
 
             // --- CARGAR CATEGORÍAS EN CHECKBOXES ---
-            // 1. Limpiar todos los checks y el input extra
             document.querySelectorAll('input[name="cat-check"]').forEach(cb => cb.checked = false);
             document.getElementById('categoria-extra').value = "";
 
@@ -248,16 +251,13 @@
             const extras = [];
 
             cats.forEach(c => {
-                // Buscamos si existe un checkbox con este valor
                 const checkbox = document.querySelector(`input[name="cat-check"][value="${c}"]`);
                 if (checkbox) {
                     checkbox.checked = true;
                 } else {
-                    // Si no está en los principales, lo guardamos para el input extra
                     if (c && c.trim() !== "") extras.push(c);
                 }
             });
-            // Ponemos los extras separados por coma
             document.getElementById('categoria-extra').value = extras.join(', ');
             // ----------------------------------------
 
@@ -280,7 +280,6 @@
             document.getElementById('titulo').value = "";
             document.getElementById('tiempo').value = "";
             
-            // Limpiar categorías
             document.querySelectorAll('input[name="cat-check"]').forEach(cb => cb.checked = false);
             document.getElementById('categoria-extra').value = "";
 
@@ -301,11 +300,9 @@
 
             // --- RECOGER CATEGORÍAS ---
             const categoriasSeleccionadas = [];
-            // 1. Checkboxes marcados
             document.querySelectorAll('input[name="cat-check"]:checked').forEach(cb => {
                 categoriasSeleccionadas.push(cb.value);
             });
-            // 2. Input extra
             const extras = document.getElementById('categoria-extra').value.split(',').map(c => c.trim()).filter(c => c !== "");
             const categoriasFinales = [...categoriasSeleccionadas, ...extras];
             // ---------------------------
@@ -314,7 +311,7 @@
                 id: id,
                 titulo: titulo,
                 tiempo: tiempoNum,
-                categoria: categoriasFinales, // Array limpio
+                categoria: categoriasFinales,
                 ingredientes: document.getElementById('ingredientes').value.split('\n').filter(l => l.trim() !== ""),
                 pasos: document.getElementById('pasos').value.split('\n').filter(l => l.trim() !== "")
             };
