@@ -803,13 +803,13 @@ const listaRecetas = [
     {
         id: 609,
         titulo: "Ensalada caprese",
-        tiempo: "5 min",
+        tiempo: 5,
         categoria: [
             "Cena"
         ],
         ingredientes: [
             "60 gramos de mozzarella fresca",
-            "2 tomates pera",
+            "2 tomates pera (62 gr.)",
             "1 vaso de hojas enteras de albahaca fresca (6 gr.)",
             "1/2 cucharadita de aceite de oliva (2.3 gr.)",
             "1 pizca de pimienta negra molida (0.1 gr.)",
@@ -1597,6 +1597,199 @@ const listaRecetas = [
             "Las vamos sirviendo a un plato, poniendo crema de cacao y plátano entre capas.",
             "Decoramos con unos frutos secos picados.",
             "Reel de @leckerandhealthy, administradora de @realfooding"
+        ]
+    },
+    {
+        id: 635,
+        titulo: "Sandwich con aguacate y jamon",
+        tiempo: 5,
+        categoria: [
+            "Desayuno"
+        ],
+        ingredientes: [
+            "2 rebanadas de pan de molde (54 gr.)",
+            "50 gramos de jamón cocido (jamón york)",
+            "30 gramos de aguacate"
+        ],
+        pasos: [
+            "Dos rebanadas de pan de molde integral y añade 50 g de jamón york (alto porcentaje de carne) con aguacate."
+        ]
+    },
+    {
+        id: 636,
+        titulo: "Sandwich con aguacate, jamón y queso",
+        tiempo: 5,
+        categoria: [
+            "Desayuno"
+        ],
+        ingredientes: [
+            "2 rebanadas de pan de molde integral (54 gr.)",
+            "25 gramos de jamón cocido (jamón york)",
+            "1 loncha de queso light tierno 0% (25 gr.)",
+            "30 gramos de aguacate"
+        ],
+        pasos: [
+            "Dos rebanadas de pan de molde integral y añade 25 g de jamón york (alto porcentaje de carne), 25g de queso light y aguacate."
+        ]
+    },
+    {
+        id: 637,
+        titulo: "Pasta con atún",
+        tiempo: 45,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "60 gramos de pasta",
+            "2 latas pequeñas de atún al natural (100 gr.)",
+            "1 cucharada colmada de queso en polvo (10 gr.)",
+            "1 zanahoria (61 gr.)",
+            "1/2 pimiento verde pequeño (37 gr.)",
+            "1 vaso de salsa de tomate (245 gr.)",
+            "1 cebolla (110 gr.)",
+            "1 diente de ajo (3 gr.)",
+            "1 cucharada de orégano seco (1.8 gr.)",
+            "1 cucharada de perejil picado (3.8 gr.)",
+            "1 cucharadita de sal (6 gr.)",
+            "1 cucharada de aceite de oliva (13 gr.)"
+        ],
+        pasos: [
+            "Pon a hervir la pasta con agua y sal durante 10 minutos. Escúrrela cuando esté lista, mientras puedes preparar la salsa.",
+            "Corta las verduras: cebolla y pimiento a cuadraditos pequeños, pica el ajo y ralla la zanahoria.",
+            "Rehoga la cebolla, el ajo y el pimiento en una sartén con un poco de aceite de oliva y sal, alrededor de 7 minutos. Añade la zanahoria rallada, mezcla y cocina con tapa 5 minutos.",
+            "Añade el atún bien escurrido, y la salsa de tomate, el orégano y cocina con tapa unos 5-10 minutos. Salpimentar al gusto.",
+            "Sirve la pasta con la salsa, decora con el queso en polvo y el perejil."
+        ]
+    },
+    {
+        id: 638,
+        titulo: "Tortilla francesa",
+        tiempo: 30,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "2 huevos L (140 gr.)",
+            "1 pizca de sal (0.4 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "1/2 cucharadita de orégano seco (0.5 gr.)"
+        ],
+        pasos: [
+            "Necesitamos una sartén antiadherente, una varilla para batir o un tenedor, un bol o un plato y una cuchara o paleta de cocina.",
+            "Romper el huevo en el bol o plato sin que caigan trozos de cáscara, añadir la sal y el orégano. Batir todos los ingredientes hasta que el huevo quede bien mezclado, del mismo color.",
+            "Poner a calentar la sartén a fuego medio, cuando esté caliente añadir el aceite y después el huevo batido, remover ligeramente con la cuchara y dejar que cuaje la mitad del huevo, dar la vuelta con la ayuda de una tapa o plato, también se pude dar la vuelta con la ayuda de la cuchara de cocina.",
+            "Dejar que termine de cuajar el huevo y servir en un plato."
+        ]
+    },
+    {
+        id: 639,
+        titulo: "Ensalada de quinoa con salmón ahumado y tzatziki",
+        tiempo: 25,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "1 Vasito de vasito de quinoa ya preparado (microondas) (125 gr.)",
+            "4 tomates cherry (60 gr.)",
+            "2 hoja externas de lechuga (romana o similar) (56 gr.)",
+            "1 paquete de salmón ahumado (100 gr.)",
+            "1 cucharadita de aceite de oliva (4.5 gr.)",
+            "20 gramos de salsa tsatsiki hacendado"
+        ],
+        pasos: [
+            "Calentar el vasito de quinoa en el microondas según las instrucciones del envase. Dejar enfriar un poco.",
+            "Lavar y cortar los tomates cherry por la mitad.",
+            "Lavar y trocear la lechuga en tiras o trozos medianos.",
+            "Cortar el salmón ahumado en tiras o dados pequeños.",
+            "En un bol, colocar la quinoa como base, añadir la lechuga, los tomates y el salmón.",
+            "Aliñar con un chorrito de aceite de oliva y una cucharada de salsa tzatziki.",
+            "Mezclar suavemente y servir."
+        ]
+    },
+    {
+        id: 640,
+        titulo: "Lomo de cerdo a la plancha",
+        tiempo: 30,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "120 gramos de lomo, filetes frescos",
+            "1 cucharadita de aceite de oliva (4.5 gr.)"
+        ],
+        pasos: [
+            "Condimentación opcional:",
+            "Pimienta negra",
+            "Ajo en polvo o dientes de ajo laminados",
+            "Pimentón dulce o picante",
+            "Romero, tomillo u orégano secos",
+            "Unas gotas de limón al final"
+        ]
+    },
+    {
+        id: 641,
+        titulo: "Berenjenas con verduras y carne picada de vacuno",
+        tiempo: 60,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "1 berenjena (250 gr.)",
+            "1 cebolla pequeña (70 gr.)",
+            "1 pimiento rojo pequeño (74 gr.)",
+            "1 pimiento verde pequeño (74 gr.)",
+            "15 gramos de queso rallado",
+            "2 cucharaditas de aceite de oliva (9 gr.)",
+            "1 vaso de carne picada de ternera (113 gr.)"
+        ],
+        pasos: [
+            "Pela y corta el boniato en rodajas o dados. Colócalo en una bandeja, añade aceite, sal y pimienta. Hornea a 200 gradosC durante 25–30 minutos hasta que esté tierno y dorado.",
+            "Córtala por la mitad a lo largo y haz unos cortes en la pulpa. Hornéala 15–20 minutos a 200 gradosC hasta que esté blanda. Luego vacía parte de la pulpa y resérvala.",
+            "En una sartén con un poco de aceite, sofríe la cebolla, el ajo y el pimiento picados.",
+            "Añade la carne y cocina hasta que se dore.",
+            "Incorpora el tomate y la pulpa de la berenjena troceada. Cocina 5–7 minutos y ajusta de sal y especias.",
+            "Rellena las mitades de berenjena con la mezcla y hornea 10 minutos más. Puedes añadir un poco de queso rallado si lo deseas.",
+            "Acompaña con el boniato asado."
+        ]
+    },
+    {
+        id: 642,
+        titulo: "Tostada de pan integral con aguacate y jamón",
+        tiempo: 10,
+        categoria: [
+            "Cena"
+        ],
+        ingredientes: [
+            "60 gramos de pan integral de centeno",
+            "40 gramos de aguacate",
+            "2 lonchas de jamón serrano (33.2 gr.)"
+        ],
+        pasos: []
+    },
+    {
+        id: 643,
+        titulo: "Poké bowl con gambas",
+        tiempo: 25,
+        categoria: [
+            "Almuerzo"
+        ],
+        ingredientes: [
+            "1 Vasito de vasito arroz integral (microondas) (125 gr.)",
+            "10 gambas pequeñas peladas de langostinos cocidos pelados (gambas, camarones) (70 gr.)",
+            "100 gramos de mango",
+            "20 gramos de edamame, congelado, preparado",
+            "1/2 aguacate (peso sin hueso) (60 gr.)"
+        ],
+        pasos: [
+            "Calentar el vasito de arroz integral en el microondas según las instrucciones y colocarlo como base en un bol.",
+            "Distribuir por encima las gambas, el mango, el aguacate y el edamame.",
+            "Añadir las verduras opcionales si se desean.",
+            "Aliñar con la salsa de soja, el aceite y unas gotas de limón o lima. Espolvorear con semillas de sésamo y servir.",
+            "Opcional para completar:",
+            "Pepino en dados",
+            "Zanahoria rallada",
+            "Cebolleta en rodajas finas",
+            "Alga nori en tiras"
         ]
     }
 ];
