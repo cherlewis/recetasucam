@@ -9,13 +9,11 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 
 // FUNCIÓN PARA CAMBIAR EL MODO (Al pulsar el botón)
 function toggleModoOscuro() {
-    // Si tiene la clase dark, se la quitamos y guardamos 'light'
     if (document.documentElement.classList.contains('dark')) {
         document.documentElement.classList.remove('dark');
         localStorage.theme = 'light';
         actualizarIcono(false);
     } else {
-        // Si no la tiene, se la ponemos y guardamos 'dark'
         document.documentElement.classList.add('dark');
         localStorage.theme = 'dark';
         actualizarIcono(true);
@@ -27,16 +25,14 @@ function actualizarIcono(esOscuro) {
     const btn = document.getElementById('btn-tema-icon');
     if (btn) {
         if (esOscuro) {
-            // Icono de LUNA (Modo noche activo) -> Mostrar SOL para cambiar a día
             btn.innerHTML = `<svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`;
         } else {
-            // Icono de SOL (Modo día activo) -> Mostrar LUNA para cambiar a noche
             btn.innerHTML = `<svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>`;
         }
     }
 }
 
-// EL HTML DE LA BARRA (Actualizado con el botón de Python)
+// EL HTML DE LA BARRA (Con acceso a Calculadora Nutricional)
 const menuHTML = `
 <nav class="fixed w-full z-50 top-0 start-0 border-b border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-900/95 backdrop-blur-md text-slate-800 dark:text-white transition-colors duration-300">
     <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -47,9 +43,8 @@ const menuHTML = `
         </a>
 
         <div class="flex items-center gap-2 md:order-2">
-            
             <button onclick="toggleModoOscuro()" id="btn-tema-icon" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition focus:outline-none">
-                </button>
+            </button>
 
             <button onclick="toggleMenu()" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 dark:text-gray-400 rounded-lg md:hidden hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none z-50">
                 <span class="sr-only">Abrir menú</span>
@@ -64,6 +59,7 @@ const menuHTML = `
                 <li><a href="index.html" class="block py-2 px-3 rounded hover:text-blue-600 dark:hover:text-blue-400 transition">Recetas</a></li>
                 <li><a href="plan-semanal.html" class="block py-2 px-3 rounded hover:text-blue-600 dark:hover:text-blue-400 transition">Plan Semanal</a></li>
                 <li><a href="lista.html" class="block py-2 px-3 rounded hover:text-blue-600 dark:hover:text-blue-400 transition">Lista Compra</a></li>
+                <li><a href="calculadora.html" class="block py-2 px-3 rounded text-emerald-600 dark:text-emerald-400 font-semibold hover:text-emerald-700 dark:hover:text-emerald-300 transition">🧮 Calculadora</a></li>
 
                 <li class="relative group">
                     <button class="flex items-center gap-1 py-2 px-3 rounded hover:text-blue-600 dark:hover:text-blue-400 transition focus:outline-none">
@@ -86,6 +82,7 @@ const menuHTML = `
             <li><a href="index.html" class="block py-3 bg-slate-50 dark:bg-slate-800 rounded-lg active:bg-blue-600 active:text-white">🥘 Ver Recetas</a></li>
             <li><a href="plan-semanal.html" class="block py-3 bg-slate-50 dark:bg-slate-800 rounded-lg active:bg-blue-600 active:text-white">📅 Plan Semanal</a></li>
             <li><a href="lista.html" class="block py-3 bg-slate-50 dark:bg-slate-800 rounded-lg active:bg-blue-600 active:text-white">🛒 Lista Compra</a></li>
+            <li><a href="calculadora.html" class="block py-3 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 font-semibold rounded-lg active:bg-emerald-600 active:text-white">🧮 Calculadora Nutricional</a></li>
             <li class="border-t border-slate-200 dark:border-slate-700 pt-2 pb-1">
                 <span class="text-xs text-gray-400 uppercase font-bold">Administración</span>
             </li>
